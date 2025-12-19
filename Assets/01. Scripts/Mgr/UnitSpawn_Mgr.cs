@@ -83,9 +83,9 @@ public class UnitSpawn_Mgr : MonoBehaviour
             // 코스트 소모
             if (!objDataDic.TryGetValue(index, out var unitData))
                 return;
-            int needCost = unitData.cost;
-            if (!Cost_Mgr.Inst.TrySpendCost(needCost))
-                return;
+            //int needCost = unitData.cost;
+            //if (!Cost_Mgr.Inst.TrySpendCost(needCost))
+            //    return;
 
         }
         
