@@ -355,6 +355,7 @@ public class Entity : MonoBehaviour,
     }
     protected void OnDie()
     {
+        
         // 매니저에 리스팅 해제
         if (UnitManager.Inst != null)
             UnitManager.Inst.UnregistUnit(this);

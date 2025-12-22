@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            GameObject go = Instantiate(testPrefab, new Vector3(-3, 0, 0), Quaternion.identity);
+            GameObject go = Instantiate(testPrefab, new Vector3(-3, 1, 0), Quaternion.identity);
             Entity e = go.GetComponent<Entity>();
 
             if (e != null)
@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            GameObject go = Instantiate(testPrefab, new Vector3(3, 0, 0), Quaternion.identity);
+            GameObject go = Instantiate(testPrefab, new Vector3(3, 1, 0), Quaternion.identity);
             Entity e = go.GetComponent<Entity>();
 
             if (e != null)
