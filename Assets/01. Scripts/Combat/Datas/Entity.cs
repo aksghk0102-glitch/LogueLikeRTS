@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Constraints;
 
 // 전투 객체 베이스 데이터 정의
 public class Entity : MonoBehaviour,
@@ -211,10 +212,16 @@ public class Entity : MonoBehaviour,
     {
         if (curTarget == null || !curTarget.IsAlive)
         {
-            isAttacking = false;
+            EndAttack();
             return;
         }
 
+        //ProcessDamage(curTarget, dmg);
+        CombatManager.Inst.EnqueueDamage(CreateDamagaInfo());
+    }
+
+    protected DamageInfo CreateDamagaInfo()
+    {
         var stats = GetFinalStats();
         DamageInfo dmg = new DamageInfo
         {
@@ -227,15 +234,15 @@ public class Entity : MonoBehaviour,
         };
 
         // 치명타 연산
-        if(Random.value <= stats.critChance * 0.01f)
+        if (Random.value <= stats.critChance * 0.01f)
         {
             dmg.IsCritical = true;
             dmg.Damage = Mathf.FloorToInt(dmg.Damage * stats.critDamage);
         }
 
-        //ProcessDamage(curTarget, dmg);
-        CombatManager.Inst.EnqueueDamage(dmg);
+        return dmg;
     }
+
     public void AttackerCDT(ref DamageInfo dmg)
     {
         // 공격 시 컨디션 개입
