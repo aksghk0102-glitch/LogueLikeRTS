@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework.Constraints;
 
 // 전투 객체 베이스 데이터 정의
 public class Entity : MonoBehaviour,
@@ -17,7 +16,7 @@ public class Entity : MonoBehaviour,
 
     // 현재 상태
     [Header("CombatData")]
-    public int curHp;
+    public float curHp;
     public float curMana;
     protected UnitStats baseStats;
 
@@ -94,6 +93,9 @@ public class Entity : MonoBehaviour,
 
     protected virtual void HandleAIProcess(float deltaTime)
     {
+        if (curTarget != null && !curTarget.IsAlive)
+            curTarget = null;
+
         // 다른 행동 중이면 리턴
         if (isOccupying || isSkillCasting || isAttacking)
             return;
@@ -141,7 +143,7 @@ public class Entity : MonoBehaviour,
             float amount = dmg.Damage;
             if (cdtHandler.HasTag(CDT_Tag.LowHeal))
                 amount *= 0.5f;
-            curHp = Mathf.Min(curHp+Mathf.FloorToInt(amount), GetFinalStats().maxHP);
+            curHp = Mathf.Min(amount, GetFinalStats().maxHP);
             return;
         }
 
@@ -155,7 +157,7 @@ public class Entity : MonoBehaviour,
                 f.OnBattleEvent(this, ref dmg);
 
         // 체력 계산
-        int finalDmg = CalculateDamage(dmg);
+        float finalDmg = CalculateDamage(dmg);
         curHp = Mathf.Clamp(curHp- finalDmg, 0, GetFinalStats().maxHP);
 
         // 사망 및 부활 체크
@@ -163,7 +165,7 @@ public class Entity : MonoBehaviour,
             OnDie();
     }
 
-    int CalculateDamage(DamageInfo dmg)
+    float CalculateDamage(DamageInfo dmg)
     {
         var stats = GetFinalStats();
         float finalDmg = dmg.Damage;
@@ -180,7 +182,7 @@ public class Entity : MonoBehaviour,
                 break;
         }
 
-        return Mathf.Max(1, Mathf.FloorToInt(finalDmg));
+        return Mathf.Max(1, finalDmg);
     }
     public virtual void OnVictory()
     {
@@ -210,14 +212,17 @@ public class Entity : MonoBehaviour,
 
     public virtual void OnAttackEvent()
     {
-        if (curTarget == null || !curTarget.IsAlive)
-        {
-            EndAttack();
-            return;
-        }
-
+        //if (curTarget == null || !curTarget.IsAlive)
+        //{
+        //    EndAttack();
+        //    return;
+        //}
+        //
         //ProcessDamage(curTarget, dmg);
         CombatManager.Inst.EnqueueDamage(CreateDamagaInfo());
+
+        //if (!curTarget.IsAlive)
+        //    EndAttack();
     }
 
     protected DamageInfo CreateDamagaInfo()
@@ -237,9 +242,10 @@ public class Entity : MonoBehaviour,
         if (Random.value <= stats.critChance * 0.01f)
         {
             dmg.IsCritical = true;
-            dmg.Damage = Mathf.FloorToInt(dmg.Damage * stats.critDamage);
+            dmg.Damage = dmg.Damage * stats.critDamage;
         }
 
+        Debug.Log(dmg.Damage);
         return dmg;
     }
 
@@ -265,8 +271,16 @@ public class Entity : MonoBehaviour,
             anim.SetFloat(hashMoveSpeed, 0f);
         }
     }
-    public void EndAttack() => isAttacking = false;
+    public void EndAttack()
+    {
+        Debug.Log("Attack End");
+        isAttacking = false;
 
+        if (anim != null)
+        {
+            anim.SetInteger(hashAttack, 0);
+        }
+    }
     protected virtual void TryUseActiveSkill()
     {
         curMana = 0;
@@ -361,8 +375,7 @@ public class Entity : MonoBehaviour,
         return true;
     }
     protected void OnDie()
-    {
-        
+    {   
         // 매니저에 리스팅 해제
         if (UnitManager.Inst != null)
             UnitManager.Inst.UnregistUnit(this);

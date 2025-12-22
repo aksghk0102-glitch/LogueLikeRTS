@@ -7,10 +7,10 @@ using System.Collections.Generic;
 // 유닛 하나에 들어가는 능력치 구조체 묶음
 public struct UnitStats
 {
-    public int maxHP; // 최대 체력
-    public int attack; // 공격력
-    public int defense; // 방어력 (데미지 산정 시 방어력 만큼 감소)
-    public int magicResist; // 마법저항력
+    public float maxHP; // 최대 체력
+    public float attack; // 공격력
+    public float defense; // 방어력 (데미지 산정 시 방어력 만큼 감소)
+    public float magicResist; // 마법저항력
 
     public float moveSpeed; // 이동 속도
     public float attSpeed; // 공격 속도
@@ -18,10 +18,10 @@ public struct UnitStats
     public float attRange; // 공격 사거리
     public float sight; // 시야 범위
 
-    public int maxMana; // 최대 마나 = 스킬 발동에 필요한 마나
-    public int startMana; // 시작 마나
-    public int manaRegen; // 초당 마나 회복량
-    public int manaGet; // 평타 공격 시 얻는 마나 회복량
+    public float maxMana; // 최대 마나 = 스킬 발동에 필요한 마나
+    public float startMana; // 시작 마나
+    public float manaRegen; // 초당 마나 회복량
+    public float manaGet; // 평타 공격 시 얻는 마나 회복량
 
     public float critChance; // 치명타 발동 확률 백분위 1 %
     public float critDamage; // 치명타 발동 시 피해량 증가폭
@@ -58,7 +58,7 @@ public struct DamageInfo
 {
     public IAttacker Attker;    // 공격자
     public IDamageable Target;  // 피격자
-    public int Damage;          // 데미지
+    public float Damage;          // 데미지
     public bool IsCritical;     // 치명타 여부
     public DamageSource Source; // 데미지의 출처 확인
     public DamageType type;     // 물리 마법 고정 피해 분류

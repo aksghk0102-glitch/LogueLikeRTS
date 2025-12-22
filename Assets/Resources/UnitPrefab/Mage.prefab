@@ -68,10 +68,10 @@ PrefabInstance:
       addedObject: {fileID: 6614536200969161965}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fceecc249ebe5db42a2d00d0a02b0a0d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5671529403280414405}
+      addedObject: {fileID: 8077059797578042396}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fceecc249ebe5db42a2d00d0a02b0a0d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8077059797578042396}
+      addedObject: {fileID: 467951246794560664}
   m_SourcePrefab: {fileID: 100100000, guid: fceecc249ebe5db42a2d00d0a02b0a0d, type: 3}
 --- !u!4 &469129472048336590 stripped
 Transform:
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 4122983161198789531}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: c1e9c7275772d7249925df8d5a76088b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -105,22 +105,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5671529403280414405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4122983161198789531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f1554657fd8b5c4a9873bee72915668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Faction: 0
-  Class: 4
-  curHp: 0
-  curMana: 0
 --- !u!136 &8077059797578042396
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -144,6 +128,23 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &467951246794560664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122983161198789531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b129d4a083d0b34d870dd055f28051a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Faction: 0
+  Class: 4
+  curHp: 0
+  curMana: 0
+  bulletKey: 1
 --- !u!1001 &7571430041276747840
 PrefabInstance:
   m_ObjectHideFlags: 0

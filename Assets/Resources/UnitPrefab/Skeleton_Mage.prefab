@@ -65,35 +65,19 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f766e62562867fd4f81377814f149657, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7228448004161845305}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f766e62562867fd4f81377814f149657, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5884672137981267466}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f766e62562867fd4f81377814f149657, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8424623500012133284}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f766e62562867fd4f81377814f149657, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1686174421302514027}
   m_SourcePrefab: {fileID: 100100000, guid: f766e62562867fd4f81377814f149657, type: 3}
 --- !u!1 &552036028290940808 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f766e62562867fd4f81377814f149657, type: 3}
   m_PrefabInstance: {fileID: 821994919457620697}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7228448004161845305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552036028290940808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f1554657fd8b5c4a9873bee72915668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Faction: 1
-  Class: 4
-  curHp: 0
-  curMana: 0
 --- !u!136 &5884672137981267466
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -139,6 +123,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1686174421302514027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552036028290940808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b129d4a083d0b34d870dd055f28051a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Faction: 1
+  Class: 4
+  curHp: 0
+  curMana: 0
+  bulletKey: 3
 --- !u!4 &4043194818800644829 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5515783359193845756, guid: f766e62562867fd4f81377814f149657, type: 3}
