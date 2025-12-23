@@ -39,9 +39,12 @@ public enum ActionType
 // 데미지 수신자 : 유닛, 건물, 장애물 등
 public interface IDamageable
 {
-    void TakeDamage(DamageInfo dmg);
+    void TakeDamage(DamageInfo dmg);    // 피격
+    void OnDie();
     bool IsAlive { get; }
     float Radius { get; }
+    UnitFaction Faction { get; }        // 소속 분리 리스팅에 필요
+    Vector3 WorldPosition { get; }      // 위치 정보 
 }
 // 공격자 : 타격 성공 시점 호출 로직(온힛 효과, 마나 회복 등)
 public interface IAttacker

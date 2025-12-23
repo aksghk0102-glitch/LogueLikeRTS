@@ -1,15 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-
-// 전투 객체 베이스 데이터 정의
+//
+// 역할: 전투에 참여하는 유닛의 행동을 정의합니다. 인터페이스 상속으로 논리적 규칙을 강제합니다.
+// 사용 방법: 유닛 오브젝트에 컴포넌트를 붙여 사용합니다.
+// 
 public class Entity : MonoBehaviour,
     IDamageable, IAttacker, ICastSkill, IStatCalc
 {
     [Header("Information")]
-    public UnitFaction Faction;     // 소속 분류
+    [SerializeField] UnitFaction faction;     // 소속 분류
     public UnitClassType Class;     // 클래스 분류 (바 나 로 레 매)
     float radius;
+
     // 핸들러
     protected StatHandler statHandler = new StatHandler();
     protected ConditionHandler cdtHandler;
@@ -38,28 +41,30 @@ public class Entity : MonoBehaviour,
     public bool isAttacking { get; private set; }       // 평타 모션 체크
     public bool isOccupying { get; set; }               // 점령 중 체크
 
+    public UnitFaction Faction => faction;
+    public Vector3 WorldPosition => transform.position;
     protected virtual void Awake()
     {
         cdtHandler = new ConditionHandler(this);
         anim = GetComponent<Animator>();
     }
 
-    public void InitEntity(UnitStats stats, UnitFaction faction)
+    public void InitEntity(UnitStats a_Stats, UnitFaction a_Faction)
     {
-        Faction = faction;
-        baseStats = stats;
+        faction = a_Faction;
+        baseStats = a_Stats;
 
         statHandler.SetBase(baseStats);
-        curHp = stats.maxHP;
-        curMana = stats.startMana;
+        curHp = a_Stats.maxHP;
+        curMana = a_Stats.startMana;
 
         // 반지름 캐싱 들어가야 함
         radius = 0.5f;
 
         statHandler.MarkDirty();
 
-        if (UnitManager.Inst != null)
-            UnitManager.Inst.RegistUnit(this);
+        if (ObjectManager.Inst != null)
+            ObjectManager.Inst.RegistObject(this);
     }
     // 매 프레임 체크
     public virtual void OnUpdate(float deltaTime)
@@ -300,12 +305,12 @@ public class Entity : MonoBehaviour,
     protected virtual void SearchTarget()
     {
         // 적 진영 리스트 받아오기
-        var enemies = UnitManager.Inst.GetEnemyList(this.Faction);
+        var enemies = ObjectManager.Inst.GetEnemyList(this.Faction);
         if (enemies == null || enemies.Count == 0)
             return;
 
         float sight = GetFinalStats().sight;
-        Entity closest = null;
+        IDamageable closest = null;
         float minDist = sight;
         Vector3 myPos = transform.position;
 
@@ -315,10 +320,11 @@ public class Entity : MonoBehaviour,
             if (!enemy.IsAlive)
                 continue;
 
-            float dist = Vector3.Distance(myPos, enemy.transform.position);
-            if(dist <= sight && dist < minDist)
+            float dist2Centor = Vector3.Distance(myPos, enemy.WorldPosition);
+            float dist2Surface = dist2Centor - enemy.Radius;
+            if(dist2Surface <= sight && dist2Surface < minDist)
             {
-                minDist = dist;
+                minDist = dist2Surface;
                 closest = enemy;
             }
         }
@@ -374,11 +380,11 @@ public class Entity : MonoBehaviour,
 
         return true;
     }
-    protected void OnDie()
+    public void OnDie()
     {   
         // 매니저에 리스팅 해제
-        if (UnitManager.Inst != null)
-            UnitManager.Inst.UnregistUnit(this);
+        if (ObjectManager.Inst != null)
+            ObjectManager.Inst.UnregistObject(this);
 
         // 사망 애니메이션 출력
         if (anim != null)
