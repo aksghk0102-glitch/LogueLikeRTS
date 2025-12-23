@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public abstract class Building : MonoBehaviour, IDamageable
 {
@@ -8,6 +9,7 @@ public abstract class Building : MonoBehaviour, IDamageable
     [SerializeField] protected float radius = 1.5f;
 
     public float curHp { get; protected set; }
+    public Action OnDestroy;
 
     // IDamageable
     public bool IsAlive => curHp > 0;
@@ -44,7 +46,11 @@ public abstract class Building : MonoBehaviour, IDamageable
     public virtual void OnDie()
     {
         if (ObjectManager.Inst != null)
-            ObjectManager.Inst.RegistObject(this);
+            ObjectManager.Inst.UnregistObject(this);
+
+        // 건물을 지은 슬롯 초기화
+        OnDestroy?.Invoke();
+        OnDestroy = null;
 
         // 풀링 들어가면 수정
         Destroy(gameObject);

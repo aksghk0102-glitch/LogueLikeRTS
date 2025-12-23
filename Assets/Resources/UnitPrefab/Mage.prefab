@@ -53,6 +53,10 @@ PrefabInstance:
       value: Mage
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fceecc249ebe5db42a2d00d0a02b0a0d, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fceecc249ebe5db42a2d00d0a02b0a0d, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -143,10 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b129d4a083d0b34d870dd055f28051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Faction: 0
+  faction: 0
   Class: 4
   curHp: 0
   curMana: 0
+  curTargetMine: {fileID: 0}
   bulletKey: 1
 --- !u!54 &-4858443488866857517
 Rigidbody:
@@ -173,7 +178,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1001 &7571430041276747840
 PrefabInstance:

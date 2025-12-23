@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 //
 // 역할: 전투에 참여하는 유닛의 행동을 정의합니다. 인터페이스 상속으로 논리적 규칙을 강제합니다.
 // 사용 방법: 유닛 오브젝트에 컴포넌트를 붙여 사용합니다.
@@ -23,10 +24,14 @@ public class Entity : MonoBehaviour,
     public float curMana;
     protected UnitStats baseStats;
 
+    [Header("Mine")]
+    public Mine curTargetMine;
+
     protected IDamageable curTarget;
 
     // 애니메이션
     protected Animator anim;
+    Tween rotTween;
 
     protected readonly int hashMoveSpeed = Animator.StringToHash("MoveSpeed");
     protected readonly int hashAttack = Animator.StringToHash("Attack");
@@ -47,6 +52,7 @@ public class Entity : MonoBehaviour,
     {
         cdtHandler = new ConditionHandler(this);
         anim = GetComponent<Animator>();
+        renderers = GetComponentsInChildren<Renderer>();
     }
 
     public void InitEntity(UnitStats a_Stats, UnitFaction a_Faction)
@@ -95,7 +101,7 @@ public class Entity : MonoBehaviour,
             curMana = Mathf.Min(curMana + (stats.manaRegen * deltaTime), stats.maxMana);
         }
     }
-
+    #region Hangle AI
     protected virtual void HandleAIProcess(float deltaTime)
     {
         if (curTarget != null && !curTarget.IsAlive)
@@ -112,28 +118,181 @@ public class Entity : MonoBehaviour,
         // 타겟 지정 후 공격
         if(curTarget != null)
         {
-            float dist = Vector3.Distance(transform.position,
-                (curTarget as MonoBehaviour).transform.position);
-            float validRange = GetFinalStats().attRange + Radius
-                + curTarget.Radius;
+            curTargetMine = null;
+            ExcuteCombat(deltaTime);
+            return;
+        }
 
-            if (dist <= validRange)
-            {
-                if (CanAction(ActionType.Attack))
-                    Attack();
-            }
-            else
-            { 
-                if (CanAction(ActionType.Move) && !isAttacking)
-                    Move(deltaTime);
-            }
+        if (curTargetMine == null)
+            SeachMine();
+
+        if(curTargetMine != null)
+        {
+            ExcuteOccupy(deltaTime);
         }
         else
         {
-            // 타겟이 없을 때에도 이동
+            // 이동
             if (CanAction(ActionType.Move) && !isAttacking)
                 Move(deltaTime);
         }
+    }
+
+    void ExcuteCombat(float deltaTime)
+    {
+        float dist = Vector3.Distance(transform.position,
+                (curTarget as MonoBehaviour).transform.position);
+        float validRange = GetFinalStats().attRange + Radius
+            + curTarget.Radius;
+
+        if (dist <= validRange)
+        {
+            if (CanAction(ActionType.Attack))
+                Attack();
+        }
+        else
+        {
+            if (CanAction(ActionType.Move) && !isAttacking)
+                Move(deltaTime);
+        }
+    }
+    public Vector3 moveDir => faction == UnitFaction.Player ?
+        Vector3.right : Vector3.left;
+    protected virtual void SearchTarget()
+    {
+        curTarget = null;
+
+        // 적 진영 리스트 받아오기
+        var enemies = ObjectManager.Inst.GetEnemyList(this.Faction);
+        if (enemies == null || enemies.Count == 0)
+            return;
+
+        float sight = GetFinalStats().sight;
+        IDamageable closest = null;
+        float minDist = sight;
+        Vector3 myPos = transform.position;
+
+        // 모든 적 유닛 탐색 후 시야 내에 있는지 확인
+        foreach (var enemy in enemies)
+        {
+            if (!enemy.IsAlive)
+                continue;
+
+            float dist2Centor = Vector3.Distance(myPos, enemy.WorldPosition);
+            float dist2Surface = dist2Centor - enemy.Radius;
+            if (dist2Surface <= sight && dist2Surface < minDist)
+            {
+                minDist = dist2Surface;
+                closest = enemy;
+            }
+        }
+
+        // 타겟 할당
+        curTarget = closest;
+    }
+    protected virtual void Move(float deltaTime)
+    {
+        float speed = GetFinalStats().moveSpeed;
+        Vector3 targetPos;
+
+        if (curTarget != null && (curTarget as MonoBehaviour) != null)
+        {
+            targetPos = (curTarget as MonoBehaviour).transform.position;
+            Vector3 dir = (targetPos - transform.position).normalized;
+            transform.position += dir * speed * deltaTime;
+
+            transform.forward = dir;
+        }
+        else
+        {
+            transform.position += moveDir * speed * deltaTime;
+            transform.forward = moveDir;
+        }
+
+        // 애니메이션 처리
+        if (anim != null)
+            anim.SetFloat(hashMoveSpeed, speed);
+    }
+
+    protected virtual void SeachMine()
+    {
+        var mines = ObjectManager.Inst.GetMineList();
+        if (mines == null || mines.Count == 0) return;
+
+        float sight = GetFinalStats().sight;
+        Mine closest = null;
+        float minDist = sight;
+
+        foreach (var mine in mines)
+        {
+            if (mine.curFaction == this.Faction)
+                continue;
+
+            float dist = Vector3.Distance(transform.position,
+                mine.transform.position);
+            if(dist <= sight && dist < minDist)
+            {
+                minDist = dist;
+                closest = mine;
+            }
+        }
+        curTargetMine = closest;
+    }
+
+    void ExcuteOccupy(float deltaTime)
+    {
+        float dist = Vector3.Distance(transform.position,
+            curTargetMine.transform.position)
+            - curTargetMine.Radius  // 광산 반지름 빼고
+            - Radius;               // 유닛 반지름 뺀 값이
+        if(dist <= 0.01f)           // 0에 가까우면 점령
+        {
+            Vector3 targetPos = curTargetMine.transform.position;
+            LookAtTarget(targetPos);
+
+            // 점령 중에는 Idle 모션 출력
+            if (anim != null)
+                anim.SetFloat(hashMoveSpeed, 0f);
+            // 점령 시도
+            if (curTargetMine.TryOccupy(this))
+                isOccupying = true;
+            if (curTargetMine.curFaction == Faction)
+                curTargetMine = null;
+
+        }
+        else
+        {
+            if (CanAction(ActionType.Move))
+            {
+                Vector3 dir = (curTargetMine.transform.position
+                    - transform.position).normalized;
+                transform.position += dir * GetFinalStats().moveSpeed * deltaTime;
+                transform.forward = dir;
+                if (anim != null)
+                    anim.SetFloat(hashMoveSpeed, GetFinalStats().moveSpeed);
+            }
+        }
+    }
+    #endregion
+
+    float CalculateDamage(DamageInfo dmg)
+    {
+        var stats = GetFinalStats();
+        float finalDmg = dmg.Damage;
+
+        switch (dmg.type)
+        {
+            case DamageType.Physics:
+                finalDmg -= stats.defense;
+                break;
+            case DamageType.Magic:
+                finalDmg -= stats.magicResist;
+                break;
+            case DamageType.True:
+                break;
+        }
+
+        return Mathf.Max(1, finalDmg);
     }
 
     public void TakeDamage(DamageInfo dmg)
@@ -170,25 +329,7 @@ public class Entity : MonoBehaviour,
             OnDie();
     }
 
-    float CalculateDamage(DamageInfo dmg)
-    {
-        var stats = GetFinalStats();
-        float finalDmg = dmg.Damage;
-
-        switch (dmg.type)
-        {
-            case DamageType.Physics:
-                finalDmg -= stats.defense;
-                break;
-            case DamageType.Magic:
-                finalDmg -= stats.magicResist;
-                break;
-            case DamageType.True:
-                break;
-        }
-
-        return Mathf.Max(1, finalDmg);
-    }
+  
     public virtual void OnVictory()
     {
         if (anim != null)
@@ -215,21 +356,36 @@ public class Entity : MonoBehaviour,
                 f.OnBattleEvent(this, ref info);
     }
 
+    #region Animation Event
     public virtual void OnAttackEvent()
     {
-        //if (curTarget == null || !curTarget.IsAlive)
-        //{
-        //    EndAttack();
-        //    return;
-        //}
-        //
-        //ProcessDamage(curTarget, dmg);
+        // 애니메이션 이벤트에서 호출
         CombatManager.Inst.EnqueueDamage(CreateDamagaInfo());
-
-        //if (!curTarget.IsAlive)
-        //    EndAttack();
     }
+    public void EndAttack()
+    {
+        Debug.Log("Attack End");
+        isAttacking = false;
 
+        if (anim != null)
+        {
+            anim.SetInteger(hashAttack, 0);
+        }
+    }
+    protected virtual void TryUseActiveSkill()
+    {
+        curMana = 0;
+        StartSkillCast();
+
+        // 애니메이션 재생
+        if (anim != null)
+        {
+            // 스킬에 할당된 모션 나오게 수정 예정
+            anim.SetInteger(hashAttack, 2);
+            anim.SetFloat(hashMoveSpeed, 0f);
+        }
+    }
+    #endregion
     protected DamageInfo CreateDamagaInfo()
     {
         var stats = GetFinalStats();
@@ -269,92 +425,36 @@ public class Entity : MonoBehaviour,
 
         isAttacking = true;
 
+        Vector3 targetPos = (curTarget as MonoBehaviour).
+            transform.position;
+        LookAtTarget(targetPos);
+
         // 애니메이션 재생
-        if(anim != null)
+        if (anim != null)
         {
             anim.SetInteger(hashAttack, 1);
             anim.SetFloat(hashMoveSpeed, 0f);
         }
     }
-    public void EndAttack()
-    {
-        Debug.Log("Attack End");
-        isAttacking = false;
 
-        if (anim != null)
-        {
-            anim.SetInteger(hashAttack, 0);
-        }
-    }
-    protected virtual void TryUseActiveSkill()
+    float rotTime = 0.3f;
+    protected void LookAtTarget(Vector3 targetPos)
     {
-        curMana = 0;
-        StartSkillCast();
-        
-        // 애니메이션 재생
-        if (anim != null)
+        // 닷트윈을 활용해 타겟을 향해 부드럽게 회전
+        Vector3 dir = (targetPos - transform.position).normalized;
+        if(dir != Vector3.zero)
         {
-            // 스킬에 할당된 모션 나오게 수정 예정
-            anim.SetInteger(hashAttack, 2);
-            anim.SetFloat(hashMoveSpeed, 0f);
+            dir.y = 0;
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+            rotTween?.Kill();
+            rotTween = transform
+                .DORotate(targetRot.eulerAngles, rotTime)
+                .SetEase(Ease.OutQuad);
         }
     }
 
     // 임시 변수...
-    protected Vector3 moveDir = Vector3.right;
-    protected virtual void SearchTarget()
-    {
-        // 적 진영 리스트 받아오기
-        var enemies = ObjectManager.Inst.GetEnemyList(this.Faction);
-        if (enemies == null || enemies.Count == 0)
-            return;
-
-        float sight = GetFinalStats().sight;
-        IDamageable closest = null;
-        float minDist = sight;
-        Vector3 myPos = transform.position;
-
-        // 모든 적 유닛 탐색 후 시야 내에 있는지 확인
-        foreach(var enemy in enemies)
-        {
-            if (!enemy.IsAlive)
-                continue;
-
-            float dist2Centor = Vector3.Distance(myPos, enemy.WorldPosition);
-            float dist2Surface = dist2Centor - enemy.Radius;
-            if(dist2Surface <= sight && dist2Surface < minDist)
-            {
-                minDist = dist2Surface;
-                closest = enemy;
-            }
-        }
-
-        // 타겟 할당
-        curTarget = closest;
-    }
-    protected virtual void Move(float deltaTime)
-    {
-        float speed = GetFinalStats().moveSpeed;
-        Vector3 targetPos;
-
-        if(curTarget != null && (curTarget as MonoBehaviour) != null)
-        {
-            targetPos = (curTarget as MonoBehaviour).transform.position;
-            Vector3 dir = (targetPos - transform.position).normalized;
-            transform.position += dir * speed * deltaTime;
-
-            transform.forward = dir;
-        }
-        else
-        {
-            transform.position += moveDir * speed * deltaTime;
-            transform.forward = moveDir;
-        }
-
-        // 애니메이션 처리
-        if (anim != null)
-            anim.SetFloat(hashMoveSpeed, speed);
-    }
+    
 
     // ICastSkill
     public void StartSkillCast() => isSkillCasting = true;
@@ -380,14 +480,38 @@ public class Entity : MonoBehaviour,
 
         return true;
     }
+
+
+
+    float fadeTime = 1.5f;
+    Renderer[] renderers;
     public void OnDie()
     {   
         // 매니저에 리스팅 해제
         if (ObjectManager.Inst != null)
             ObjectManager.Inst.UnregistObject(this);
 
+        // 콜라이더 비활성화
+        if (TryGetComponent(out Collider c))
+            c.enabled = false;
+
         // 사망 애니메이션 출력
         if (anim != null)
             anim.SetTrigger(hashDie);
+
+        // 사망 연출
+        foreach (var r in renderers)
+        {
+            foreach (var m in r.materials)
+                m.DOFade(0f, fadeTime);
+        }
+
+        DOVirtual.DelayedCall(fadeTime, () =>
+        {
+            gameObject.SetActive(false);
+        });
+        
+        // 닷트윈 정리
+        rotTween?.Kill();
     }
 }

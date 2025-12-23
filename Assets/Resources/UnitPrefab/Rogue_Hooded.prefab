@@ -115,6 +115,10 @@ PrefabInstance:
       value: Rogue_Hooded
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d3d4e7f33cf9c8c4498b274de69f8bff, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d3d4e7f33cf9c8c4498b274de69f8bff, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -163,10 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1554657fd8b5c4a9873bee72915668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Faction: 0
+  faction: 0
   Class: 2
   curHp: 0
   curMana: 0
+  curTargetMine: {fileID: 0}
 --- !u!95 &838152165156670079
 Animator:
   serializedVersion: 7
@@ -237,7 +242,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!4 &6058961414357820330 stripped
 Transform:

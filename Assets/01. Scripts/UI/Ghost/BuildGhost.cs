@@ -76,6 +76,7 @@ public class BuildGhost : MonoBehaviour
             curModel.SetActive(false);
 
         curModel = null;
+        curRederers = null;
         gameObject.SetActive(false);
     }
 }

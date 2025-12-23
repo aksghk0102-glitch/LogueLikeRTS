@@ -4,6 +4,7 @@ public enum UnitFaction
 {
     Player,
     Enemy,
+    Neutral,
 }
 
 // 유닛의 5종 클래스를 정의
@@ -14,7 +15,13 @@ public enum UnitClassType
     Knight,
     Rogue,
     Ranger,
-    Mage
+    Mage,
+
+    SK_Worrior,
+    SK_Rogue,
+    SK_Ranger,
+    SK_Mage,
+    SK_Minion,
 }
 
 // 스킬 애니메이션 매핑

@@ -53,6 +53,10 @@ PrefabInstance:
       value: Skeleton_Rogue
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -79,6 +83,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8654454023480572527}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4679543765453094380}
   m_SourcePrefab: {fileID: 100100000, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
 --- !u!4 &1874626390448362621 stripped
 Transform:
@@ -147,10 +154,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f1554657fd8b5c4a9873bee72915668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Faction: 0
+  faction: 0
   Class: 2
   curHp: 0
   curMana: 0
+  curTargetMine: {fileID: 0}
+--- !u!54 &4679543765453094380
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2716070070681803048}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!4 &5579567258613615190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7214371169738337839, guid: 00793f137201ecd48b7dc06b55134925, type: 3}

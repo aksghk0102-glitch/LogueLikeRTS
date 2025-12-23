@@ -21,7 +21,7 @@ public class Entity_Range : Entity
         // 투사체에 대미지 정보 위임
         if (BulletManager.inst != null)
         {
-            Vector3 spawnPos = FIRE_POSITION;
+            Vector3 spawnPos = transform.position + FIRE_POSITION;
             BulletManager.inst.SpawnBullet(bulletKey, spawnPos,
                 curTarget, dmg);
         }

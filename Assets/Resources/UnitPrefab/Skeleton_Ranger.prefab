@@ -184,6 +184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton_Ranger
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1132417981933130226, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -32.703
@@ -351,6 +355,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1359493551707924381}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2630145969476615840}
   m_SourcePrefab: {fileID: 100100000, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
 --- !u!1 &2156222414564173319 stripped
 GameObject:
@@ -414,11 +421,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b129d4a083d0b34d870dd055f28051a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Faction: 1
+  faction: 0
   Class: 3
   curHp: 0
   curMana: 0
+  curTargetMine: {fileID: 0}
   bulletKey: 2
+--- !u!54 &-2630145969476615840
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156222414564173319}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!4 &2475037299354987346 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5515783359193845756, guid: 00793f137201ecd48b7dc06b55134925, type: 3}
