@@ -44,7 +44,9 @@ public class BuildManager : MonoBehaviour
         if(Physics.Raycast(ray, out RaycastHit hit, 100f, slotLayer))
         {
             curTargetSlot = hit.collider.GetComponent<BuildSlot>();
-            bool isValid = curTargetSlot != null && curTargetSlot.CanBuild;
+            bool isValid = false;
+            if(curTargetSlot != null)
+                isValid = curTargetSlot.CanBuild(UnitFaction.Player);
 
             // 고스트를 건물이 지어질 위치에 표시
             ghost.UpdateGhost(curTargetSlot.GetPosition(), isValid);

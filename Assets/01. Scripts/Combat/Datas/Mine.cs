@@ -11,8 +11,6 @@ public class Mine : MonoBehaviour
     public UnitFaction curFaction = UnitFaction.Neutral;
     UnitFaction curOccFaction = UnitFaction.Neutral;
     [SerializeField] Image fillGague;
-    [SerializeField] Color playerColor;
-    [SerializeField] Color enemyColor;
     
     float occTime = 10.0f;      // 점령에 필요한 시간
     float progress = 0.0f;      // 점령 진행도
@@ -26,6 +24,9 @@ public class Mine : MonoBehaviour
     [SerializeField] GoldGetText effPrefab;     // 텍스트 프리펩
     [SerializeField] Transform effCanvas;     // 이펙트 생성 위치
     [SerializeField] int poolSize = 3;
+
+    [Header("Mines")]
+    [SerializeField] List<BuildSlot> buildSlots = new List<BuildSlot>();
 
     float radius = 1.5f;
     public float Radius => radius + 0.1f;
@@ -47,6 +48,8 @@ public class Mine : MonoBehaviour
         CapsuleCollider cc = GetComponent<CapsuleCollider>();
         if (cc != null)
             radius = cc.radius;
+
+        UpdateBuildSlots();
     }
 
     public bool TryOccupy(Entity entity)
@@ -88,7 +91,7 @@ public class Mine : MonoBehaviour
             fillGague.fillAmount = progress / occTime;
 
             fillGague.color = (curOccFaction == UnitFaction.Player)
-                ? playerColor : enemyColor;
+                ? ColorDefine.Player : ColorDefine.Enemy;
 
             if(progress >= occTime)
             {
@@ -111,17 +114,21 @@ public class Mine : MonoBehaviour
 
         if (mainCoroutine != null)
             StopCoroutine(mainCoroutine);
+
         mainCoroutine = StartCoroutine(ProduceGold());
         GetGold();
 
-        InitState();
-    }
-
-    void InitState()
-    {
-        isOccupying = false;
         if (curOccUnit != null)
             curOccUnit = null;
+
+        UpdateBuildSlots();
+    }
+
+    void UpdateBuildSlots()
+    {
+        if (buildSlots.Count > 0)
+            foreach (var slot in buildSlots)
+                slot.UpdateFaction(curFaction);
     }
 
     #region

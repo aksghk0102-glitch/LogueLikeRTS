@@ -67,6 +67,13 @@ public class Entity : MonoBehaviour,
         // 반지름 캐싱 들어가야 함
         radius = 0.5f;
 
+        // 매터리얼 복구
+        foreach (var r in renderers)
+        {
+            foreach (var m in r.materials)
+                m.DOFade(1f, 0.1f);
+        }
+
         statHandler.MarkDirty();
 
         if (ObjectManager.Inst != null)
@@ -491,9 +498,9 @@ public class Entity : MonoBehaviour,
         if (ObjectManager.Inst != null)
             ObjectManager.Inst.UnregistObject(this);
 
-        // 콜라이더 비활성화
-        if (TryGetComponent(out Collider c))
-            c.enabled = false;
+        //// 콜라이더 비활성화
+        //if (TryGetComponent(out Collider c))
+        //    c.enabled = false;
 
         // 사망 애니메이션 출력
         if (anim != null)

@@ -21,11 +21,16 @@ public class BuildGhost : MonoBehaviour
     Dictionary<UnitClassType, GameObject> ghostDict = new Dictionary<UnitClassType, GameObject>();
 
     // 현재 보여주고 있는 오브젝트의 정보 저장용 변수
-    MeshRenderer[] curRederers;
+    Renderer[] curRederers;
     GameObject curModel;
+
+    MaterialPropertyBlock propBlock;
+    int colorPropID;
 
     private void Awake()
     {
+        propBlock = new MaterialPropertyBlock();
+        colorPropID = Shader.PropertyToID("_BaseColor");
         // 매핑된 정보를 리스트로 전환
         foreach (var mapping in ghostMappings)
         {
@@ -50,7 +55,7 @@ public class BuildGhost : MonoBehaviour
         {
             curModel = target;
             curModel.SetActive(true);
-            curRederers = curModel.GetComponentsInChildren<MeshRenderer>();
+            curRederers = curModel.GetComponentsInChildren<Renderer>();
         }
 
         gameObject.SetActive(true);
@@ -62,12 +67,14 @@ public class BuildGhost : MonoBehaviour
         transform.position = pos;
 
         // 셰이더 색상 조절
-        Color targetColor = isValid ? new Color(0, 1, 0, 0.5f) : new Color(1, 0, 0, 0.5f);
+        Color targetColor = isValid ? ColorDefine.ValidColor : ColorDefine.InvalidColor;
         if(curRederers != null) 
             foreach(var r in curRederers)
-                r.material.SetColor("_Color", targetColor);
-                    // ※ 현재 오브젝트는 단일 메쉬로 되어있지만, 확장성을 위해..
-
+            {
+                r.GetPropertyBlock(propBlock);
+                propBlock.SetColor(colorPropID, targetColor);
+                r.SetPropertyBlock(propBlock);
+            }
     }
 
     public void Hide()
