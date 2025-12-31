@@ -18,6 +18,7 @@ public class BuildSlot : MonoBehaviour
 
     public bool CanBuild(UnitFaction a_Faction)
     {
+        Debug.Log(!isBuild && faction == a_Faction);
         return !isBuild && faction == a_Faction;
     }
 

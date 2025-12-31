@@ -76,6 +76,7 @@ public class BuildManager : MonoBehaviour
 
     void Build()
     {
+        Debug.Log("D");
         Building b = Instantiate(selPrefab,
             curTargetSlot.GetPosition(), Quaternion.identity);
 

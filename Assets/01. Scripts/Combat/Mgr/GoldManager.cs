@@ -8,8 +8,7 @@ public class GoldManager : MonoBehaviour
     public static GoldManager inst;
 
     [Header("Resource Settings")]
-    [SerializeField] float gold = 80f;
-    [SerializeField] float baseIncome = 5f;
+    [SerializeField] float gold = 0;
 
     [Header("UI")]
     [SerializeField] Text tempGoldText;
@@ -25,14 +24,7 @@ public class GoldManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        gold = 80f;     // 시작 골드 기본 값. 나중에 특성 같은 걸로 추가시킬지도?
-    }
-
-    private void Update()
-    {
-        gold += (baseIncome + bonus) * Time.deltaTime;
-
-        tempGoldText.text = $"Gold : {Mathf.FloorToInt(gold).ToString()}G";
+        gold = 80f;
     }
 
     // 골드 소모

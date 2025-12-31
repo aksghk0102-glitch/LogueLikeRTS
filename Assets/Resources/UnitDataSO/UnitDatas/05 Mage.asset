@@ -20,7 +20,7 @@ MonoBehaviour:
     moveSpeed: 2
     attSpeed: 0.8
     attRange: 3
-    sight: 5
+    sight: 15
     maxMana: 50
     startMana: 0
     manaRegen: 1
