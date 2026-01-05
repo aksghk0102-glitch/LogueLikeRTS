@@ -4,6 +4,8 @@ using System.Linq;
 
 public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager inst;
+
     public SkillDatabase database;
 
     // 보유 중인 스킬 ID와 수량을 딕셔너리로 관리
@@ -12,10 +14,10 @@ public class InventoryManager : MonoBehaviour
     // 화면 갱신용 스크립트 참조
     public InventoryUI inventoryUI;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        
+        if (inst == null) inst = this;
+        else Destroy(gameObject);
     }
 
     // 스킬 추가 시 호출

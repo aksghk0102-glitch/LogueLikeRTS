@@ -1,0 +1,121 @@
+using UnityEngine;
+using DG.Tweening;
+
+public class UIStateManager : MonoBehaviour
+{
+    public static UIStateManager inst;
+
+    [Header("UI Reference")]
+    public CanvasGroup dim_CanvasGroup;     // 딤 연출 패널 캔버스 그룹(인벤토리 활성화 시 주변 시야 어둡게)
+    public CanvasGroup iv_CanvasGroup;      // 인벤토리 캔버스 그룹
+    public RectTransform iv_Rect;           // 인벤토리 위치 -> 연출 시 활용
+    public RectTransform bagIconRect;       // 가방 아이콘 위치 -> 연출 시 활용
+
+    [SerializeField] float duration = 0.3f;    // 인벤토리를 열고 닫을 때 연출 속도
+    bool isTween = false;                       // 연출 중복 실행 방지
+
+    [Header("State")]
+    public bool isInvenOpen = false;
+    Vector2 center = Vector2.zero;
+
+    private void Awake()
+    {
+        if (inst == null)
+            inst = this;
+        else
+            Destroy(this);
+    }
+
+    void Start()
+    {
+        // 각 UI 초기화
+        iv_CanvasGroup.alpha = 0;
+        iv_CanvasGroup.blocksRaycasts = false;
+
+        dim_CanvasGroup.alpha = 0;
+        dim_CanvasGroup.blocksRaycasts = false;
+
+        iv_Rect.position = bagIconRect.position;
+        iv_Rect.localScale = Vector3.zero;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if( (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab) )
+            && !isTween)
+        {
+            ToggleInventory();
+        }
+    }
+
+
+    public void OnClickBagBtn()
+    {
+        if (!isTween)
+            ToggleInventory();
+    }
+    public void ToggleInventory()
+    {
+        isInvenOpen = !isInvenOpen;
+        isTween = true;
+        if (isInvenOpen)
+            OpenInventory();
+        else
+            CloseInventory();
+    }
+
+    void OpenInventory()
+    {
+        iv_CanvasGroup.blocksRaycasts = true;
+        iv_CanvasGroup.interactable = true;
+
+        // 가방 아이콘을 살짝 흔들기
+        bagIconRect.DOKill();
+        bagIconRect.localScale = Vector3.one;
+        bagIconRect.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), 0.3f, 10, 1);
+
+        // 딤 효과 연출
+        dim_CanvasGroup.blocksRaycasts = true;
+        dim_CanvasGroup.DOFade(1f, duration);
+
+        // 가방 아이콘 쪽으로 위치 조정
+        iv_Rect.anchoredPosition = bagIconRect.anchoredPosition;
+
+        // 이동 및 연출
+        iv_Rect
+            .DOAnchorPos(center, duration)
+            .SetEase(Ease.OutBack);
+        iv_Rect
+            .DOScale(Vector3.one, duration)
+            .SetEase(Ease.OutBack);
+        iv_CanvasGroup
+            .DOFade(1f, duration)
+            .OnComplete(()=> isTween = false);
+    }
+    void CloseInventory()
+    {
+        iv_CanvasGroup.blocksRaycasts = false;
+        iv_CanvasGroup.interactable = false;
+
+        // 딤 효과 종료 연출
+        dim_CanvasGroup.blocksRaycasts = false;
+        dim_CanvasGroup.DOFade(0f, duration);
+
+        // 가방 아이콘을 살짝 흔들기
+        bagIconRect.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), 0.3f, 10, 1);
+
+        iv_Rect
+            .DOAnchorPos(bagIconRect.anchoredPosition, duration)
+            .SetEase(Ease.InBack);
+        iv_Rect.DOScale(Vector3.zero, duration)
+            .SetEase(Ease.InBack);
+        iv_CanvasGroup.DOFade(0f, duration)
+            .OnComplete(() =>
+            {
+                isTween = false;
+            });
+
+    }
+
+}

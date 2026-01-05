@@ -8,32 +8,18 @@ using TMPro;
 public class SkillSlotUI : MonoBehaviour
     , IPointerEnterHandler, IPointerExitHandler
 {
-    public TextMeshProUGUI NameText;
     public TextMeshProUGUI CountText;
     public Image IconImage;
-    public Image IconOutline;
+    public Image IconFrame;
     SkillData data;
 
     public void SetSlot(SkillData a_data, int count)
     {
         data = a_data;
-        NameText.text = data.Name;
         CountText.text = $"×{count}";
         
         // 아이콘 할당 추가
-
-    }
-
-    // 스킬 설명을 키 값으로 수정
-    string GetDynamicDesc()
-    {
-        string desc = data.Desc;
-        foreach (var p in data.Params)
-        {
-            //if()
-            desc = desc.Replace("{"+p.Key+"}", p.Value.ToString());
-        }
-        return desc;
+        //IconImage.sprite = ico
     }
 
     // 마우스를 올렸을 때 호출 (정보창 업데이트)
