@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    public InventoryManager Manager;
     public GameObject SlotPrefab;
     public Transform ContentParent;
 
@@ -13,14 +12,12 @@ public class InventoryUI : MonoBehaviour
         foreach (Transform child in ContentParent)
             Destroy(child.gameObject);
 
-        var sorted = Manager.GetSortedList(curSortType);
+        var sorted = InventoryManager.inst.GetSortedList(curSortType);
 
         foreach (var item in sorted)
         {
-            SkillData data = Manager.database.GetSkillByID(item.Key);
             GameObject obj = Instantiate(SlotPrefab, ContentParent);
-
-            obj.GetComponent<SkillSlotUI>().SetSlot(data, item.Value);
+            obj.GetComponent<SkillSlotUI>().SetSlot(item.Key, item.Value);
         }
     }
 

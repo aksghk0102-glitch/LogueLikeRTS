@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c5ea94284354d954d8b0baf4ca3f008a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b0584373010a854b8d7335b43c80835, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -372,6 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6244776272298489635}
   - component: {fileID: 8489943288748919823}
+  - component: {fileID: 1998778632046827956}
   m_Layer: 5
   m_Name: SkillSlot_Prefab
   m_TagString: Untagged
@@ -413,6 +414,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e4409fa1e9fdc4598c7fda0ed98320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CountText: {fileID: 1853338953407607463}
-  IconImage: {fileID: 9205333541000998418}
-  IconFrame: {fileID: 7285116767272445237}
+  countText: {fileID: 1853338953407607463}
+  visual: {fileID: 1998778632046827956}
+--- !u!114 &1998778632046827956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8615051666596181360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf6e4b92edd7f547a0758e200406fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frame: {fileID: 7285116767272445237}
+  icon: {fileID: 9205333541000998418}

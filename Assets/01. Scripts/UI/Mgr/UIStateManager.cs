@@ -35,7 +35,7 @@ public class UIStateManager : MonoBehaviour
         dim_CanvasGroup.alpha = 0;
         dim_CanvasGroup.blocksRaycasts = false;
 
-        iv_Rect.position = bagIconRect.position;
+        iv_Rect.anchoredPosition = bagIconRect.anchoredPosition;
         iv_Rect.localScale = Vector3.zero;
     }
 
@@ -59,6 +59,12 @@ public class UIStateManager : MonoBehaviour
     {
         isInvenOpen = !isInvenOpen;
         isTween = true;
+
+        // 가방 아이콘을 살짝 흔들기
+        bagIconRect.DOKill();
+        bagIconRect.localScale = Vector3.one;
+        bagIconRect.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), 0.3f, 10, 1);
+
         if (isInvenOpen)
             OpenInventory();
         else
@@ -69,11 +75,6 @@ public class UIStateManager : MonoBehaviour
     {
         iv_CanvasGroup.blocksRaycasts = true;
         iv_CanvasGroup.interactable = true;
-
-        // 가방 아이콘을 살짝 흔들기
-        bagIconRect.DOKill();
-        bagIconRect.localScale = Vector3.one;
-        bagIconRect.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), 0.3f, 10, 1);
 
         // 딤 효과 연출
         dim_CanvasGroup.blocksRaycasts = true;
@@ -102,9 +103,7 @@ public class UIStateManager : MonoBehaviour
         dim_CanvasGroup.blocksRaycasts = false;
         dim_CanvasGroup.DOFade(0f, duration);
 
-        // 가방 아이콘을 살짝 흔들기
-        bagIconRect.DOPunchScale(new Vector3(0.2f, 0.2f, 0f), 0.3f, 10, 1);
-
+        // 이동 > 이거 안되는 거 같은데
         iv_Rect
             .DOAnchorPos(bagIconRect.anchoredPosition, duration)
             .SetEase(Ease.InBack);

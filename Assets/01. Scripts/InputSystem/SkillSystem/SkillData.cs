@@ -10,6 +10,7 @@ public class SkillData
     public string ID;
     public string Name;
     public string Desc;
+    public SkillType SkillType;
 
     // 엑셀의 "Knight/Barbarian"을 분리해서 저장할 리스트
     public string TargetClass;
@@ -36,8 +37,20 @@ public class SkillData
         TargetClassList.Clear();
         TargetClassList_enum.Clear();
 
-        if (string.IsNullOrEmpty(TargetClass)) return;
 
+        // 스틸 타입 파싱
+        if (!string.IsNullOrEmpty(ID))
+        {
+            if (ID.StartsWith("A_"))
+                SkillType = SkillType.Active;
+            else if (ID.StartsWith("P_"))
+                SkillType = SkillType.Passive;
+            else
+                SkillType = SkillType.None;
+        }
+
+        // 타겟 클래스 파싱
+        if (string.IsNullOrEmpty(TargetClass)) return;
         string[] split = TargetClass.Split('/');
         foreach (var s in split)
         {
@@ -61,16 +74,24 @@ public class SkillData
 public class UnitSkillSet
 {
     public UnitClassType Class;     // 클래스 종류
-    public int Level;               // 클래스 레벨(=건물 강화 레벨)
+    public int Level = 1;               // 클래스 레벨(=건물 강화 레벨)
 
-    public string ActiveID;         // 액티브 스킬 하나 -> 0번 점에 대응
-    public string[] PassiveID;      // 패시브 스킬 최대 3개 -> 1~3번 점에 대응
+    public string ActiveID = "";         // 액티브 스킬 하나 -> 0번 점에 대응
+    public string[] PassiveID = new string[3];      // 패시브 스킬 최대 3개 -> 1~3번 점에 대응
 
     public UnitSkillSet(UnitClassType a_Class)
     {
         Class = a_Class;
         Level = 1;
         ActiveID = "";
-        PassiveID = new string[3];
+        PassiveID = new string[3] { "", "", "" };
     }
+}
+
+[System.Serializable]
+public enum SkillType
+{
+    Active,
+    Passive,
+    None,
 }

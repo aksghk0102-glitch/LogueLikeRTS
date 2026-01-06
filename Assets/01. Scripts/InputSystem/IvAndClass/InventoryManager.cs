@@ -6,13 +6,15 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager inst;
 
+    // Json 파싱 후 임포트 한 데이터 베이스 참조
     public SkillDatabase database;
+    // 인벤토리 UI 판넬 내 스크롤뷰/콘텐츠 영역에 할당된 컴포넌트 참조
+    public InventoryUI inventoryUI;
+
 
     // 보유 중인 스킬 ID와 수량을 딕셔너리로 관리
-    Dictionary<string, int> skills = new Dictionary<string, int>();
+    Dictionary<string, int> inventory = new Dictionary<string, int>();
 
-    // 화면 갱신용 스크립트 참조
-    public InventoryUI inventoryUI;
 
     private void Awake()
     {
@@ -21,12 +23,16 @@ public class InventoryManager : MonoBehaviour
     }
 
     // 스킬 추가 시 호출
-    public void AddSkill(string id)
+    public void AddSkill(string id, int amount=1)
     {
-        if (skills.ContainsKey(id))
-            skills[id]++;
+        if (inventory.ContainsKey(id))
+        {
+            inventory[id] += amount;
+            if (inventory[id] < 0)
+                inventory[id] = 0;
+        }
         else
-            skills.Add(id, 1);
+            inventory.Add(id, amount);
 
         RefreshUI();
     }
@@ -34,20 +40,31 @@ public class InventoryManager : MonoBehaviour
     // 스킬 제거 시 호출
     public void RemoveSkill(string id)
     {
-        if(skills.ContainsKey(id) && skills[id] > 0)
+        if(inventory.ContainsKey(id) && inventory[id] > 0)
         {
-            skills[id]--;
-            if (skills[id] == 0)
-                skills.Remove(id);
+            inventory[id]--;
+            if (inventory[id] == 0)
+                inventory.Remove(id);
         }
 
         RefreshUI();
     }
 
+    public int GetSkillCount(string id)
+    {
+        if (inventory.TryGetValue(id, out int count))
+            return count;
+        return 0;
+    }
+    public SkillData GetSkillData(string id)
+        => database.GetSkillByID(id);
+
+    public Dictionary<string, int> GetInventory()
+        => inventory;
     // 정렬 로직
     public List<KeyValuePair<string, int>> GetSortedList(string sortType)
     {
-        var list = skills.ToList();
+        var list = inventory.ToList();
 
         switch (sortType)
         {
