@@ -1,29 +1,44 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class InventoryUI : MonoBehaviour
 {
     public GameObject SlotPrefab;
     public Transform ContentParent;
 
-    string curSortType = "ID";
+    //string curSortType = "ID";
+    List<SkillSlotUI> uiSlots = new List<SkillSlotUI>();
 
     public void UpdateInventoryDisplay()
     {
-        foreach (Transform child in ContentParent)
-            Destroy(child.gameObject);
+        // 인벤토리 전체 화면 갱신
+        int dataCount = InventoryManager.inst.GetSlotCount();
 
-        var sorted = InventoryManager.inst.GetSortedList(curSortType);
+        while (uiSlots.Count < dataCount)
+            CreateNewSlot();
 
-        foreach (var item in sorted)
+        for (int i = 0; i < uiSlots.Count; i++)
         {
-            GameObject obj = Instantiate(SlotPrefab, ContentParent);
-            obj.GetComponent<SkillSlotUI>().SetSlot(item.Key, item.Value);
+            var slotData = InventoryManager.inst.GetSlot(i);
+
+            if(slotData != null && slotData.IsEmpty)
+            {
+                uiSlots[i].SetSlot(slotData.SkillID, slotData.Count);
+                uiSlots[i].gameObject.SetActive(true);
+            }
+            else
+                uiSlots[i].ClearSlot();
+
+            // 슬롯 정보를 UI에 부여 > 드래그 앤 드롭 시 조회
+            uiSlots[i].SlotIndex = i;
         }
     }
 
-    public void SetSortType(string type)
+    void CreateNewSlot()
     {
-        curSortType = type;
-        UpdateInventoryDisplay();
+        GameObject obj = Instantiate(SlotPrefab, ContentParent);
+        SkillSlotUI slotUI = obj.GetComponent<SkillSlotUI>();
+        if(slotUI != null)
+            uiSlots.Add(slotUI);
     }
 }
