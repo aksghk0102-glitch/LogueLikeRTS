@@ -1064,7 +1064,7 @@ MonoBehaviour:
     BestClass: ALL
     SubClass: ALL
     Weight: 10
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: c890dd06d4a350946ab11e4778bf47d8, type: 3}
   - ID: P_ALL_02
     Name: "\uACF5\uACA9\uB825 \uD30C\uD3B8 II"
     Desc: "\uACF5\uACA9\uB825 +{stat} \uD68D\uB4DD"
@@ -1083,7 +1083,7 @@ MonoBehaviour:
     BestClass: ALL
     SubClass: ALL
     Weight: 10
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 030d61925e2f98f4d86e171153ec39e1, type: 3}
   - ID: P_ALL_03
     Name: "\uACF5\uACA9\uB825 \uD30C\uD3B8 III"
     Desc: "\uACF5\uACA9\uB825 +{stat} \uD68D\uB4DD"
@@ -1102,7 +1102,7 @@ MonoBehaviour:
     BestClass: ALL
     SubClass: ALL
     Weight: 10
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: c46be55a65cb30e44b7c89e3c0d531da, type: 3}
   - ID: P_ALL_04
     Name: "\uBC29\uC5B4\uB825 \uD30C\uD3B8 I"
     Desc: "\uBC29\uC5B4\uB825 +{stat} \uD68D\uB4DD"
@@ -1121,7 +1121,7 @@ MonoBehaviour:
     BestClass: ALL
     SubClass: ALL
     Weight: 10
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 97cbe9c1056bf94448d1bbef8e195180, type: 3}
   - ID: P_ALL_05
     Name: "\uBC29\uC5B4\uB825 \uD30C\uD3B8 II"
     Desc: "\uBC29\uC5B4\uB825 +{stat} \uD68D\uB4DD"
@@ -1292,7 +1292,7 @@ MonoBehaviour:
     BestClass: ALL
     SubClass: ALL
     Weight: 10
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 3925691c2a021aa429c1dc89712a1253, type: 3}
   - ID: P_ALL_14
     Name: "\uACF5\uACA9\uC18D\uB3C4 \uD30C\uD3B8 II"
     Desc: "\uACF5\uACA9\uC18D\uB3C4 +{stat} \uD68D\uB4DD"
@@ -1311,7 +1311,7 @@ MonoBehaviour:
     BestClass: ALL
     SubClass: ALL
     Weight: 10
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 4d7635c366a76274c85747592d98d2f5, type: 3}
   - ID: P_ALL_15
     Name: "\uACF5\uACA9\uC18D\uB3C4 \uD30C\uD3B8 III"
     Desc: "\uACF5\uACA9\uC18D\uB3C4 +{stat} \uD68D\uB4DD"
@@ -1330,4 +1330,4 @@ MonoBehaviour:
     BestClass: ALL
     SubClass: ALL
     Weight: 10
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: b906fea0feef57a4ab4ae21578cc1c5a, type: 3}

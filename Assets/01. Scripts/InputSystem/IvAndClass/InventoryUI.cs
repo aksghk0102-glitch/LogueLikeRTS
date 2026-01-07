@@ -21,7 +21,7 @@ public class InventoryUI : MonoBehaviour
         {
             var slotData = InventoryManager.inst.GetSlot(i);
 
-            if(slotData != null && slotData.IsEmpty)
+            if(slotData != null && !slotData.IsEmpty)
             {
                 uiSlots[i].SetSlot(slotData.SkillID, slotData.Count);
                 uiSlots[i].gameObject.SetActive(true);

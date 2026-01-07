@@ -21738,7 +21738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0001449585, y: 0.0006694922}
+  m_AnchoredPosition: {x: -0.0001449585, y: 0.0014154499}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1200325976
@@ -29402,7 +29402,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 356680721}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9312668
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -33538,11 +33538,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curType: 0
   classNameText: {fileID: 1895457754}
-  activeSlotImg: {fileID: 0}
+  activeSlotImg: {fileID: 2312287054553609891}
   passiveSlotImg:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 608159428}
+  - {fileID: 564915346}
+  - {fileID: 1375523553}
 --- !u!1001 &1825085380
 PrefabInstance:
   m_ObjectHideFlags: 0

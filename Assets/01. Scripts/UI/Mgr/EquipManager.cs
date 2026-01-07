@@ -42,7 +42,7 @@ public class EquipManager : MonoBehaviour
     public void EquipSkill(UnitClassType targetType, SkillData skilldata)
     {
         // 방어 코드
-        if (!unitSkillDatas.ContainsKey(targetType))
+        if (!unitSkillDatas.ContainsKey(targetType) || skilldata == null)
             return;
 
         // 타겟 클래스 검사
@@ -139,8 +139,8 @@ public class EquipManager : MonoBehaviour
             }
         }
 
+        ClassInfoUI.inst.Open(type);
         ClassInfoUI.inst.Refresh();
-
     }
 
 
