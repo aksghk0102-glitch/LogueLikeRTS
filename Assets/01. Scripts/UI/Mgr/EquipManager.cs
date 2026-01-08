@@ -35,7 +35,10 @@ public class EquipManager : MonoBehaviour
         };
 
         foreach (var t in targetType)
+        {
             unitSkillDatas.Add(t, new UnitSkillSet(t));
+            RefreshSlot(t);
+        }
     }
 
     // ½ºÅ³ ÀåÂø : ÀÎº¥Åä¸® -> Å¬·¡½º º° ½½·Ô ÇÒ´ç
@@ -101,6 +104,7 @@ public class EquipManager : MonoBehaviour
         }
 
         RefreshSlot(targetType);
+        RefreshClassInfoUI(targetType);
     }
 
     // Å»Âø
@@ -113,6 +117,7 @@ public class EquipManager : MonoBehaviour
         InventoryManager.inst.AddSkill(data.ActiveID, 1);
         data.ActiveID = "";
         RefreshSlot(targetType);
+        RefreshClassInfoUI(targetType);
     }
 
     public void UnequipPassive(UnitClassType targetType, int index)
@@ -126,6 +131,7 @@ public class EquipManager : MonoBehaviour
         InventoryManager.inst.AddSkill(data.PassiveID[index], 1);
         data.PassiveID[index] = "";
         RefreshSlot(targetType);
+        RefreshClassInfoUI(targetType);
     }
 
     void RefreshSlot(UnitClassType type)
@@ -138,11 +144,13 @@ public class EquipManager : MonoBehaviour
                 break;
             }
         }
+    }
 
+    void RefreshClassInfoUI(UnitClassType type)
+    {
         ClassInfoUI.inst.Open(type);
         ClassInfoUI.inst.Refresh();
     }
-
 
     public UnitSkillSet GetUnitSkillSet(UnitClassType type)
         => unitSkillDatas[type];
