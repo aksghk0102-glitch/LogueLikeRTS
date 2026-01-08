@@ -23,6 +23,7 @@ public class SkillDataImporter
 
         // ScriptableObject 로드 또는 생성
         SkillDatabase db = AssetDatabase.LoadAssetAtPath<SkillDatabase>("Assets/Resources/Data/SkillDatabase.asset");
+        
         if (db == null)
         {
             db = ScriptableObject.CreateInstance<SkillDatabase>();
@@ -33,6 +34,20 @@ public class SkillDataImporter
         foreach (var skill in importedSkills)
         {
             skill.ParseTargetClasses(); // 다중 타겟 클래스 파싱
+
+            // 아이콘 데이터 파싱
+            if (!string.IsNullOrEmpty(skill.IconPath))
+            {
+                string path = "Assets/Resources/Icon/" + skill.IconPath + ".png";
+
+                Sprite iconSprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+
+                if (iconSprite != null)
+                    skill.Icon = iconSprite;
+                else
+                    Debug.Log($"아이콘을 찾을 수 없습니다 : {path} : id {skill.ID}");
+            }
+
             db.Skills.Add(skill);
         }
 

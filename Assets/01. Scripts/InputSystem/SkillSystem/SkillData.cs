@@ -29,7 +29,8 @@ public class SkillData
     // 가변 파라미터 (JSON 문자열을 나중에 딕셔너리로 변환하여 사용)
     public Dictionary<string, float> Params = new Dictionary<string, float>();
 
-    public Sprite Icon;
+    public string IconPath;     // Json에 지정된 아이콘 경로
+    public Sprite Icon;         // 실제 스프라이트를 할당하는 곳
 
     // 문자열로 된 TargetClass를 리스트로 변환하는 편의 함수
     public void ParseTargetClasses()
@@ -38,7 +39,7 @@ public class SkillData
         TargetClassList_enum.Clear();
 
 
-        // 스틸 타입 파싱
+        // 스킬 타입 파싱
         if (!string.IsNullOrEmpty(ID))
         {
             if (ID.StartsWith("A_"))
