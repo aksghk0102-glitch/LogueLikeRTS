@@ -13,7 +13,7 @@ public class SkillData
     public SkillType SkillType;
 
     // 엑셀의 "Knight/Barbarian"을 분리해서 저장할 리스트
-    public string TargetClass;
+    string TargetClass;
     public List<string> TargetClassList = new List<string>();
 
     // 게임 내에서 직접 사용할 클래스 리스트
@@ -26,14 +26,21 @@ public class SkillData
     public string BestClass;
     public string SubClass;
     public int Weight;
-    // 가변 파라미터 (JSON 문자열을 나중에 딕셔너리로 변환하여 사용)
+    // 가변 파라미터 (문자열을 딕셔너리로 변환하여 사용)
+    string ParamString = "";
     public Dictionary<string, float> Params = new Dictionary<string, float>();
 
     public string IconPath;     // Json에 지정된 아이콘 경로
     public Sprite Icon;         // 실제 스프라이트를 할당하는 곳
 
+    public void ParseData()
+    {
+        ParseTargetClasses();
+        ParseParams();
+    }
+
     // 문자열로 된 TargetClass를 리스트로 변환하는 편의 함수
-    public void ParseTargetClasses()
+    void ParseTargetClasses()
     {
         TargetClassList.Clear();
         TargetClassList_enum.Clear();
@@ -64,6 +71,33 @@ public class SkillData
                     TargetClassList_enum.Add(result);
                 else
                     Debug.Log($"{ID} 스킬의 {trim} 클래스명이 Enum형과 일치하지 않습니다.");
+            }
+        }
+    }
+
+    void ParseParams()
+    {
+        // 스킬 마다 서로 다른 가변값을 파싱
+        if (Params == null)
+            Params = new Dictionary<string, float>();
+        Params.Clear();
+
+        // 널 참조 시 리턴
+        if (string.IsNullOrWhiteSpace(ParamString))
+            return;
+
+        string[] pairs = ParamString.Split(',');   // ,를 기준으로 파싱
+        foreach(string pair in pairs)
+        {
+            if (string.IsNullOrWhiteSpace(pair))
+                continue;
+
+            string[] kv = pair.Split(':');          // key:value 의 형태로 매핑된 것을 분할
+            if(kv.Length == 2)      // 정상적으로 파싱 되었는지 확인
+            {
+                string key = kv[0].Trim();
+                if (float.TryParse(kv[1].Trim(), out float val))
+                    Params[key] = val;
             }
         }
     }

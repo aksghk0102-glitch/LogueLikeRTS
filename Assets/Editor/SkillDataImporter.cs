@@ -33,13 +33,12 @@ public class SkillDataImporter
         db.Skills.Clear();
         foreach (var skill in importedSkills)
         {
-            skill.ParseTargetClasses(); // 다중 타겟 클래스 파싱
+            skill.ParseData(); // 다중 타겟 클래스, 가변변수 파싱
 
             // 아이콘 데이터 파싱
             if (!string.IsNullOrEmpty(skill.IconPath))
             {
                 string path = "Assets/Resources/Icon/" + skill.IconPath + ".png";
-
                 Sprite iconSprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
 
                 if (iconSprite != null)
