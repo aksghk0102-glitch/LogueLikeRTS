@@ -1,18 +1,5 @@
 [
   {
-    "ID": "A_BB_01",
-    "Name": "워크라이",
-    "Desc": "함성을 질러 근처 적을 {stun}초간 기절시킵니다.",
-    "TargetClass": "Babarian",
-    "MotionType": 4,
-    "LogicClass": "SK_BuffSelf",
-    "EffectID": "None",
-    "BestClass": "Babarian",
-    "SubClass": "Babarian",
-    "Weight": 30,
-    "Params": {}
-  },
-  {
     "ID": "A_BB_02",
     "Name": "사이즘",
     "Desc": "적을 강타합니다. 공격력×{dmg}의 물리 피해를 입히고 {stun}초 간 기절시킵니다.",
@@ -23,7 +10,8 @@
     "BestClass": "Babarian",
     "SubClass": "Babarian",
     "Weight": 30,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Barbarian20"
   },
   {
     "ID": "A_BB_03",
@@ -36,20 +24,8 @@
     "BestClass": "Babarian",
     "SubClass": "Babarian",
     "Weight": 60,
-    "Params": {}
-  },
-  {
-    "ID": "P_BB_04",
-    "Name": "프렌지",
-    "Desc": "매 공격마다 공격 속도가 {attSpeed}% 증가합니다.",
-    "TargetClass": "Babarian",
-    "MotionType": 0,
-    "LogicClass": "SK_Item",
-    "EffectID": "None",
-    "BestClass": "Babarian",
-    "SubClass": "Babarian",
-    "Weight": 60,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Brawler18"
   },
   {
     "ID": "A_BB_05",
@@ -62,7 +38,8 @@
     "BestClass": "Babarian",
     "SubClass": "Babarian",
     "Weight": 90,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/BeastMaster4"
   },
   {
     "ID": "A_BB_06",
@@ -75,11 +52,12 @@
     "BestClass": "Babarian",
     "SubClass": "Babarian",
     "Weight": 90,
-    "Params": {}
+    "Params": "att:0",
+    "IconPath": "Skills/DemonHunter20"
   },
   {
     "ID": "A_KN_01",
-    "Name": "실드 배쉬",
+    "Name": "저지먼트",
     "Desc": "공격 대상을 방패로 타격해 방어력×{def}의 물리 피해를 입힙니다.",
     "TargetClass": "Knight",
     "MotionType": 3,
@@ -88,20 +66,8 @@
     "BestClass": "Knight",
     "SubClass": "Knight",
     "Weight": 30,
-    "Params": {}
-  },
-  {
-    "ID": "A_KN_02",
-    "Name": "스톤스킨",
-    "Desc": "10초 동안 방어력을 +{def} 얻습니다.",
-    "TargetClass": "Knight",
-    "MotionType": 0,
-    "LogicClass": "SK_BuffSelf",
-    "EffectID": "None",
-    "BestClass": "Knight",
-    "SubClass": "Knight",
-    "Weight": 30,
-    "Params": {}
+    "Params": "def:0",
+    "IconPath": "Skills/Deathknight14"
   },
   {
     "ID": "A_KN_03",
@@ -114,20 +80,8 @@
     "BestClass": "Knight",
     "SubClass": "Knight",
     "Weight": 60,
-    "Params": {}
-  },
-  {
-    "ID": "P_KN_04",
-    "Name": "프로보크",
-    "Desc": "근처 적을 도발해 스킬 사용자를 공격하게 합니다.",
-    "TargetClass": "Knight",
-    "MotionType": 3,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Knight",
-    "SubClass": "Knight",
-    "Weight": 60,
-    "Params": {}
+    "Params": "att:0",
+    "IconPath": "Skills/Medium15"
   },
   {
     "ID": "A_KN_05",
@@ -140,7 +94,8 @@
     "BestClass": "Knight",
     "SubClass": "Knight",
     "Weight": 90,
-    "Params": {}
+    "Params": "att:0",
+    "IconPath": "Skills/Paladin10"
   },
   {
     "ID": "P_KN_06",
@@ -153,7 +108,8 @@
     "BestClass": "Knight",
     "SubClass": "Knight",
     "Weight": 90,
-    "Params": {}
+    "Params": "def:0",
+    "IconPath": "Skills/Paladin14"
   },
   {
     "ID": "A_RO_01",
@@ -166,7 +122,8 @@
     "BestClass": "Rogue",
     "SubClass": "Rogue",
     "Weight": 30,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Rogue11"
   },
   {
     "ID": "A_RO_02",
@@ -179,7 +136,8 @@
     "BestClass": "Rogue",
     "SubClass": "Rogue",
     "Weight": 30,
-    "Params": {}
+    "Params": "stun:0",
+    "IconPath": "Skills/Druid9"
   },
   {
     "ID": "A_RO_03",
@@ -192,20 +150,8 @@
     "BestClass": "Rogue",
     "SubClass": "Rogue",
     "Weight": 60,
-    "Params": {}
-  },
-  {
-    "ID": "P_RO_04",
-    "Name": "은신",
-    "Desc": "몸을 숨겨 적의 공격을 회피합니다. 먼저 공격 대상으로 지정 받지 않습니다.",
-    "TargetClass": "Rogue",
-    "MotionType": 0,
-    "LogicClass": "SK_Item",
-    "EffectID": "None",
-    "BestClass": "Rogue",
-    "SubClass": "Rogue",
-    "Weight": 60,
-    "Params": {}
+    "Params": "durTime:0",
+    "IconPath": "Skills/Rogue3"
   },
   {
     "ID": "A_RO_05",
@@ -218,20 +164,8 @@
     "BestClass": "Rogue",
     "SubClass": "Rogue",
     "Weight": 90,
-    "Params": {}
-  },
-  {
-    "ID": "P_RO_04",
-    "Name": "이베이션",
-    "Desc": "적의 공격을 50%로 회피합니다.",
-    "TargetClass": "Rogue",
-    "MotionType": 0,
-    "LogicClass": "SK_Item",
-    "EffectID": "None",
-    "BestClass": "Rogue",
-    "SubClass": "Rogue",
-    "Weight": 90,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Guardian20"
   },
   {
     "ID": "A_RA_01",
@@ -244,20 +178,8 @@
     "BestClass": "Ranger",
     "SubClass": "Ranger",
     "Weight": 30,
-    "Params": {}
-  },
-  {
-    "ID": "A_RA_02",
-    "Name": "콘센트레이션",
-    "Desc": "3초 간 공격 속도를 {attSpeed}% 얻습니다.",
-    "TargetClass": "Ranger",
-    "MotionType": 4,
-    "LogicClass": "SK_BuffSelf",
-    "EffectID": "None",
-    "BestClass": "Ranger",
-    "SubClass": "Ranger",
-    "Weight": 30,
-    "Params": {}
+    "Params": "dmg_1:0",
+    "IconPath": "Skills/Ranger7"
   },
   {
     "ID": "A_RA_03",
@@ -270,7 +192,8 @@
     "BestClass": "Ranger",
     "SubClass": "Ranger",
     "Weight": 60,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Hunter10"
   },
   {
     "ID": "A_RA_04",
@@ -283,7 +206,8 @@
     "BestClass": "Ranger",
     "SubClass": "Ranger",
     "Weight": 60,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Hunter1"
   },
   {
     "ID": "A_RA_05",
@@ -296,20 +220,8 @@
     "BestClass": "Ranger",
     "SubClass": "Ranger",
     "Weight": 90,
-    "Params": {}
-  },
-  {
-    "ID": "A_RA_04",
-    "Name": "블레이징 샷",
-    "Desc": "대상 근처에 폭발하는 화살을 발사합니다. 공격력×{dmg}의 물리 피해를 입힙니다.",
-    "TargetClass": "Ranger",
-    "MotionType": 1,
-    "LogicClass": "SK_HitOneTarget",
-    "EffectID": "None",
-    "BestClass": "Ranger",
-    "SubClass": "Ranger",
-    "Weight": 90,
-    "Params": {}
+    "Params": "criRate:0",
+    "IconPath": "Skills/Ranger2"
   },
   {
     "ID": "A_MA_01",
@@ -322,33 +234,8 @@
     "BestClass": "Mage",
     "SubClass": "Mage",
     "Weight": 30,
-    "Params": {}
-  },
-  {
-    "ID": "A_MA_02",
-    "Name": "매직 실드",
-    "Desc": "에너지를 감싸 자신을 보호합니다. {durTime}초 동안 방어력+{def}, 마법방어력+{res}을 얻습니다.",
-    "TargetClass": "Mage",
-    "MotionType": 4,
-    "LogicClass": "SK_BuffSelf",
-    "EffectID": "None",
-    "BestClass": "Mage",
-    "SubClass": "Mage",
-    "Weight": 30,
-    "Params": {}
-  },
-  {
-    "ID": "A_MA_03",
-    "Name": "레써지",
-    "Desc": "범위 내 적을 {durTime}초 동안 둔화, 냉각 상태로 만듭니다.",
-    "TargetClass": "Mage",
-    "MotionType": 3,
-    "LogicClass": "SK_DebuffArea",
-    "EffectID": "None",
-    "BestClass": "Mage",
-    "SubClass": "Mage",
-    "Weight": 60,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Medium10"
   },
   {
     "ID": "P_MA_04",
@@ -361,7 +248,8 @@
     "BestClass": "Mage",
     "SubClass": "Mage",
     "Weight": 60,
-    "Params": {}
+    "Params": "count:0",
+    "IconPath": "Skills/Electromancer3"
   },
   {
     "ID": "A_MA_05",
@@ -374,7 +262,8 @@
     "BestClass": "Mage",
     "SubClass": "Mage",
     "Weight": 90,
-    "Params": {}
+    "Params": "durTime:0",
+    "IconPath": "Skills/Cryomancer17"
   },
   {
     "ID": "A_MA_06",
@@ -387,129 +276,13 @@
     "BestClass": "Mage",
     "SubClass": "Mage",
     "Weight": 90,
-    "Params": {}
-  },
-  {
-    "ID": "A_ME_01",
-    "Name": "강타",
-    "Desc": "적을 강타합니다. 공격력×{dmg}의 피해를 입힙니다.",
-    "TargetClass": "Babarian/Knight",
-    "MotionType": 2,
-    "LogicClass": "SK_HitOneTarget",
-    "EffectID": "None",
-    "BestClass": "Babarian",
-    "SubClass": "Knight",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_ME_02",
-    "Name": "차치 스트라이크",
-    "Desc": "공격 대상을 향해 돌진합니다.",
-    "TargetClass": "Babarian/Knight",
-    "MotionType": 2,
-    "LogicClass": "SK_HitOneTarget",
-    "EffectID": "None",
-    "BestClass": "Babarian",
-    "SubClass": "Knight",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_ME_03",
-    "Name": "파워 슬램",
-    "Desc": "적을 공격해 공격력{}의 피해를 입힙니다.",
-    "TargetClass": "Babarian/Knight",
-    "MotionType": 2,
-    "LogicClass": "SK_HitOneTarget",
-    "EffectID": "None",
-    "BestClass": "Babarian",
-    "SubClass": "Knight",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_BO_01",
-    "Name": "블러드 러시",
-    "Desc": "공격 속도 대폭 증가",
-    "TargetClass": "Babarian/Rogue",
-    "MotionType": 2,
-    "LogicClass": "SK_BuffSelf",
-    "EffectID": "None",
-    "BestClass": "Babarian",
-    "SubClass": "Rogue",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_BO_02",
-    "Name": "브루탈 스탭",
-    "Desc": "대상의 잃은 체력에 비례해 데미지 증가",
-    "TargetClass": "Babarian/Rogue",
-    "MotionType": 2,
-    "LogicClass": "SK_HitOneTarget",
-    "EffectID": "None",
-    "BestClass": "Babarian",
-    "SubClass": "Rogue",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_BO_03",
-    "Name": "과다출혈",
-    "Desc": "적을 출혈 상태로 만듭니다.",
-    "TargetClass": "Babarian/Rogue",
-    "MotionType": 2,
-    "LogicClass": "SK_HitOneTarget",
-    "EffectID": "None",
-    "BestClass": "Babarian",
-    "SubClass": "Rogue",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "P_KA_01",
-    "Name": "가디언 마크",
-    "Desc": "공격 중인 대상을 취약 상태로 만듭니다.",
-    "TargetClass": "Knight/Ranger",
-    "MotionType": 2,
-    "LogicClass": "SK_Item",
-    "EffectID": "None",
-    "BestClass": "Knight",
-    "SubClass": "Ranger",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_KA_02",
-    "Name": "커버 파이어",
-    "Desc": "방어력을 얻습니다.",
-    "TargetClass": "Knight/Ranger",
-    "MotionType": 2,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Knight",
-    "SubClass": "Ranger",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "P_KA_03",
-    "Name": "진영유지",
-    "Desc": "인접한 아군이 방어력을 얻습니다.",
-    "TargetClass": "Knight/Ranger",
-    "MotionType": 2,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Knight",
-    "SubClass": "Ranger",
-    "Weight": 10,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Pyromancer7"
   },
   {
     "ID": "A_OA_01",
     "Name": "섀도우 샷",
-    "Desc": "적에게 공격력{}의 피해를 입힙니다.",
+    "Desc": "어둠의 힘으로 공격해 적에게 공격력×{dmg}의 피해를 입힙니다.",
     "TargetClass": "Ranger/Rogue",
     "MotionType": 2,
     "LogicClass": "default",
@@ -517,38 +290,13 @@
     "BestClass": "Ranger",
     "SubClass": "Rogue",
     "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_OA_02",
-    "Name": "전투의 리듬",
-    "Desc": "공격 속도 버프",
-    "TargetClass": "Ranger/Rogue",
-    "MotionType": 2,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Ranger",
-    "SubClass": "Rogue",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_OA_03",
-    "Name": "후방 도약",
-    "Desc": "적과 거리를 벌립니다.",
-    "TargetClass": "Ranger/Rogue",
-    "MotionType": 2,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Ranger",
-    "SubClass": "Rogue",
-    "Weight": 10,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Arcanist1"
   },
   {
     "ID": "A_KM_01",
-    "Name": "포스 스트라이크적을 공격해 공격력 마법공격력의 피해를 입힙니다.",
-    "Desc": "",
+    "Name": "포스 스트라이크",
+    "Desc": "적을 공격해 공격력 마법공격력×{dmg}의 피해를 입힙니다.",
     "TargetClass": "Knight/Mage",
     "MotionType": 2,
     "LogicClass": "default",
@@ -556,12 +304,13 @@
     "BestClass": "Knight",
     "SubClass": "Mage",
     "Weight": 10,
-    "Params": {}
+    "Params": "dmg:0",
+    "IconPath": "Skills/Deathknight8"
   },
   {
     "ID": "A_KM_02",
     "Name": "아케인 실드",
-    "Desc": "적의 공격을 1회 막는 실드를 자신에게 부여합니다.",
+    "Desc": "적의 공격을 {count}회 막는 실드를 자신에게 부여합니다.",
     "TargetClass": "Knight/Mage",
     "MotionType": 2,
     "LogicClass": "default",
@@ -569,38 +318,13 @@
     "BestClass": "Knight",
     "SubClass": "Mage",
     "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "P_KM_03",
-    "Name": "마법 저항 훈련",
-    "Desc": "마법방어력을 얻습니다.",
-    "TargetClass": "Knight/Mage",
-    "MotionType": 2,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Knight",
-    "SubClass": "Mage",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_OM_01",
-    "Name": "블링크 어택",
-    "Desc": "점멸 후 공격합니다.",
-    "TargetClass": "Rogue/Mage",
-    "MotionType": 2,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Rogue",
-    "SubClass": "Mage",
-    "Weight": 10,
-    "Params": {}
+    "Params": "count:0",
+    "IconPath": "Skills/Arcanist15"
   },
   {
     "ID": "A_OM_02",
     "Name": "불길한 공격",
-    "Desc": "상태 이상 부여",
+    "Desc": "자신의 체력을 절반 소모해 근처의 적을 저주 상태로 만듭니다. 저주는 {durTime}초 동안 지속되며, 매초 피해를 입힙니다.",
     "TargetClass": "Rogue/Mage",
     "MotionType": 2,
     "LogicClass": "default",
@@ -608,20 +332,8 @@
     "BestClass": "Rogue",
     "SubClass": "Mage",
     "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_OM_03",
-    "Name": "안개",
-    "Desc": "안개를 소환해 적을 실명 상태로 만듭니다.",
-    "TargetClass": "Rogue/Mage",
-    "MotionType": 2,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Rogue",
-    "SubClass": "Mage",
-    "Weight": 10,
-    "Params": {}
+    "Params": "durTime:0",
+    "IconPath": "Skills/Cultist12"
   },
   {
     "ID": "A_AM_01",
@@ -634,33 +346,8 @@
     "BestClass": "Ranger",
     "SubClass": "Mage",
     "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_AM_02",
-    "Name": "왕국 합동 훈련",
-    "Desc": "근처 아군이 공격력 과 마법공격력을 얻습니다.",
-    "TargetClass": "Ranger/Mage",
-    "MotionType": 2,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Ranger",
-    "SubClass": "Mage",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "P_AM_03",
-    "Name": "마나 공명",
-    "Desc": "마나 회복 속도 증가",
-    "TargetClass": "Ranger/Mage",
-    "MotionType": 2,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "Ranger",
-    "SubClass": "Mage",
-    "Weight": 10,
-    "Params": {}
+    "Params": "",
+    "IconPath": "Skills/Dragonknight4"
   },
   {
     "ID": "A_ALL_01",
@@ -673,7 +360,8 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "",
+    "IconPath": "Skills/Enchanter2"
   },
   {
     "ID": "A_ALL_02",
@@ -686,11 +374,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "",
+    "IconPath": "Skills/Electromancer16"
   },
   {
     "ID": "A_ALL_03",
-    "Name": "집중",
+    "Name": "공속 강화",
     "Desc": "공격속도 증가 버프",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -699,7 +388,8 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "",
+    "IconPath": "Skills/Geomancer5"
   },
   {
     "ID": "A_ALL_04",
@@ -712,20 +402,8 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_ALL_05",
-    "Name": "자기과신",
-    "Desc": "공격력 증가, 방어력 감소",
-    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
-    "MotionType": 0,
-    "LogicClass": "SK_BuffSelf",
-    "EffectID": "None",
-    "BestClass": "ALL",
-    "SubClass": "ALL",
-    "Weight": 10,
-    "Params": {}
+    "Params": "",
+    "IconPath": "Skills/Enchanter18"
   },
   {
     "ID": "A_ALL_06",
@@ -738,33 +416,8 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_ALL_07",
-    "Name": "사기 주사위",
-    "Desc": "랜덤 능력치 버프 획득",
-    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
-    "MotionType": 0,
-    "LogicClass": "SK_BuffSelf",
-    "EffectID": "None",
-    "BestClass": "ALL",
-    "SubClass": "ALL",
-    "Weight": 10,
-    "Params": {}
-  },
-  {
-    "ID": "A_ALL_08",
-    "Name": "수은장식띠",
-    "Desc": "체력 일부를 회복하고 디버프를 해제",
-    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
-    "MotionType": 0,
-    "LogicClass": "default",
-    "EffectID": "None",
-    "BestClass": "ALL",
-    "SubClass": "ALL",
-    "Weight": 10,
-    "Params": {}
+    "Params": "",
+    "IconPath": "Skills/Shaman1"
   },
   {
     "ID": "A_ALL_09",
@@ -777,7 +430,8 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "",
+    "IconPath": "Skills/Brawler1"
   },
   {
     "ID": "A_ALL_10",
@@ -790,11 +444,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "",
+    "IconPath": "Skills/Cryomancer4"
   },
   {
     "ID": "P_ALL_01",
-    "Name": "공격력 파편 I",
+    "Name": "롱소드 I",
     "Desc": "공격력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -803,11 +458,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Weapons/GrandSword/01"
   },
   {
     "ID": "P_ALL_02",
-    "Name": "공격력 파편 II",
+    "Name": "롱소드 II",
     "Desc": "공격력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -816,11 +472,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Weapons/GrandSword/04"
   },
   {
     "ID": "P_ALL_03",
-    "Name": "공격력 파편 III",
+    "Name": "롱소드 III",
     "Desc": "공격력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -829,11 +486,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Weapons/GrandSword/35"
   },
   {
     "ID": "P_ALL_04",
-    "Name": "방어력 파편 I",
+    "Name": "판금 갑옷 I",
     "Desc": "방어력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -842,11 +500,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Armour/Light_Armor/10"
   },
   {
     "ID": "P_ALL_05",
-    "Name": "방어력 파편 II",
+    "Name": "판금 갑옷 II",
     "Desc": "방어력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -855,11 +514,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Armour/Heavy_Armor/08"
   },
   {
     "ID": "P_ALL_06",
-    "Name": "방어력 파편 III",
+    "Name": "판금 갑옷 III",
     "Desc": "방어력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -868,11 +528,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Armour/Heavy_Armor/61"
   },
   {
     "ID": "P_ALL_07",
-    "Name": "마법공격력 파편 I",
+    "Name": "매직스태프 I",
     "Desc": "마법공격력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -881,11 +542,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Weapons/Magic_Staf/02"
   },
   {
     "ID": "P_ALL_08",
-    "Name": "마법공격력 파편 II",
+    "Name": "매직스태프 II",
     "Desc": "마법공격력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -894,11 +556,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Weapons/Magic_Staf/09"
   },
   {
     "ID": "P_ALL_09",
-    "Name": "마법공격력 파편 III",
+    "Name": "매직스태프 III",
     "Desc": "마법공격력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -907,11 +570,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Weapons/Magic_Staf/19"
   },
   {
     "ID": "P_ALL_10",
-    "Name": "마법방어력 파편 I",
+    "Name": "마법방어 로브 I",
     "Desc": "마법방어력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -920,11 +584,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Armour/Robes/01"
   },
   {
     "ID": "P_ALL_11",
-    "Name": "마법방어력 파편 II",
+    "Name": "마법방어 로브 II",
     "Desc": "마법방어력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -933,11 +598,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Armour/Robes/05"
   },
   {
     "ID": "P_ALL_12",
-    "Name": "마법방어력 파편 III",
+    "Name": "마법방어 로브 III",
     "Desc": "마법방어력 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -946,11 +612,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Armour/Robes/25"
   },
   {
     "ID": "P_ALL_13",
-    "Name": "공격속도 파편 I",
+    "Name": "대거 I",
     "Desc": "공격속도 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -959,11 +626,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Weapons/Dagger/11"
   },
   {
     "ID": "P_ALL_14",
-    "Name": "공격속도 파편 II",
+    "Name": "대거 II",
     "Desc": "공격속도 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -972,11 +640,12 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Weapons/Dagger/04"
   },
   {
     "ID": "P_ALL_15",
-    "Name": "공격속도 파편 III",
+    "Name": "대거 III",
     "Desc": "공격속도 +{stat} 획득",
     "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
     "MotionType": 0,
@@ -985,6 +654,189 @@
     "BestClass": "ALL",
     "SubClass": "ALL",
     "Weight": 10,
-    "Params": {}
+    "Params": "stat:0",
+    "IconPath": "Weapons/Dagger/32"
+  },
+  {
+    "ID": "P_ALL_21",
+    "Name": "수정 반지 I",
+    "Desc": "마법의 힘이 깃든 반지입니다. 시작 마나를 +{stat} 얻습니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "stat:0",
+    "IconPath": "Accessory/Rings/04"
+  },
+  {
+    "ID": "P_ALL_22",
+    "Name": "수정 반지 II",
+    "Desc": "마법의 힘이 깃든 반지입니다. 시작 마나를 +{stat} 얻습니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "stat:0",
+    "IconPath": "Accessory/Rings/03"
+  },
+  {
+    "ID": "P_ALL_23",
+    "Name": "수정 반지 III",
+    "Desc": "마법의 힘이 깃든 반지입니다. 시작 마나를 +{stat} 얻습니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "stat:0",
+    "IconPath": "Accessory/Rings/09"
+  },
+  {
+    "ID": "P_ALL_24",
+    "Name": "혈석 반지 I",
+    "Desc": "생명력이 넘쳐나는 반지입니다. 체력을 +{stat} 얻습니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "stat:0",
+    "IconPath": "Accessory/Rings/29"
+  },
+  {
+    "ID": "P_ALL_25",
+    "Name": "혈석 반지 II",
+    "Desc": "생명력이 넘쳐나는 반지입니다. 체력을 +{stat} 얻습니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "stat:0",
+    "IconPath": "Accessory/Rings/19"
+  },
+  {
+    "ID": "P_ALL_26",
+    "Name": "혈석 반지 III",
+    "Desc": "생명력이 넘쳐나는 반지입니다. 체력을 +{stat} 얻습니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "stat:0",
+    "IconPath": "Accessory/Rings/30"
+  },
+  {
+    "ID": "P_ALL_27",
+    "Name": "회복 포션",
+    "Desc": "체력이 절반 이하가 되면 최대체력의 {rate}%를 회복합니다. 이 효과는 전투마다 한 번만 발동합니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "rate:0",
+    "IconPath": "Adventure/Potions/47"
+  },
+  {
+    "ID": "P_ALL_28",
+    "Name": "수상한 포션",
+    "Desc": "체력이 절반 이하가 되면 무언가 일어납니다. 이 효과는 전투마다 한 번만 발동합니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "",
+    "IconPath": "Adventure/Potions/32"
+  },
+  {
+    "ID": "P_ALL_29",
+    "Name": "마나충전 포션",
+    "Desc": "체력이 절반 이하가 되면 마나를 +{gen} 회복합니다. 이 효과는 전투마다 한 번만 발동합니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "gen:0",
+    "IconPath": "Adventure/Potions/09"
+  },
+  {
+    "ID": "P_ALL_30",
+    "Name": "횃불",
+    "Desc": "공격 시 불꽃이 묻어나 {rate}% 확률로 적을 화상에 입힙니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 10,
+    "Params": "rate:0",
+    "IconPath": "Adventure/Tools/11"
+  },
+  {
+    "ID": "P_ALL_31",
+    "Name": "맛있는 버섯",
+    "Desc": "왕실 보급품에 있던 버섯입니다. 향긋한 흙냄새가 납니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 0,
+    "Params": "",
+    "IconPath": "Crafting/Mushrooms/07"
+  },
+  {
+    "ID": "P_ALL_32",
+    "Name": "빨간 버섯",
+    "Desc": "먹으면 중독 상태에 걸리는 것으로 알려진 버섯입니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 0,
+    "Params": "",
+    "IconPath": "Crafting/Mushrooms/17"
+  },
+  {
+    "ID": "P_ALL_33",
+    "Name": "파란 버섯",
+    "Desc": "먹으면 광기 상태에 걸리는 것으로 알려진 버섯입니다.",
+    "TargetClass": "Babarian/Knight/Rogue/Ranger/Mage",
+    "MotionType": 0,
+    "LogicClass": "SK_Item",
+    "EffectID": "None",
+    "BestClass": "ALL",
+    "SubClass": "ALL",
+    "Weight": 0,
+    "Params": "",
+    "IconPath": "Crafting/Mushrooms/15"
   }
 ]

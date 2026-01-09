@@ -73,7 +73,7 @@ public class DragManager : MonoBehaviour
 
     public void SetGhost(string skillID)
     {
-        Debug.Log("SetGhost");
+        //Debug.Log("SetGhost");
         curSkillId = skillID;
 
         SkillData data = InventoryManager.inst.GetSkillData(curSkillId);

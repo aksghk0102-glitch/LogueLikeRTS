@@ -45,19 +45,19 @@ public class SkillSlotUI : MonoBehaviour
     public void OnPointerEnter(PointerEventData eventData)
     {
         // 스킬 설명 툴팁 출력
-        Debug.Log("스킬 설명 툴팁 On");
+        //Debug.Log("스킬 설명 툴팁 On");
     }
 
     // 마우스가 벗어났을 때 호출
     public void OnPointerExit(PointerEventData eventData)
     {
         // 스킬 설명 툴팁 닫기
-        Debug.Log("스킬 설명 툴팁 Off");
+        //Debug.Log("스킬 설명 툴팁 Off");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log(curSkillID);
+        //Debug.Log(curSkillID);
         if (string.IsNullOrEmpty(curSkillID))
             return;
 

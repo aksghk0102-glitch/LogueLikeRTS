@@ -38,7 +38,7 @@ public class SkillDataImporter
             // 아이콘 데이터 파싱
             if (!string.IsNullOrEmpty(skill.IconPath))
             {
-                string path = "Assets/Resources/Icon/" + skill.IconPath + ".png";
+                string path = "Assets/Resources/Icons/" + skill.IconPath + ".png";
                 Sprite iconSprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
 
                 if (iconSprite != null)

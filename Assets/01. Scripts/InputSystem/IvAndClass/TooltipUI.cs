@@ -23,7 +23,7 @@ public class TooltipUI : MonoBehaviour
         nameText.text = data.Name;
 
         string finalDesc = data.Desc;
-        foreach(var p in data.Params)
+        foreach(var p in data.ParamsDic)
         {
             finalDesc = finalDesc
                 .Replace("{" + p.Key + "}", p.Value.ToString());
