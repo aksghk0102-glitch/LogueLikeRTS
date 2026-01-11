@@ -35,13 +35,22 @@ public class ClassInfoUI : MonoBehaviour
         // 장비 상태 관리자에서 정보 받아오기
         UnitSkillSet data = EquipManager.inst.GetUnitSkillSet(curType);
 
-        Debug.Log($"[ClassInfoUI] Refreshing {curType}. Active: {data.ActiveID}, Passives: {string.Join(", ", data.PassiveID)}");
+        //Debug.Log($"[ClassInfoUI] Refreshing {curType}. Active: {data.ActiveID}, Passives: {string.Join(", ", data.PassiveID)}");
 
-        // 스킬 표시
-        activeSlotImg.SetVisual(InventoryManager.inst.GetSkillData(data.ActiveID));
+        // 액티브 스킬 표시 및 툴팁 갱신
+        SkillData active = InventoryManager.inst.GetSkillData(data.ActiveID);
+        activeSlotImg.SetVisual(active);
+        if (activeSlotImg.TryGetComponent(out TooltipTrigger aTrigger))
+            aTrigger.SetData(active);
 
         for (int i = 0; i < passiveSlotImg.Length; i++)
-            passiveSlotImg[i].SetVisual(InventoryManager.inst.GetSkillData(data.PassiveID[i]));
+        {
+            SkillData passive = InventoryManager.inst.GetSkillData(data.PassiveID[i]);
+            passiveSlotImg[i].SetVisual(passive);
+
+            if (passiveSlotImg[i].TryGetComponent(out TooltipTrigger pTrigger))
+                pTrigger.SetData(passive);
+        }
     }
 
 

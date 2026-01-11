@@ -93,10 +93,14 @@ public class BuildManager : MonoBehaviour
             curTargetSlot.CanBuild(UnitFaction.Player))
         {
             // 코스트 검사
-            if (GameManager.inst.SpendCost(2))
+            if (GameManager.inst.SpendCost(5))
             {
                 ghost.UpdateGhost(curTargetSlot.GetPosition(), true);
                 UIStateManager.inst.ShowBuildPopUp();
+            }
+            else
+            {
+                CancleBuild();
             }
         }
         else

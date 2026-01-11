@@ -42,9 +42,6 @@ public class Mine : MonoBehaviour
         if (curFaction != UnitFaction.Neutral)
             mainCoroutine = StartCoroutine(ProduceGold());
 
-        if (ObjectManager.Inst != null)
-            ObjectManager.Inst.RegistMine(this);
-
         CapsuleCollider cc = GetComponent<CapsuleCollider>();
         if (cc != null)
             radius = cc.radius;

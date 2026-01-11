@@ -89,8 +89,6 @@ public class SkillSlotUI : MonoBehaviour
         }
         else
             visual.Init();
-
-
     }
  
     // ITooltipHandler

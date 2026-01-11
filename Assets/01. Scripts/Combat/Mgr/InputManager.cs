@@ -82,14 +82,14 @@ public class InputManager : MonoBehaviour
     {
         targetBiliding = building;
         if (targetBiliding is Barracks barracks)
-            barrackUI.OpenUI(barracks);
+            UIStateManager.inst.OpenBarrackUI(barracks);
         else
-            barrackUI.CloseUI();
+            UIStateManager.inst.CloseBarrackUI();
     }
 
     public void Deselect()
     {
         targetBiliding = null;
-        barrackUI.CloseUI();
+        UIStateManager.inst.CloseBarrackUI();
     }
 }

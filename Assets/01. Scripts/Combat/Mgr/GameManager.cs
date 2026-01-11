@@ -1,6 +1,7 @@
 using UnityEngine;
-using System;
-using System.Collections;
+using TMPro;
+using System.Linq;
+using System.Collections.Generic;
 
 // 게임의 상태와 흐름을 관리합니다.
 
@@ -23,7 +24,11 @@ public class GameManager : MonoBehaviour
     public GamePhase curPhase;
     int curCost;
 
+    public int TurnCount => turnCount;
     public int CurCost => curCost;
+
+    //temp
+    public TextMeshProUGUI text;
 
     void Awake()
     {
@@ -38,10 +43,12 @@ public class GameManager : MonoBehaviour
         // 턴 초기화 및 준비 단계로 설정
         turnCount = 1;
         SetPhase(GamePhase.Ready);
+
+        
     }
 
     // 상태를 전환하고 각 페이즈 별 알맞은 함수를 호출
-    void SetPhase(GamePhase targetPhase)
+    public void SetPhase(GamePhase targetPhase)
     {
         curPhase = targetPhase;
 
@@ -74,6 +81,20 @@ public class GameManager : MonoBehaviour
 
     void EnterBattlePhase()
     {
+        // 1. 모든 진영의 배럭 리스트를 안전하게 가져옴
+        List<Barracks> targetBarracks = ObjectManager.Inst.GetAllBarracks();
+
+        // 2. 수집된 복사본 리스트를 순회하므로, 
+        // 내부에서 RegistObject가 발생해도 루프에 영향을 주지 않음
+        foreach (var barracks in targetBarracks)
+        {
+            if (barracks != null)
+            {
+                barracks.SpawnUnit();
+            }
+        }
+
+        // 전투 통계 표시를 위한 감시자 작동하게 해야 함
 
     }
 
@@ -93,7 +114,8 @@ public class GameManager : MonoBehaviour
     {
         curCost += amount;
 
-        // UI 업데이트
+        // UI 업데이트 : 임시
+        text.text = curCost.ToString();
     }
 
     const string tarinai = "코스트가 부족합니다.";
@@ -102,6 +124,9 @@ public class GameManager : MonoBehaviour
         if (curCost >= amount)
         {
             curCost -= amount;
+
+            // UI 업데이트 : 임시
+            text.text = curCost.ToString();
             return true;
         }
 

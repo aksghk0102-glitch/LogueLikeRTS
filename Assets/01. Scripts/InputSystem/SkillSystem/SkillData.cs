@@ -28,10 +28,24 @@ public class SkillData
     public int Weight;
     // 가변 파라미터 (문자열을 딕셔너리로 변환하여 사용)
     public string Params = "";
-    public Dictionary<string, float> ParamsDic = new Dictionary<string, float>();
+    Dictionary<string, float> _paramsDic = new Dictionary<string, float>();
+    public Dictionary<string, float> ParamsDic
+    {
+        get
+        {
+            // Dictionary는 직렬화를 지원하지 않음...
+            // 데이터가 소실된 경우 복구
+            if ((_paramsDic == null || _paramsDic.Count == 0) &&
+                !string.IsNullOrWhiteSpace(Params))
+                ParseData();
+            return _paramsDic;
+        }
+    }
 
     public string IconPath;     // Json에 지정된 아이콘 경로
     public Sprite Icon;         // 실제 스프라이트를 할당하는 곳
+
+
 
     public void ParseData()
     {
@@ -78,9 +92,9 @@ public class SkillData
     void ParseParams()
     {
         // 스킬 마다 서로 다른 가변값을 파싱
-        if (ParamsDic == null)
-            ParamsDic = new Dictionary<string, float>();
-        ParamsDic.Clear();
+        if (_paramsDic == null)
+            _paramsDic = new Dictionary<string, float>();
+        _paramsDic.Clear();
 
         // 널 참조 시 리턴
         if (string.IsNullOrWhiteSpace(Params))
@@ -97,7 +111,7 @@ public class SkillData
             {
                 string key = kv[0].Trim();
                 if (float.TryParse(kv[1].Trim(), out float val))
-                    ParamsDic[key] = val;
+                    _paramsDic[key] = val;
             }
         }
     }

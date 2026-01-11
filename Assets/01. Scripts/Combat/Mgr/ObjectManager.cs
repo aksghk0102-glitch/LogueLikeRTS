@@ -27,7 +27,10 @@ public class ObjectManager : MonoBehaviour
     public void RegistObject(IDamageable unit)
     {
         if (!allObjects[unit.Faction].Contains(unit))
+        {
             allObjects[unit.Faction].Add(unit);
+            Debug.Log(unit.Faction +" " + unit);
+        }
     }
     public void UnregistObject(IDamageable unit)
     {
@@ -63,18 +66,21 @@ public class ObjectManager : MonoBehaviour
         return null;
     }
 
-    #region Mine
-
-    public void RegistMine(Mine mine)
+    public List<Barracks> GetAllBarracks()
     {
-        if (!allMines.Contains(mine))
-            allMines.Add(mine);
-    }
+        List<Barracks> barracksList = new List<Barracks>();
 
-    public List<Mine> GetMineList()
-    {
-        return allMines;
+        foreach (var factionList in allObjects.Values)
+        {
+            // 리스트 순회 중 변형 에러 방지를 위해 단순 for문 사용
+            for (int i = 0; i < factionList.Count; i++)
+            {
+                if (factionList[i] is Barracks barracks)
+                {
+                    barracksList.Add(barracks);
+                }
+            }
+        }
+        return barracksList;
     }
-
-    #endregion
 }

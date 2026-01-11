@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 // 모든 UI를 총괄하는 중계자.
@@ -37,12 +38,28 @@ public class UIStateManager : MonoBehaviour
     [Header("PopUp")]
     [SerializeField] GameObject buildPopUp;
 
+    [Header("Barraks UI")]
+    public BarrackUI barrackUI;
+    public GameObject classSlotUI;      // 배럭 UI와 같은 자리에 있음. 맞물리게 켜고 끌 것.
+
+
+    [Header("Start Btn")]
+    public Button startBtn;
+
     private void Awake()
     {
         if (inst == null)
             inst = this;
         else
             Destroy(gameObject);
+
+        if (startBtn != null)
+            startBtn.onClick.AddListener(() =>
+            {
+                Debug.Log("전투 시작");
+                if(GameManager.inst.curPhase == GamePhase.Ready)
+                    GameManager.inst.SetPhase(GamePhase.Battle);
+            });
     }
 
     void Start()
@@ -112,6 +129,19 @@ public class UIStateManager : MonoBehaviour
             });
     }
 
+    public void OpenBarrackUI(Barracks target)
+    {
+        if (barrackUI == null) return;
+
+        barrackUI.SetUp(target);
+        classSlotUI.SetActive(false);
+    }
+    public void CloseBarrackUI()
+    {
+        if (barrackUI == null) return;
+        barrackUI.Close();
+        classSlotUI.SetActive(true);
+    }
 
     // Update is called once per frame
     void Update()

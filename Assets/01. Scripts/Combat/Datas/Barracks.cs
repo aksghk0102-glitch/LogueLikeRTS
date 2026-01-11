@@ -2,83 +2,127 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+//[RequireComponent(typeof(LineRenderer))]
 public class Barracks : Building
 {
     [Header("Barracks Settings")]
     [SerializeField] UnitClassType unitType;
     public UnitClassType UnitType => unitType;
+    [SerializeField] Transform spawnPoint;      // 첫 스폰 위치
 
-    [Header("Infomations")]
-    [SerializeField] float spawnTime = 15f; // 유닛 생성 시간
-    [SerializeField] int maxQueueCount = 5; // 최대 대기열 수
-    [SerializeField] Transform spawnPoint;  // 스폰 위치
+    [Header("State")]
+    [SerializeField] int curLevel = 1;
+    [SerializeField] Vector3 rallyPoint;        // 스폰 후 이동할 목표 지점
+    [SerializeField] float lineYOffset = 0.5f;
 
-    int curQueueCount = 0;      // 예약된 유닛 수 > 굳이 Queue가 필요 없는 듯
-    float curProgress = 0.0f;   // 현재 유닛 진행도
-    bool isSpawn = false;       // 유닛이 생성 중인지
+    public int CurLevel => curLevel;
+    public Vector3 RallyPoint => rallyPoint;
 
-    [Header("UI")]
-    [SerializeField] Image fillGague;
+    LineRenderer line;
 
-    public float Cost => 100f;      // 임시 수치
-    // 외부에서 요청
-    public bool RequestSpawnUnit()
+    public int Cost => 5;
+
+    protected override void Awake()
     {
-        if (curQueueCount >= maxQueueCount)
-        {
-            // 안내 메세지 하나 출력
-            return false;
-        }
+        base.Awake();
 
-        curQueueCount++;
+        //line = GetComponent<LineRenderer>();
 
-        if (!isSpawn)
-        {
-            isSpawn = true;
-            curProgress = 0f;
-        }
-        return true;
+        // 초기 랠리 포인트 설정 (Y축 보정 포함)
+        Vector3 defaultPos = spawnPoint.position + transform.forward * 2f;
+        defaultPos.y += lineYOffset;
+        rallyPoint = defaultPos;
+
+        //line.enabled = false;
+        UpdateRallyLine();
     }
 
-    private void Update()
+    public void Start()
     {
-        if (!isSpawn)
+        ObjectManager.Inst.RegistObject(this);
+    }
+
+    public override void Init(UnitFaction a_Faction)
+    {
+        base.Init(a_Faction);
+    }
+
+
+
+    // 라운드 시작 시 유닛 1기 생산
+    public void SpawnUnit()
+    {
+        if (UnitFactory.inst == null)
             return;
 
-        UpdateSpawn(Time.deltaTime) ;
+        Entity spawnUnit = UnitFactory.inst.CreateUnit(unitType, spawnPoint.position, Faction); ;
+
+        if (ObjectManager.Inst != null)
+            ObjectManager.Inst.RegistObject(spawnUnit);
+
+        // 랠리 포인트 지정해주기
     }
 
-    void UpdateSpawn(float deltaTime)
+    public void Upgrade()
     {
-        curProgress += deltaTime;
+        int upgradeCost = 5;
 
-        if(curProgress >= spawnTime)
+        // 팝업을 띄우는 걸로 바꾸면 좋을 듯 
+
+        if (GameManager.inst.SpendCost(upgradeCost))
         {
-            SpawnUnit();
-            curQueueCount--;
-
-            if (curQueueCount > 0)
-                curProgress = 0f;
-            else
-            {
-                isSpawn = false;
-                curProgress = 0f;
-            }
+            curLevel++;
+            // 레벨업에 따른 스탯 상승 로직 추가
         }
     }
 
-    void SpawnUnit()
+    // 판매
+    public void Sell()
     {
-        if(UnitFactory.inst != null)
-        {
-            Entity spawnUnit = UnitFactory.inst.CreateUnit(unitType,
-                spawnPoint.position, Faction);
-
-            if (ObjectManager.Inst != null)
-                ObjectManager.Inst.RegistObject(spawnUnit);
-        }
+        GameManager.inst.AddCost(2);
+        OnDie();
     }
 
-    public int GetQueueCount() => curQueueCount;
-    public float GetProgressGague() => Mathf.Clamp01(curProgress / spawnTime);
+    // 랠리 포인트 시각화 업데이트
+    public void UpdateRallyLine()
+    {
+        if (line == null) return;
+
+        // 라인의 시작점은 스폰 위치, 끝점은 랠리 포인트
+        line.positionCount = 2;
+
+        // 시작점과 끝점 모두 설정된 Offset만큼 Y축을 띄움
+        Vector3 startPos = spawnPoint.position;
+        startPos.y += lineYOffset;
+
+        Vector3 endPos = rallyPoint;
+        endPos.y += lineYOffset;
+
+        line.SetPosition(0, startPos);
+        line.SetPosition(1, endPos);
+    }
+
+    public void SetRallyPoint(Vector3 newPoint)
+    {
+        rallyPoint = newPoint;
+        // 비주얼 라인 업데이트
+        if(line.enabled)
+            UpdateRallyLine();
+    }
+
+    public void RallyOn()
+    {
+        //line.enabled = true;
+        UpdateRallyLine();
+    }
+
+    public void RallyOff()
+    {
+        //line.enabled = false;
+    }
+
+    public void OnClickBarrack()
+    {
+        // 배럭 클릭 시 UI 호출
+    }
 }

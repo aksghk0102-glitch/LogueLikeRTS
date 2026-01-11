@@ -223,27 +223,27 @@ public class Entity : MonoBehaviour,
 
     protected virtual void SeachMine()
     {
-        var mines = ObjectManager.Inst.GetMineList();
-        if (mines == null || mines.Count == 0) return;
-
-        float sight = GetFinalStats().sight;
-        Mine closest = null;
-        float minDist = sight;
-
-        foreach (var mine in mines)
-        {
-            if (mine.curFaction == this.Faction)
-                continue;
-
-            float dist = Vector3.Distance(transform.position,
-                mine.transform.position);
-            if(dist <= sight && dist < minDist)
-            {
-                minDist = dist;
-                closest = mine;
-            }
-        }
-        curTargetMine = closest;
+        //ar mines = ObjectManager.Inst.GetMineList();
+        //f (mines == null || mines.Count == 0) return;
+        //
+        //loat sight = GetFinalStats().sight;
+        //ine closest = null;
+        //loat minDist = sight;
+        //
+        //oreach (var mine in mines)
+        //
+        //   if (mine.curFaction == this.Faction)
+        //       continue;
+        //
+        //   float dist = Vector3.Distance(transform.position,
+        //       mine.transform.position);
+        //   if(dist <= sight && dist < minDist)
+        //   {
+        //       minDist = dist;
+        //       closest = mine;
+        //   }
+        //
+        //urTargetMine = closest;
     }
 
     void ExcuteOccupy(float deltaTime)

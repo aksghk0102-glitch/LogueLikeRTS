@@ -52,7 +52,6 @@ public abstract class Building : MonoBehaviour, IDamageable
         OnDestroy?.Invoke();
         OnDestroy = null;
 
-        // 풀링 들어가면 수정
         Destroy(gameObject);
     }
 
