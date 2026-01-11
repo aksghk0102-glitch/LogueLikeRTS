@@ -40,13 +40,28 @@ public class DragManager : MonoBehaviour
 
         foreach(var result in results)
         {
+            Debug.Log(result.gameObject.name);
+
             // 클래스 슬롯에 드랍하는 경우
             ClassSlotUI targetClassSlot = result.gameObject
                 .GetComponentInParent<ClassSlotUI>();
             if(targetClassSlot != null)
             {
                 SkillData data = InventoryManager.inst.GetSkillData(curSkillId);
+                //Debug.Log(data.Name);
                 EquipManager.inst.EquipSkill(targetClassSlot.classType, data);
+                isDropped = true;
+                break;
+            }
+
+            // 클래스 정보 판넬에 직접 드랍
+            ClassInfoUI targetInfoUI = result.gameObject
+                .GetComponentInParent<ClassInfoUI>();
+            if (targetInfoUI != null)
+            {
+                SkillData data = InventoryManager.inst.GetSkillData(curSkillId);
+                //Debug.Log(data.Name);
+                EquipManager.inst.EquipSkill(targetInfoUI.curType, data);
                 isDropped = true;
                 break;
             }
@@ -56,6 +71,7 @@ public class DragManager : MonoBehaviour
                 .GetComponentInParent<SkillSlotUI>();
             if(targetIvSlot != null && targetIvSlot.SlotIndex != index)
             {
+                //Debug.Log("스킬 슬롯에 드롭됨");
                 InventoryManager.inst.SwapSlot(index, targetIvSlot.SlotIndex);
                 isDropped = true;
                 break;
@@ -64,11 +80,14 @@ public class DragManager : MonoBehaviour
 
         if (!isDropped)
         {
-            Debug.Log("유효 하지 않은 위치에 드롭되었습니다.");
+            //InfoMassage.inst.ShowMessage();
         }
 
         // 드랍이 끝나면 고스트 숨기기
         HideGhost();
+
+        // 인벤토리 갱신
+        InventoryUI.inst.UpdateInventory();
     }
 
     public void SetGhost(string skillID)

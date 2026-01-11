@@ -1,6 +1,9 @@
 using UnityEngine;
 using DG.Tweening;
 
+// 모든 UI를 총괄하는 중계자.
+// 각종 판넬, 팝업, 툴팁 등 이 매니저를 통해 On/Off 관리
+
 public class UIStateManager : MonoBehaviour
 {
     public static UIStateManager inst;
@@ -15,15 +18,31 @@ public class UIStateManager : MonoBehaviour
     bool isTween = false;                       // 연출 중복 실행 방지
 
     [Header("State")]
-    public bool isInvenOpen = false;
+    bool isInvenOpen = false;
+    bool isPopUpOpen = false;
+    public bool IsInvenOpen => isInvenOpen;
+    public bool IsPopUpOpen => isPopUpOpen;
+
     Vector2 center = Vector2.zero;
+
+    [Header("Panels")]
+    [SerializeField] ClassInfoUI classInfoUI;     // 클래스 별 정보 판넬
+    // 추가할 사항
+    // 퍼즈 시 메뉴
+    // 결과 창
+
+    [Header("ToolTips")]
+    public TooltipUI tooltipUI;         // 마우스 호버로 따라다니는 스킬 툴팁 
+
+    [Header("PopUp")]
+    [SerializeField] GameObject buildPopUp;
 
     private void Awake()
     {
         if (inst == null)
             inst = this;
         else
-            Destroy(this);
+            Destroy(gameObject);
     }
 
     void Start()
@@ -39,9 +58,67 @@ public class UIStateManager : MonoBehaviour
         iv_Rect.localScale = Vector3.zero;
     }
 
+    public void ShowClassInfo(UnitClassType type)
+    {
+        if (classInfoUI == null) return;
+
+        classInfoUI.gameObject.SetActive(true);
+        classInfoUI.Open(type);
+    }
+    public void ClickClassInfo(UnitClassType type)
+    {
+        if (classInfoUI == null) return;
+
+        if (classInfoUI.gameObject.activeSelf)
+            classInfoUI.Exit();
+        else
+            ShowClassInfo(type);
+    }
+
+    public void ShowBuildPopUp()
+    {
+        if (IsPopUpOpen)
+            return;
+
+        isPopUpOpen = true;
+
+        // 딤 패널 활성화
+        dim_CanvasGroup.blocksRaycasts = true;
+        dim_CanvasGroup.DOFade(0.8f, duration);
+
+        // 팝업 연출
+        buildPopUp.SetActive(true);
+        buildPopUp.transform.localPosition = Vector3.zero;
+        buildPopUp.transform.DOScale(Vector3.one, duration)
+            .SetEase(Ease.OutBack);
+    }
+    public void CloseBuildPopUp()
+    {
+        if (!IsPopUpOpen)
+            return;
+
+        buildPopUp.transform.DOScale(Vector3.zero, duration)
+            .SetEase(Ease.InBack)
+            .OnComplete(() =>
+            {
+                buildPopUp.SetActive(false);
+                isPopUpOpen = false;
+
+                if (!IsInvenOpen)
+                {
+                    dim_CanvasGroup.blocksRaycasts = false;
+                    dim_CanvasGroup.DOFade(0f, duration);
+                }
+            });
+    }
+
+
     // Update is called once per frame
     void Update()
     {
+        if (isTween || IsPopUpOpen)
+            return;
+
         if( (Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab) )
             && !isTween)
         {
@@ -55,8 +132,12 @@ public class UIStateManager : MonoBehaviour
         if (!isTween)
             ToggleInventory();
     }
+
     public void ToggleInventory()
     {
+        if (IsPopUpOpen)
+            return;
+
         isInvenOpen = !isInvenOpen;
         isTween = true;
 

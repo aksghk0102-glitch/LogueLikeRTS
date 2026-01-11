@@ -4,6 +4,7 @@ using TMPro;
 
 // 배럭의 정보를 보여주는 기능 UI
 // 매니저 모음 집 내 UI CTRL에 있음
+// => 폐기... 할듯
 
 public class BarrackUI : MonoBehaviour
 {

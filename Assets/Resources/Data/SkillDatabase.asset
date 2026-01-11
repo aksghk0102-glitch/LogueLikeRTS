@@ -18,14 +18,17 @@ MonoBehaviour:
     Desc: "\uC801\uC744 \uAC15\uD0C0\uD569\uB2C8\uB2E4. \uACF5\uACA9\uB825\xD7{dmg}\uC758
       \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD788\uACE0 {stun}\uCD08 \uAC04 \uAE30\uC808\uC2DC\uD0B5\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian
+    TargetClassList:
+    - Babarian
+    TargetClassList_enum: 00000000
     MotionType: 2
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Babarian
     SubClass: Babarian
     Weight: 30
+    Params: dmg:0
     IconPath: Skills/Barbarian20
     Icon: {fileID: 21300000, guid: c890dd06d4a350946ab11e4778bf47d8, type: 3}
   - ID: A_BB_03
@@ -33,14 +36,17 @@ MonoBehaviour:
     Desc: "\uBD84\uB178\uB97C \uC2E4\uC740 \uBC1C\uCC28\uAE30\uB85C \uC801\uC5D0\uAC8C
       \uACF5\uACA9\uB825\xD7{dmg}\uC758 \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian
+    TargetClassList:
+    - Babarian
+    TargetClassList_enum: 00000000
     MotionType: 3
     LogicClass: SK_BuffSelf
     EffectID: None
     BestClass: Babarian
     SubClass: Babarian
     Weight: 60
+    Params: dmg:0
     IconPath: Skills/Brawler18
     Icon: {fileID: 21300000, guid: 486b2266df826c64aa069d45b8c53485, type: 3}
   - ID: A_BB_05
@@ -48,14 +54,17 @@ MonoBehaviour:
     Desc: "\uC8FC\uBCC0 \uC801\uC744 \uBB34\uCC28\uBCC4\uD558\uAC8C \uACF5\uACA9\uD569\uB2C8\uB2E4.
       \uACF5\uACA9\uB825\xD7{dmg}\uC758 \uD53C\uD574\uB97C 3\uCD08\uAC04 \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian
+    TargetClassList:
+    - Babarian
+    TargetClassList_enum: 00000000
     MotionType: 2
     LogicClass: SK_HitArea
     EffectID: None
     BestClass: Babarian
     SubClass: Babarian
     Weight: 90
+    Params: dmg:0
     IconPath: Skills/BeastMaster4
     Icon: {fileID: 21300000, guid: 030d61925e2f98f4d86e171153ec39e1, type: 3}
   - ID: A_BB_06
@@ -65,14 +74,17 @@ MonoBehaviour:
       \uACF5\uACA9 \uC18D\uB3C4 {attSpeed}%, \uC0DD\uBA85\uB825 \uD761\uC218 {lifeSteal}%\uB97C
       \uC5BB\uC2B5\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian
+    TargetClassList:
+    - Babarian
+    TargetClassList_enum: 00000000
     MotionType: 4
     LogicClass: SK_BuffSelf
     EffectID: None
     BestClass: Babarian
     SubClass: Babarian
     Weight: 90
+    Params: att:0
     IconPath: Skills/DemonHunter20
     Icon: {fileID: 21300000, guid: 0158b10a165dc4440bcf1e4bdd96c7c2, type: 3}
   - ID: A_KN_01
@@ -80,14 +92,17 @@ MonoBehaviour:
     Desc: "\uACF5\uACA9 \uB300\uC0C1\uC744 \uBC29\uD328\uB85C \uD0C0\uACA9\uD574
       \uBC29\uC5B4\uB825\xD7{def}\uC758 \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Knight
+    TargetClassList:
+    - Knight
+    TargetClassList_enum: 01000000
     MotionType: 3
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Knight
     SubClass: Knight
     Weight: 30
+    Params: def:0
     IconPath: Skills/Deathknight14
     Icon: {fileID: 21300000, guid: 917871e5c6d34ed4b93dfafad1277db5, type: 3}
   - ID: A_KN_03
@@ -95,14 +110,17 @@ MonoBehaviour:
     Desc: "\uACF5\uACA9 \uB300\uC0C1\uC744 \uAC15\uD0C0\uD569\uB2C8\uB2E4. \uACF5\uACA9\uB825\xD7{att},
       \uBC29\uC5B4\uB825\xD7{def}\uC758 \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Knight
+    TargetClassList:
+    - Knight
+    TargetClassList_enum: 01000000
     MotionType: 2
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Knight
     SubClass: Knight
     Weight: 60
+    Params: att:0
     IconPath: Skills/Medium15
     Icon: {fileID: 21300000, guid: c0c621637e6ca054cb6f00c56255ade7, type: 3}
   - ID: A_KN_05
@@ -111,14 +129,17 @@ MonoBehaviour:
       \uACF5\uACA9\uB825\xD7{att}, \uBC29\uC5B4\uB825\xD7{def}\uC758 \uACE0\uC815
       \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Knight
+    TargetClassList:
+    - Knight
+    TargetClassList_enum: 01000000
     MotionType: 0
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Knight
     SubClass: Knight
     Weight: 90
+    Params: att:0
     IconPath: Skills/Paladin10
     Icon: {fileID: 21300000, guid: b11f9c52da2945740b5078d84177a9ab, type: 3}
   - ID: P_KN_06
@@ -127,14 +148,17 @@ MonoBehaviour:
       \uC624\uC624\uB77C\uB294 \uBC29\uC5B4\uB825+{def}, \uB9C8\uBC95 \uBC29\uC5B4\uB825+{res}\uACFC
       \uCD08\uB2F9 \uCCB4\uB825 \uC7AC\uC0DD+{hpRegen}\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Knight
+    TargetClassList:
+    - Knight
+    TargetClassList_enum: 01000000
     MotionType: 2
     LogicClass: SK_Item
     EffectID: None
     BestClass: Knight
     SubClass: Knight
     Weight: 90
+    Params: def:0
     IconPath: Skills/Paladin14
     Icon: {fileID: 21300000, guid: c46d83f2b73aaa141bd5015819342d81, type: 3}
   - ID: A_RO_01
@@ -142,14 +166,17 @@ MonoBehaviour:
     Desc: "\uB2E8\uAC80\uC744 \uD718\uB458\uB7EC \uACF5\uACA9\uB825\xD7{dmg}\uC758
       \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Rogue
+    TargetClassList:
+    - Rogue
+    TargetClassList_enum: 02000000
     MotionType: 2
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Rogue
     SubClass: Rogue
     Weight: 30
+    Params: dmg:0
     IconPath: Skills/Rogue11
     Icon: {fileID: 21300000, guid: d63a084665d4cd9408a975c6fad08444, type: 3}
   - ID: A_RO_02
@@ -157,14 +184,17 @@ MonoBehaviour:
     Desc: "\uACF5\uACA9 \uB300\uC0C1\uC5D0\uAC8C \uCD5C\uB8E8\uD0C4\uC744 \uB358\uC9D1\uB2C8\uB2E4.
       \uCD5C\uB8E8\uD0C4\uC5D0 \uB9DE\uC740 \uC801\uC740 {stun}\uCD08\uAC04 \uAE30\uC808\uD569\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Rogue
+    TargetClassList:
+    - Rogue
+    TargetClassList_enum: 02000000
     MotionType: 3
     LogicClass: SK_Spawn
     EffectID: None
     BestClass: Rogue
     SubClass: Rogue
     Weight: 30
+    Params: stun:0
     IconPath: Skills/Druid9
     Icon: {fileID: 21300000, guid: 824a48daf7b55394e80e1df5048db839, type: 3}
   - ID: A_RO_03
@@ -173,14 +203,17 @@ MonoBehaviour:
       \uACF5\uACA9\uD569\uB2C8\uB2E4. \uC801\uC740 {durTime}\uCD08 \uAC04 \uCD9C\uD608,
       \uC911\uB3C5, \uC57D\uC810 \uB178\uCD9C \uC0C1\uD0DC\uC5D0 \uAC78\uB9BD\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Rogue
+    TargetClassList:
+    - Rogue
+    TargetClassList_enum: 02000000
     MotionType: 2
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Rogue
     SubClass: Rogue
     Weight: 60
+    Params: durTime:0
     IconPath: Skills/Rogue3
     Icon: {fileID: 21300000, guid: 8f0061673a4e01d4ab859199fcf92500, type: 3}
   - ID: A_RO_05
@@ -188,14 +221,17 @@ MonoBehaviour:
     Desc: "\uC2DC\uC57C \uB0B4 \uAC00\uC7A5 \uBA3C \uC801\uC758 \uB4A4\uB85C \uC774\uB3D9\uD55C
       \uB4A4 \uACF5\uACA9\uB825\xD7{dmg}\uC758 \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Rogue
+    TargetClassList:
+    - Rogue
+    TargetClassList_enum: 02000000
     MotionType: 2
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Rogue
     SubClass: Rogue
     Weight: 90
+    Params: dmg:0
     IconPath: Skills/Guardian20
     Icon: {fileID: 21300000, guid: b066c869b51f9384fa8ac9cce36b4648, type: 3}
   - ID: A_RA_01
@@ -205,14 +241,17 @@ MonoBehaviour:
       \uB4A4, \uD295\uAE34 \uB300\uC0C1\uC5D0 \uACF5\uACA9\uB825\xD7{dmg_2}\uC758
       \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Ranger
+    TargetClassList:
+    - Ranger
+    TargetClassList_enum: 03000000
     MotionType: 1
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Ranger
     SubClass: Ranger
     Weight: 30
+    Params: dmg_1:0
     IconPath: Skills/Ranger7
     Icon: {fileID: 21300000, guid: 4eaef2d83f38f6548b999219460444e7, type: 3}
   - ID: A_RA_03
@@ -221,14 +260,17 @@ MonoBehaviour:
       \uAC01 \uD654\uC0B4\uC740 \uACF5\uACA9\uB825\uC758 \xD7{dmg}\uC758 \uBB3C\uB9AC
       \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Ranger
+    TargetClassList:
+    - Ranger
+    TargetClassList_enum: 03000000
     MotionType: 1
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Ranger
     SubClass: Ranger
     Weight: 60
+    Params: dmg:0
     IconPath: Skills/Hunter10
     Icon: {fileID: 21300000, guid: 0b5f4c261a9beba4f9d6caf2f7458e1b, type: 3}
   - ID: A_RA_04
@@ -237,14 +279,17 @@ MonoBehaviour:
       \uACF5\uACA9 \uB300\uC0C1 \uC8FC\uBCC0\uC5D0 \uACF5\uACA9\uB825 \xD7{dmg}\uC758
       \uBB3C\uB9AC \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Ranger
+    TargetClassList:
+    - Ranger
+    TargetClassList_enum: 03000000
     MotionType: 2
     LogicClass: SK_Spawn
     EffectID: None
     BestClass: Ranger
     SubClass: Ranger
     Weight: 60
+    Params: dmg:0
     IconPath: Skills/Hunter1
     Icon: {fileID: 21300000, guid: 66f68359a95793544855af2c489adbaf, type: 3}
   - ID: A_RA_05
@@ -252,14 +297,17 @@ MonoBehaviour:
     Desc: "10\uCD08 \uB3D9\uC548 \uCE58\uBA85\uD0C0 \uD655\uB960 +{criRate}%, \uCE58\uBA85\uD0C0
       \uD53C\uD574\uB7C9 +{criDmg}% \uC99D\uAC00\uD569\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Ranger
+    TargetClassList:
+    - Ranger
+    TargetClassList_enum: 03000000
     MotionType: 3
     LogicClass: SK_BuffSelf
     EffectID: None
     BestClass: Ranger
     SubClass: Ranger
     Weight: 90
+    Params: criRate:0
     IconPath: Skills/Ranger2
     Icon: {fileID: 21300000, guid: 1019fe1102984de44a65f818adb73fec, type: 3}
   - ID: A_MA_01
@@ -268,14 +316,17 @@ MonoBehaviour:
       \uB9C8\uBC95\uACF5\uACA9\uB825\xD7{dmg}\uC758 \uB9C8\uBC95 \uD53C\uD574\uB97C
       \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Mage
+    TargetClassList:
+    - Mage
+    TargetClassList_enum: 04000000
     MotionType: 2
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: Mage
     SubClass: Mage
     Weight: 30
+    Params: dmg:0
     IconPath: Skills/Medium10
     Icon: {fileID: 21300000, guid: 21df9195ed43b004394e6d7913b03149, type: 3}
   - ID: P_MA_04
@@ -284,14 +335,17 @@ MonoBehaviour:
       \uC801 {count}\uBA85\uC5D0\uAC8C \uB9C8\uBC95\uACF5\uACA9\uB825\xD7{dmg}\uC758
       \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Mage
+    TargetClassList:
+    - Mage
+    TargetClassList_enum: 04000000
     MotionType: 3
     LogicClass: SK_Item
     EffectID: None
     BestClass: Mage
     SubClass: Mage
     Weight: 60
+    Params: count:0
     IconPath: Skills/Electromancer3
     Icon: {fileID: 21300000, guid: 2456dd2824f5ec540830760922f5bac6, type: 3}
   - ID: A_MA_05
@@ -301,14 +355,17 @@ MonoBehaviour:
       \uB0C9\uAC01 \uC0C1\uD0DC\uB85C \uB9CC\uB4E4\uACE0 \uB9E4\uCD08 \uB9C8\uBC95\uACF5\uACA9\uB825\xD7{dmg}\uC758
       \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Mage
+    TargetClassList:
+    - Mage
+    TargetClassList_enum: 04000000
     MotionType: 3
     LogicClass: SK_Spawn
     EffectID: None
     BestClass: Mage
     SubClass: Mage
     Weight: 90
+    Params: durTime:0
     IconPath: Skills/Cryomancer17
     Icon: {fileID: 21300000, guid: f5ab3f534c1138f4786f23cd74103223, type: 3}
   - ID: A_MA_06
@@ -317,14 +374,17 @@ MonoBehaviour:
       \uB5A8\uC5B4\uB728\uB824 \uACF5\uACA9\uD569\uB2C8\uB2E4. \uB9C8\uBC95\uACF5\uACA9\uB825\xD7{dmg}\uC758
       \uB9C8\uBC95 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Mage
+    TargetClassList:
+    - Mage
+    TargetClassList_enum: 04000000
     MotionType: 3
     LogicClass: SK_Spawn
     EffectID: None
     BestClass: Mage
     SubClass: Mage
     Weight: 90
+    Params: dmg:0
     IconPath: Skills/Pyromancer7
     Icon: {fileID: 21300000, guid: 8ec5b52b09d90074a83d61c1334190f9, type: 3}
   - ID: A_OA_01
@@ -332,14 +392,18 @@ MonoBehaviour:
     Desc: "\uC5B4\uB460\uC758 \uD798\uC73C\uB85C \uACF5\uACA9\uD574 \uC801\uC5D0\uAC8C
       \uACF5\uACA9\uB825\xD7{dmg}\uC758 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Ranger/Rogue
+    TargetClassList:
+    - Ranger
+    - Rogue
+    TargetClassList_enum: 0300000002000000
     MotionType: 2
     LogicClass: default
     EffectID: None
     BestClass: Ranger
     SubClass: Rogue
     Weight: 10
+    Params: dmg:0
     IconPath: Skills/Arcanist1
     Icon: {fileID: 21300000, guid: 4029a9cfeb86f134c9c5af05993eaac8, type: 3}
   - ID: A_KM_01
@@ -347,14 +411,18 @@ MonoBehaviour:
     Desc: "\uC801\uC744 \uACF5\uACA9\uD574 \uACF5\uACA9\uB825 \uB9C8\uBC95\uACF5\uACA9\uB825\xD7{dmg}\uC758
       \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Knight/Mage
+    TargetClassList:
+    - Knight
+    - Mage
+    TargetClassList_enum: 0100000004000000
     MotionType: 2
     LogicClass: default
     EffectID: None
     BestClass: Knight
     SubClass: Mage
     Weight: 10
+    Params: dmg:0
     IconPath: Skills/Deathknight8
     Icon: {fileID: 21300000, guid: d8108e50be9cf7f49878337929803edd, type: 3}
   - ID: A_KM_02
@@ -362,14 +430,18 @@ MonoBehaviour:
     Desc: "\uC801\uC758 \uACF5\uACA9\uC744 {count}\uD68C \uB9C9\uB294 \uC2E4\uB4DC\uB97C
       \uC790\uC2E0\uC5D0\uAC8C \uBD80\uC5EC\uD569\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Knight/Mage
+    TargetClassList:
+    - Knight
+    - Mage
+    TargetClassList_enum: 0100000004000000
     MotionType: 2
     LogicClass: default
     EffectID: None
     BestClass: Knight
     SubClass: Mage
     Weight: 10
+    Params: count:0
     IconPath: Skills/Arcanist15
     Icon: {fileID: 21300000, guid: cdec13907ffc75749ab2ed436bec6b14, type: 3}
   - ID: A_OM_02
@@ -379,14 +451,18 @@ MonoBehaviour:
       \uC800\uC8FC\uB294 {durTime}\uCD08 \uB3D9\uC548 \uC9C0\uC18D\uB418\uBA70, \uB9E4\uCD08
       \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Rogue/Mage
+    TargetClassList:
+    - Rogue
+    - Mage
+    TargetClassList_enum: 0200000004000000
     MotionType: 2
     LogicClass: default
     EffectID: None
     BestClass: Rogue
     SubClass: Mage
     Weight: 10
+    Params: durTime:0
     IconPath: Skills/Cultist12
     Icon: {fileID: 21300000, guid: e691198d56e3a1848b5009e1ff94dbb5, type: 3}
   - ID: A_AM_01
@@ -394,70 +470,102 @@ MonoBehaviour:
     Desc: "\uB9C8\uBC95\uC758 \uD654\uC0B4\uC744 \uBC1C\uC0AC\uD569\uB2C8\uB2E4.
       \uACF5\uACA9\uB825 \uB9C8\uBC95\uACF5\uACA9\uB825 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Ranger/Mage
+    TargetClassList:
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0300000004000000
     MotionType: 2
     LogicClass: default
     EffectID: None
     BestClass: Ranger
     SubClass: Mage
     Weight: 10
+    Params: 
     IconPath: Skills/Dragonknight4
     Icon: {fileID: 21300000, guid: 6a3fb9963fb36ac49ac25095ee92a4fe, type: 3}
   - ID: A_ALL_01
     Name: "\uC804\uD22C \uD0DC\uC138"
     Desc: "\uACF5\uACA9\uB825 \uC99D\uAC00 \uBC84\uD504"
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_BuffSelf
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: 
     IconPath: Skills/Enchanter2
     Icon: {fileID: 21300000, guid: 03e6f50b7a998ed46a4c3f9f8cb0855e, type: 3}
   - ID: A_ALL_02
     Name: "\uC218\uBE44 \uD0DC\uC138"
     Desc: "\uBC29\uC5B4\uB825 \uC99D\uAC00 \uBC84\uD504"
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_BuffSelf
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: 
     IconPath: Skills/Electromancer16
     Icon: {fileID: 21300000, guid: 1458237dbb3c6d54f8fe9d39c0175d00, type: 3}
   - ID: A_ALL_03
     Name: "\uACF5\uC18D \uAC15\uD654"
     Desc: "\uACF5\uACA9\uC18D\uB3C4 \uC99D\uAC00 \uBC84\uD504"
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_BuffSelf
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: 
     IconPath: Skills/Geomancer5
     Icon: {fileID: 21300000, guid: 14a0f66a7be165c4ba476e3d7c40e390, type: 3}
   - ID: A_ALL_04
     Name: "\uB9C8\uBC95 \uC219\uB828"
     Desc: "\uB9C8\uBC95\uACF5\uACA9\uB825 \uC99D\uAC00 \uBC84\uD504"
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_BuffSelf
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: 
     IconPath: Skills/Enchanter18
     Icon: {fileID: 21300000, guid: 0f182fb2863faa7449e020de33b77e68, type: 3}
   - ID: A_ALL_06
@@ -465,28 +573,42 @@ MonoBehaviour:
     Desc: "\uC783\uC740 \uCCB4\uB825\uC5D0 \uBE44\uB840\uD574 \uC2A4\uD0AC\uC758
       \uD53C\uD574\uB7C9 \uC99D\uAC00"
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: 
     IconPath: Skills/Shaman1
     Icon: {fileID: 21300000, guid: 25126c248902e8347a4a2f96259cb92b, type: 3}
   - ID: A_ALL_09
     Name: "\uC628 \uB125\uC2A4\uD2B8 \uD788\uD2B8"
     Desc: "\uB2E4\uC74C \uAE30\uBCF8 \uACF5\uACA9 \uAC15\uD654"
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: default
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: 
     IconPath: Skills/Brawler1
     Icon: {fileID: 21300000, guid: 172ea055df4b40349a810a72063fad8e, type: 3}
   - ID: A_ALL_10
@@ -494,224 +616,336 @@ MonoBehaviour:
     Desc: "\uADFC\uCC98 \uC801\uC5D0\uAC8C \uB9C8\uB098\uB97C \uBC29\uCD9C\uD574
       \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     SkillType: 0
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_HitOneTarget
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: 
     IconPath: Skills/Cryomancer4
     Icon: {fileID: 21300000, guid: 2bccd332882fcd14b9e4c377e432c587, type: 3}
   - ID: P_ALL_01
     Name: "\uB871\uC18C\uB4DC I"
     Desc: "\uACF5\uACA9\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Weapons/GrandSword/01
     Icon: {fileID: 21300000, guid: d730b8efddd4a81428ea245df520274e, type: 3}
   - ID: P_ALL_02
     Name: "\uB871\uC18C\uB4DC II"
     Desc: "\uACF5\uACA9\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Weapons/GrandSword/04
     Icon: {fileID: 21300000, guid: 4129b83a5c85a2041bcdfbc86edf9e38, type: 3}
   - ID: P_ALL_03
     Name: "\uB871\uC18C\uB4DC III"
     Desc: "\uACF5\uACA9\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Weapons/GrandSword/35
     Icon: {fileID: 21300000, guid: cf70852c2122e3443a8e208febd5bcd4, type: 3}
   - ID: P_ALL_04
     Name: "\uD310\uAE08 \uAC11\uC637 I"
     Desc: "\uBC29\uC5B4\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Armour/Light_Armor/10
     Icon: {fileID: 21300000, guid: ba4ab222ec1828e43a70b3dd1949f03e, type: 3}
   - ID: P_ALL_05
     Name: "\uD310\uAE08 \uAC11\uC637 II"
     Desc: "\uBC29\uC5B4\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Armour/Heavy_Armor/08
     Icon: {fileID: 21300000, guid: ec5d990cb2d20e44d81cd7d96c2917f8, type: 3}
   - ID: P_ALL_06
     Name: "\uD310\uAE08 \uAC11\uC637 III"
     Desc: "\uBC29\uC5B4\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Armour/Heavy_Armor/61
     Icon: {fileID: 21300000, guid: f50b53f721656a245bac92545c276631, type: 3}
   - ID: P_ALL_07
     Name: "\uB9E4\uC9C1\uC2A4\uD0DC\uD504 I"
     Desc: "\uB9C8\uBC95\uACF5\uACA9\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Weapons/Magic_Staf/02
     Icon: {fileID: 21300000, guid: 5c16e5f519cd3a442a8a3ba59d9dacd8, type: 3}
   - ID: P_ALL_08
     Name: "\uB9E4\uC9C1\uC2A4\uD0DC\uD504 II"
     Desc: "\uB9C8\uBC95\uACF5\uACA9\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Weapons/Magic_Staf/09
     Icon: {fileID: 21300000, guid: dd9f735ab6924bb45858e578d4fbf1ad, type: 3}
   - ID: P_ALL_09
     Name: "\uB9E4\uC9C1\uC2A4\uD0DC\uD504 III"
     Desc: "\uB9C8\uBC95\uACF5\uACA9\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Weapons/Magic_Staf/19
     Icon: {fileID: 21300000, guid: 066aab5ba425f66498a0ed9564301e77, type: 3}
   - ID: P_ALL_10
     Name: "\uB9C8\uBC95\uBC29\uC5B4 \uB85C\uBE0C I"
     Desc: "\uB9C8\uBC95\uBC29\uC5B4\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Armour/Robes/01
     Icon: {fileID: 21300000, guid: 08f6892264a922047a2a9fd44a18d648, type: 3}
   - ID: P_ALL_11
     Name: "\uB9C8\uBC95\uBC29\uC5B4 \uB85C\uBE0C II"
     Desc: "\uB9C8\uBC95\uBC29\uC5B4\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Armour/Robes/05
     Icon: {fileID: 21300000, guid: 870f278f9cc19eb49b4ce43f406801eb, type: 3}
   - ID: P_ALL_12
     Name: "\uB9C8\uBC95\uBC29\uC5B4 \uB85C\uBE0C III"
     Desc: "\uB9C8\uBC95\uBC29\uC5B4\uB825 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Armour/Robes/25
     Icon: {fileID: 21300000, guid: 7ff0f69020cbf3a449946be02e1ddebb, type: 3}
   - ID: P_ALL_13
     Name: "\uB300\uAC70 I"
     Desc: "\uACF5\uACA9\uC18D\uB3C4 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Weapons/Dagger/11
     Icon: {fileID: 21300000, guid: 23ece7291c503b945ba2f1b720907792, type: 3}
   - ID: P_ALL_14
     Name: "\uB300\uAC70 II"
     Desc: "\uACF5\uACA9\uC18D\uB3C4 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Weapons/Dagger/04
     Icon: {fileID: 21300000, guid: d958504431f0a534ba15ab3f19914bbc, type: 3}
   - ID: P_ALL_15
     Name: "\uB300\uAC70 III"
     Desc: "\uACF5\uACA9\uC18D\uB3C4 +{stat} \uD68D\uB4DD"
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Weapons/Dagger/32
     Icon: {fileID: 21300000, guid: 44befa6499ad9a646aaaf70c1f49bdf5, type: 3}
   - ID: P_ALL_21
@@ -719,14 +953,21 @@ MonoBehaviour:
     Desc: "\uB9C8\uBC95\uC758 \uD798\uC774 \uAE43\uB4E0 \uBC18\uC9C0\uC785\uB2C8\uB2E4.
       \uC2DC\uC791 \uB9C8\uB098\uB97C +{stat} \uC5BB\uC2B5\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Accessory/Rings/04
     Icon: {fileID: 21300000, guid: d94d630e317dbce4792b77a3faa8b0b9, type: 3}
   - ID: P_ALL_22
@@ -734,14 +975,21 @@ MonoBehaviour:
     Desc: "\uB9C8\uBC95\uC758 \uD798\uC774 \uAE43\uB4E0 \uBC18\uC9C0\uC785\uB2C8\uB2E4.
       \uC2DC\uC791 \uB9C8\uB098\uB97C +{stat} \uC5BB\uC2B5\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Accessory/Rings/03
     Icon: {fileID: 21300000, guid: 85b794172cce272438709a8ca099a224, type: 3}
   - ID: P_ALL_23
@@ -749,14 +997,21 @@ MonoBehaviour:
     Desc: "\uB9C8\uBC95\uC758 \uD798\uC774 \uAE43\uB4E0 \uBC18\uC9C0\uC785\uB2C8\uB2E4.
       \uC2DC\uC791 \uB9C8\uB098\uB97C +{stat} \uC5BB\uC2B5\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Accessory/Rings/09
     Icon: {fileID: 21300000, guid: 1f592416b6540a047a6e5d74dd1d6cfb, type: 3}
   - ID: P_ALL_24
@@ -764,14 +1019,21 @@ MonoBehaviour:
     Desc: "\uC0DD\uBA85\uB825\uC774 \uB118\uCCD0\uB098\uB294 \uBC18\uC9C0\uC785\uB2C8\uB2E4.
       \uCCB4\uB825\uC744 +{stat} \uC5BB\uC2B5\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Accessory/Rings/29
     Icon: {fileID: 21300000, guid: 0ff19c8d413851343a19daff24fbe59f, type: 3}
   - ID: P_ALL_25
@@ -779,14 +1041,21 @@ MonoBehaviour:
     Desc: "\uC0DD\uBA85\uB825\uC774 \uB118\uCCD0\uB098\uB294 \uBC18\uC9C0\uC785\uB2C8\uB2E4.
       \uCCB4\uB825\uC744 +{stat} \uC5BB\uC2B5\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Accessory/Rings/19
     Icon: {fileID: 21300000, guid: ebac0ac1bd5316946a0c433a86f8ee8d, type: 3}
   - ID: P_ALL_26
@@ -794,14 +1063,21 @@ MonoBehaviour:
     Desc: "\uC0DD\uBA85\uB825\uC774 \uB118\uCCD0\uB098\uB294 \uBC18\uC9C0\uC785\uB2C8\uB2E4.
       \uCCB4\uB825\uC744 +{stat} \uC5BB\uC2B5\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: stat:0
     IconPath: Accessory/Rings/30
     Icon: {fileID: 21300000, guid: b388da0690bb63345971cd5975f9a5d1, type: 3}
   - ID: P_ALL_27
@@ -810,14 +1086,21 @@ MonoBehaviour:
       {rate}%\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4. \uC774 \uD6A8\uACFC\uB294 \uC804\uD22C\uB9C8\uB2E4
       \uD55C \uBC88\uB9CC \uBC1C\uB3D9\uD569\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: rate:0
     IconPath: Adventure/Potions/47
     Icon: {fileID: 21300000, guid: b094d35c0486a0b4c828901b9531e10b, type: 3}
   - ID: P_ALL_28
@@ -826,14 +1109,21 @@ MonoBehaviour:
       \uC77C\uC5B4\uB0A9\uB2C8\uB2E4. \uC774 \uD6A8\uACFC\uB294 \uC804\uD22C\uB9C8\uB2E4
       \uD55C \uBC88\uB9CC \uBC1C\uB3D9\uD569\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: 
     IconPath: Adventure/Potions/32
     Icon: {fileID: 21300000, guid: b05dd528b02a9844daa6f4cce4adbc1b, type: 3}
   - ID: P_ALL_29
@@ -842,14 +1132,21 @@ MonoBehaviour:
       +{gen} \uD68C\uBCF5\uD569\uB2C8\uB2E4. \uC774 \uD6A8\uACFC\uB294 \uC804\uD22C\uB9C8\uB2E4
       \uD55C \uBC88\uB9CC \uBC1C\uB3D9\uD569\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: gen:0
     IconPath: Adventure/Potions/09
     Icon: {fileID: 21300000, guid: bd6793b759c7afe4a975c13630b41e8d, type: 3}
   - ID: P_ALL_30
@@ -857,14 +1154,21 @@ MonoBehaviour:
     Desc: "\uACF5\uACA9 \uC2DC \uBD88\uAF43\uC774 \uBB3B\uC5B4\uB098 {rate}% \uD655\uB960\uB85C
       \uC801\uC744 \uD654\uC0C1\uC5D0 \uC785\uD799\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
+    Params: rate:0
     IconPath: Adventure/Tools/11
     Icon: {fileID: 21300000, guid: c3fa2a718412d6a46af12a8be058c807, type: 3}
   - ID: P_ALL_31
@@ -872,14 +1176,21 @@ MonoBehaviour:
     Desc: "\uC655\uC2E4 \uBCF4\uAE09\uD488\uC5D0 \uC788\uB358 \uBC84\uC12F\uC785\uB2C8\uB2E4.
       \uD5A5\uAE0B\uD55C \uD759\uB0C4\uC0C8\uAC00 \uB0A9\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 0
+    Params: 
     IconPath: Crafting/Mushrooms/07
     Icon: {fileID: 21300000, guid: d2c8fe4a7f8514d4e9e33ba74d17b489, type: 3}
   - ID: P_ALL_32
@@ -887,14 +1198,21 @@ MonoBehaviour:
     Desc: "\uBA39\uC73C\uBA74 \uC911\uB3C5 \uC0C1\uD0DC\uC5D0 \uAC78\uB9AC\uB294
       \uAC83\uC73C\uB85C \uC54C\uB824\uC9C4 \uBC84\uC12F\uC785\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 0
+    Params: 
     IconPath: Crafting/Mushrooms/17
     Icon: {fileID: 21300000, guid: f518116e7444b4b46a580d0184927ea3, type: 3}
   - ID: P_ALL_33
@@ -902,13 +1220,20 @@ MonoBehaviour:
     Desc: "\uBA39\uC73C\uBA74 \uAD11\uAE30 \uC0C1\uD0DC\uC5D0 \uAC78\uB9AC\uB294
       \uAC83\uC73C\uB85C \uC54C\uB824\uC9C4 \uBC84\uC12F\uC785\uB2C8\uB2E4."
     SkillType: 1
-    TargetClassList: []
-    TargetClassList_enum: 
+    TargetClass: Babarian/Knight/Rogue/Ranger/Mage
+    TargetClassList:
+    - Babarian
+    - Knight
+    - Rogue
+    - Ranger
+    - Mage
+    TargetClassList_enum: 0000000001000000020000000300000004000000
     MotionType: 0
     LogicClass: SK_Item
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 0
+    Params: 
     IconPath: Crafting/Mushrooms/15
     Icon: {fileID: 21300000, guid: dc180ac5790e49b4d8f79f1e230b418c, type: 3}

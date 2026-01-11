@@ -13,7 +13,7 @@ public class BuildSlot : MonoBehaviour
     private void Awake()
     {
         isBuild = false;
-        buildPos = transform.position + new Vector3(0, 1.5f, 0);
+        buildPos = transform.position + new Vector3(0, -0.25f, 0);
     }
 
     public bool CanBuild(UnitFaction a_Faction)

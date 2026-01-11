@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class ClassInfoUI : MonoBehaviour
 {
-    public static ClassInfoUI inst;     // 후에 UI 총괄 매니저에서 일괄 처리하기
-
     [Header("Current Target Class")]
     public UnitClassType curType;       // 현재 정보 출력 중인 클래스
 
@@ -15,11 +13,13 @@ public class ClassInfoUI : MonoBehaviour
     public TextMeshProUGUI classNameText;
     public SkillSlotVisual activeSlotImg;             // 액티브 스킬 슬롯
     public SkillSlotVisual[] passiveSlotImg;          // 패시브 스킬 슬롯
+    public Button exitBtn;
 
     private void Awake()
     {
-        if (inst == null) inst = this;
         gameObject.SetActive(false); // 기본적으로는 꺼둠
+        if (exitBtn != null)
+            exitBtn.onClick.AddListener(Exit);
     }
 
     public void Open(UnitClassType type)
@@ -35,6 +35,8 @@ public class ClassInfoUI : MonoBehaviour
         // 장비 상태 관리자에서 정보 받아오기
         UnitSkillSet data = EquipManager.inst.GetUnitSkillSet(curType);
 
+        Debug.Log($"[ClassInfoUI] Refreshing {curType}. Active: {data.ActiveID}, Passives: {string.Join(", ", data.PassiveID)}");
+
         // 스킬 표시
         activeSlotImg.SetVisual(InventoryManager.inst.GetSkillData(data.ActiveID));
 
@@ -48,12 +50,18 @@ public class ClassInfoUI : MonoBehaviour
     public void OnClickActiveSlot()
     {
         EquipManager.inst.UnequipActive(curType);
-        Debug.Log("OnClickActiveSlot");
+        Refresh();
     }
 
     public void OnClickPassiveSlot(int idx)
     {
         EquipManager.inst.UnequipPassive(curType, idx);
-        Debug.Log("OnClickPassiveSlot");
+        Refresh();
+    }
+
+    // 닫기 버튼 클릭 시 호출
+    public void Exit()
+    {
+        gameObject.SetActive(false);
     }
 }

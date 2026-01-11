@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+// 폐기.  ClassSlotUI에 통합함
+
 public class BuildCard : MonoBehaviour,
     IBeginDragHandler, IDragHandler, IEndDragHandler
 {

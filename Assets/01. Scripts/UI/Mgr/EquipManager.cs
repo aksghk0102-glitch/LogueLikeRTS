@@ -42,6 +42,9 @@ public class EquipManager : MonoBehaviour
     }
 
     // 스킬 장착 : 인벤토리 -> 클래스 별 슬롯 할당
+    const string classErrorMsg = "해당 클래스는 착용할 수 없습니다.";
+    const string equipErrorMsg = "더 착용할 수 없습니다. 스킬을 제거해주세요.";
+
     public void EquipSkill(UnitClassType targetType, SkillData skilldata)
     {
         // 방어 코드
@@ -51,7 +54,10 @@ public class EquipManager : MonoBehaviour
         // 타겟 클래스 검사
         if (!skilldata.TargetClassList_enum.Contains(targetType))
         {
+            UIStateManager.inst.ShowClassInfo(targetType);
+
             // 안내 메세지 출력 : 해당 스킬은 장착할 수 없습니다.
+            InfoMassage.inst.ShowMessage(classErrorMsg);
             return;
         }
 
@@ -71,6 +77,7 @@ public class EquipManager : MonoBehaviour
             {
                 // 안내 메세지 출력 :
                 // ex. 공간이 없습니다. 먼저 우측 클래스 정보 패널에서 스킬을 제거해주세요.
+                InfoMassage.inst.ShowMessage(equipErrorMsg);
                 return;
             }
         }
@@ -98,13 +105,13 @@ public class EquipManager : MonoBehaviour
             else
             {
                 // 안내 메세지 출력 :
-                // ex. 공간이 없습니다. 먼저 우측 클래스 정보 패널에서 스킬을 제거해주세요.
+                InfoMassage.inst.ShowMessage(equipErrorMsg);
                 return;
             }
         }
 
         RefreshSlot(targetType);
-        RefreshClassInfoUI(targetType);
+        UIStateManager.inst.ShowClassInfo(targetType);
     }
 
     // 탈착
@@ -117,7 +124,6 @@ public class EquipManager : MonoBehaviour
         InventoryManager.inst.AddSkill(data.ActiveID, 1);
         data.ActiveID = "";
         RefreshSlot(targetType);
-        RefreshClassInfoUI(targetType);
     }
 
     public void UnequipPassive(UnitClassType targetType, int index)
@@ -131,7 +137,6 @@ public class EquipManager : MonoBehaviour
         InventoryManager.inst.AddSkill(data.PassiveID[index], 1);
         data.PassiveID[index] = "";
         RefreshSlot(targetType);
-        RefreshClassInfoUI(targetType);
     }
 
     void RefreshSlot(UnitClassType type)
@@ -146,11 +151,6 @@ public class EquipManager : MonoBehaviour
         }
     }
 
-    void RefreshClassInfoUI(UnitClassType type)
-    {
-        ClassInfoUI.inst.Open(type);
-        ClassInfoUI.inst.Refresh();
-    }
 
     public UnitSkillSet GetUnitSkillSet(UnitClassType type)
         => unitSkillDatas[type];

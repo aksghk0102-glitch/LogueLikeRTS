@@ -14,14 +14,26 @@ public enum GamePhase
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager inst;
+
     [Header("Game Settings")]
     [SerializeField] int turnCount = 1;
     [SerializeField] int initCost = 10;
 
-    GamePhase curPhase;
+    public GamePhase curPhase;
     int curCost;
 
-    private void Start()
+    public int CurCost => curCost;
+
+    void Awake()
+    {
+        if (inst == null)
+            inst = this;
+        else
+            Destroy(gameObject);
+    }
+
+    void Start()
     {
         // 턴 초기화 및 준비 단계로 설정
         turnCount = 1;
@@ -51,8 +63,12 @@ public class GameManager : MonoBehaviour
     }
 
     #region Phase
+
+    const string ReadyMsg = "전투를 준비하세요";
     void EnterReadyPhase()
     {
+        InfoMassage.inst.ShowPerMessage(ReadyMsg);
+
         AddCost(10);
     }
 
@@ -80,6 +96,7 @@ public class GameManager : MonoBehaviour
         // UI 업데이트
     }
 
+    const string tarinai = "코스트가 부족합니다.";
     public bool SpendCost(int amount)
     {
         if (curCost >= amount)
@@ -87,6 +104,8 @@ public class GameManager : MonoBehaviour
             curCost -= amount;
             return true;
         }
+
+        InfoMassage.inst.ShowMessage(tarinai);
         return false;
     }
 

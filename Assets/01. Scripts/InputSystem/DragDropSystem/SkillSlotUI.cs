@@ -8,6 +8,7 @@ using TMPro;
 public class SkillSlotUI : MonoBehaviour
     , IPointerEnterHandler, IPointerExitHandler
     , IBeginDragHandler, IDragHandler, IEndDragHandler
+    , ITooltipHandler
 {
     public TextMeshProUGUI countText;
     public SkillSlotVisual visual;
@@ -45,14 +46,14 @@ public class SkillSlotUI : MonoBehaviour
     public void OnPointerEnter(PointerEventData eventData)
     {
         // 스킬 설명 툴팁 출력
-        //Debug.Log("스킬 설명 툴팁 On");
+        UIStateManager.inst.tooltipUI.RequestShow(GetTooltipData());
     }
 
     // 마우스가 벗어났을 때 호출
     public void OnPointerExit(PointerEventData eventData)
     {
         // 스킬 설명 툴팁 닫기
-        //Debug.Log("스킬 설명 툴팁 Off");
+        UIStateManager.inst.tooltipUI.Hide();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -80,7 +81,7 @@ public class SkillSlotUI : MonoBehaviour
         // 최종 드롭 처리 요청
         DragManager.inst.ExcuteDrop(eventData, SlotIndex);
 
-        if (string.IsNullOrEmpty(curSkillID))
+        if (!string.IsNullOrEmpty(curSkillID))
         {
             // 색상 복구
             SkillData data = InventoryManager.inst.GetSkillData(curSkillID);
@@ -91,5 +92,23 @@ public class SkillSlotUI : MonoBehaviour
 
 
     }
+ 
+    // ITooltipHandler
+    public TooltipData GetTooltipData()
+    {
+        if (string.IsNullOrEmpty(curSkillID))
+            return null;
 
+        SkillData data = InventoryManager.inst.GetSkillData(curSkillID);
+        if (data == null)
+            return null;
+
+        return new TooltipData
+        {
+            name = data.Name,
+            desc = data.Desc,
+            targetClass = data.TargetClass.ToString(),
+            ParamDic = data.ParamsDic
+        };
+    }
 }

@@ -3,13 +3,23 @@ using System.Collections.Generic;
 
 public class InventoryUI : MonoBehaviour
 {
+    public static InventoryUI inst;
+
     public GameObject SlotPrefab;
     public Transform ContentParent;
 
     //string curSortType = "ID";
     List<SkillSlotUI> uiSlots = new List<SkillSlotUI>();
 
-    public void UpdateInventoryDisplay()
+    private void Awake()
+    {
+        if (inst == null)
+            inst = this;
+        else
+            Destroy(gameObject);
+    }
+
+    public void UpdateInventory()
     {
         // 인벤토리 전체 화면 갱신
         int dataCount = InventoryManager.inst.GetSlotCount();

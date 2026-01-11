@@ -13,7 +13,7 @@ public class SkillData
     public SkillType SkillType;
 
     // 엑셀의 "Knight/Barbarian"을 분리해서 저장할 리스트
-    string TargetClass;
+    public string TargetClass;
     public List<string> TargetClassList = new List<string>();
 
     // 게임 내에서 직접 사용할 클래스 리스트
@@ -27,7 +27,7 @@ public class SkillData
     public string SubClass;
     public int Weight;
     // 가변 파라미터 (문자열을 딕셔너리로 변환하여 사용)
-    string Params = "";
+    public string Params = "";
     public Dictionary<string, float> ParamsDic = new Dictionary<string, float>();
 
     public string IconPath;     // Json에 지정된 아이콘 경로

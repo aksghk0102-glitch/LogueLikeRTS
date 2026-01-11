@@ -20,6 +20,7 @@ public class SkillSlotVisual : MonoBehaviour
     {
         if(data == null)
         {
+            Init();
             return;
         }
 

@@ -22,8 +22,6 @@ public class InventoryManager : MonoBehaviour
 
     // Json 파싱 후 임포트 한 데이터 베이스 참조
     public SkillDatabase database;
-    // 인벤토리 UI 판넬 내 스크롤뷰/콘텐츠 영역에 할당된 컴포넌트 참조
-    public InventoryUI inventoryUI;
 
     // 슬롯을 배열로 관리
     [SerializeField] List<InventorySlot> slots = new List<InventorySlot>();
@@ -47,7 +45,8 @@ public class InventoryManager : MonoBehaviour
         for (int i= 1; i <= 15; i++)
             AddSkill($"P_ALL_{i.ToString("D2")}");
 
-        inventoryUI.UpdateInventoryDisplay();
+        // 여기서 호출하는 이유는 초기화 순서 오류 방지
+        InventoryUI.inst.UpdateInventory();
     }
 
     // 스킬 추가 시 호출
@@ -144,7 +143,6 @@ public class InventoryManager : MonoBehaviour
 
     void RefreshUI()
     {
-        if (inventoryUI != null)
-            inventoryUI.UpdateInventoryDisplay();
+        InventoryUI.inst.UpdateInventory();
     }
 }

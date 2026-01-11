@@ -388,14 +388,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curFaction: 2
   fillGague: {fileID: 7146461089420304724}
-  playerColor: {r: 0.30113026, g: 0.78124166, b: 0.9528302, a: 1}
-  enemyColor: {r: 0.8396226, g: 0.23366857, b: 0.33996433, a: 1}
   goldAmount: 100
   goldBonus: 3
   term: 10
   effPrefab: {fileID: 1457267766547367896, guid: 6fdfbb8270f0eb04cbc6ebbe2051e44b, type: 3}
   effCanvas: {fileID: 8274912600780412426}
   poolSize: 3
+  buildSlots: []
 --- !u!136 &5973619412872289482
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -444,7 +443,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!1 &8766261937592077009
 GameObject:
