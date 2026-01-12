@@ -6,7 +6,7 @@ public class Entity_Range : Entity
     [SerializeField] protected BulletKey bulletKey;     // 인스펙터에서 설정
 
     // 발사 위치 고정값
-    private static readonly Vector3 FIRE_POSITION = new Vector3(0f, 2f, 0.4f);
+    private static readonly Vector3 FIRE_POSITION = new Vector3(0f, 1f, 0.4f);
 
     public override void OnAttackEvent()
     {

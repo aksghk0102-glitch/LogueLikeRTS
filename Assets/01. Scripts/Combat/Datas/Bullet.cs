@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     IDamageable target;
     bool isActive = false;
     float lifeTime = 0f;
+    float Fixed_Y = 1f;
 
     public void Init(IDamageable a_Target, DamageInfo a_DmgInfo)
     {
@@ -44,12 +45,13 @@ public class Bullet : MonoBehaviour
         }
 
         // 이동 및 방향 설정
-        Vector3 targetPos = (target as MonoBehaviour).transform.position + Vector3.up;
+        Vector3 targetPos = (target as MonoBehaviour).transform.position;
         Vector3 dir = (targetPos - transform.position).normalized;
-        transform.position += dir * speed * Time.deltaTime;
 
-        if (dir != Vector3.zero)
-            transform.forward = dir;
+        transform.position += dir * speed * Time.deltaTime;
+        transform.position = new Vector3(transform.position.x, Fixed_Y, transform.position.z);
+
+        transform.LookAt(targetPos);
 
         // 대상의 콜라이더의 반지름 내까지 진입하면 피격 판정 수행
         if (Vector3.Distance(transform.position, targetPos) < target.Radius)

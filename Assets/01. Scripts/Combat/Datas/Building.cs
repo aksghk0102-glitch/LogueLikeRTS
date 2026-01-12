@@ -36,7 +36,7 @@ public abstract class Building : MonoBehaviour, IDamageable
     {
         if (!IsAlive) return;
 
-        curHp = Mathf.Max(0, curHp - dmg.Damage);
+        curHp -= dmg.Damage;
         OnHitEffect();
 
         if (curHp <= 0)

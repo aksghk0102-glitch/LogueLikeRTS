@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 0
-  maxHp: 500
+  maxHp: 200
   radius: 1.5
   unitType: 2
   spawnPoint: {fileID: 104451187708228032}

@@ -62,6 +62,10 @@ public class SkillSlotUI : MonoBehaviour
         if (string.IsNullOrEmpty(curSkillID))
             return;
 
+        if (InputManager.inst.IsDragging)
+            return;
+
+        InputManager.inst.IsDragging = true;
         DragManager.inst.SetGhost(curSkillID);
 
         visual.SetAlpha();
@@ -80,6 +84,7 @@ public class SkillSlotUI : MonoBehaviour
     {
         // 최종 드롭 처리 요청
         DragManager.inst.ExcuteDrop(eventData, SlotIndex);
+        InputManager.inst.IsDragging = false;
 
         if (!string.IsNullOrEmpty(curSkillID))
         {

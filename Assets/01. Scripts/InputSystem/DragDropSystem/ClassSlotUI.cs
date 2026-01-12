@@ -82,8 +82,8 @@ public class ClassSlotUI : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //if (canvasGroup != null)
-        //    canvasGroup.alpha = 1.0f;
+        if (canvasGroup != null)
+            canvasGroup.alpha = 1.0f;
 
         // 드래그 종료 요청
         BuildManager.inst.RequestBuild();

@@ -30,19 +30,22 @@ public class CombatManager : MonoBehaviour
             if (dmg.Target == null || !dmg.Target.IsAlive)
                 continue;
 
-            Entity attacker = dmg.Attker as Entity;
-            Entity target = dmg.Target as Entity;
+            IAttacker attacker = dmg.Attker;
+            IDamageable target = dmg.Target;
 
             // 공격자 컨디션 개입
-            if (attacker != null && attacker.IsAlive)
-                attacker.AttackerCDT(ref dmg);
+            if (attacker != null && attacker as Entity)
+            {
+                Entity entity = attacker as Entity;
+                entity.AttackerCDT(ref dmg);
+            }
 
             // 피격자 데미지 판정
             target.TakeDamage(dmg);
 
             // 온힛 처리
             if (dmg.Source == DamageSource.Default &&
-                attacker != null && attacker.IsAlive)
+                attacker != null)
                 attacker.OnHit(target, dmg);
         }
     }

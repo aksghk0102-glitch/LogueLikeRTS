@@ -18,8 +18,8 @@ MonoBehaviour:
     defense: 1
     magicResist: 3
     moveSpeed: 2
-    attSpeed: 0.8
-    attRange: 3
+    attSpeed: 1.2
+    attRange: 6
     sight: 15
     maxMana: 50
     startMana: 0

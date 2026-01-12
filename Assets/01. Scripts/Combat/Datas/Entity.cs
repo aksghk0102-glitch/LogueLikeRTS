@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 //
 // 역할: 전투에 참여하는 유닛의 행동을 정의합니다. 인터페이스 상속으로 논리적 규칙을 강제합니다.
@@ -25,7 +24,7 @@ public class Entity : MonoBehaviour,
     protected UnitStats baseStats;
 
     [Header("Mine")]
-    public Mine curTargetMine;
+    //public Mine curTargetMine;
 
     protected IDamageable curTarget;
 
@@ -44,7 +43,6 @@ public class Entity : MonoBehaviour,
     public bool IsAlive => curHp > 0;
     public bool isSkillCasting { get; private set; }    // 스킬 모션 체크
     public bool isAttacking { get; private set; }       // 평타 모션 체크
-    public bool isOccupying { get; set; }               // 점령 중 체크
 
     public UnitFaction Faction => faction;
     public Vector3 WorldPosition => transform.position;
@@ -87,13 +85,13 @@ public class Entity : MonoBehaviour,
         // 컨디션 업데이트 (도트 데미지, 지속시간 만료 등)
         cdtHandler.OnUpdate(deltaTime);
         UpdateMana(deltaTime);
-        // 마나 100 도달 시 스킬 시즌
-        
-        if (curMana >= baseStats.maxMana && CanAction(ActionType.Skill))
-        {
-            TryUseActiveSkill();
-            return;
-        }
+
+        // 마나 100 도달 시 스킬 시전 => 스킬 할당 로직 구현 한 후 활성화할 것...
+        //if (curMana >= baseStats.maxMana && CanAction(ActionType.Skill))
+        //{
+        //    TryUseActiveSkill();
+        //    return;
+        //}
 
         //
         HandleAIProcess(deltaTime);
@@ -112,30 +110,27 @@ public class Entity : MonoBehaviour,
     protected virtual void HandleAIProcess(float deltaTime)
     {
         if (curTarget != null && !curTarget.IsAlive)
+        {
             curTarget = null;
+            isAttacking = false;
+            isSkillCasting = false;
+            if (anim != null)
+                anim.SetInteger(hashAttack, 0);
+        }
 
         // 다른 행동 중이면 리턴
-        if (isOccupying || isSkillCasting || isAttacking)
+        if (isSkillCasting || isAttacking)
             return;
 
         // 타겟 유효성 검사 및 재탐색
-        if (curTarget == null || !curTarget.IsAlive)
+        if (curTarget == null)
             SearchTarget();
-
+        
         // 타겟 지정 후 공격
-        if(curTarget != null)
+        if (curTarget != null)
         {
-            curTargetMine = null;
             ExcuteCombat(deltaTime);
             return;
-        }
-
-        if (curTargetMine == null)
-            SeachMine();
-
-        if(curTargetMine != null)
-        {
-            ExcuteOccupy(deltaTime);
         }
         else
         {
@@ -220,66 +215,6 @@ public class Entity : MonoBehaviour,
         if (anim != null)
             anim.SetFloat(hashMoveSpeed, speed);
     }
-
-    protected virtual void SeachMine()
-    {
-        //ar mines = ObjectManager.Inst.GetMineList();
-        //f (mines == null || mines.Count == 0) return;
-        //
-        //loat sight = GetFinalStats().sight;
-        //ine closest = null;
-        //loat minDist = sight;
-        //
-        //oreach (var mine in mines)
-        //
-        //   if (mine.curFaction == this.Faction)
-        //       continue;
-        //
-        //   float dist = Vector3.Distance(transform.position,
-        //       mine.transform.position);
-        //   if(dist <= sight && dist < minDist)
-        //   {
-        //       minDist = dist;
-        //       closest = mine;
-        //   }
-        //
-        //urTargetMine = closest;
-    }
-
-    void ExcuteOccupy(float deltaTime)
-    {
-        float dist = Vector3.Distance(transform.position,
-            curTargetMine.transform.position)
-            - curTargetMine.Radius  // 광산 반지름 빼고
-            - Radius;               // 유닛 반지름 뺀 값이
-        if(dist <= 0.01f)           // 0에 가까우면 점령
-        {
-            Vector3 targetPos = curTargetMine.transform.position;
-            LookAtTarget(targetPos);
-
-            // 점령 중에는 Idle 모션 출력
-            if (anim != null)
-                anim.SetFloat(hashMoveSpeed, 0f);
-            // 점령 시도
-            if (curTargetMine.TryOccupy(this))
-                isOccupying = true;
-            if (curTargetMine.curFaction == Faction)
-                curTargetMine = null;
-
-        }
-        else
-        {
-            if (CanAction(ActionType.Move))
-            {
-                Vector3 dir = (curTargetMine.transform.position
-                    - transform.position).normalized;
-                transform.position += dir * GetFinalStats().moveSpeed * deltaTime;
-                transform.forward = dir;
-                if (anim != null)
-                    anim.SetFloat(hashMoveSpeed, GetFinalStats().moveSpeed);
-            }
-        }
-    }
     #endregion
 
     float CalculateDamage(DamageInfo dmg)
@@ -329,7 +264,7 @@ public class Entity : MonoBehaviour,
 
         // 체력 계산
         float finalDmg = CalculateDamage(dmg);
-        curHp = Mathf.Clamp(curHp- finalDmg, 0, GetFinalStats().maxHP);
+        curHp -= finalDmg;
 
         // 사망 및 부활 체크
         if (curHp <= 0)
@@ -381,6 +316,8 @@ public class Entity : MonoBehaviour,
     }
     protected virtual void TryUseActiveSkill()
     {
+        // 버그가 많아서 일단 비활성화
+        
         curMana = 0;
         StartSkillCast();
 
@@ -490,13 +427,22 @@ public class Entity : MonoBehaviour,
 
 
 
-    float fadeTime = 1.5f;
+    float fadeTime = 4f;
     Renderer[] renderers;
     public void OnDie()
-    {   
+    {
+        if (curHp > 0)
+            return;
+
+        curHp = -1;         // 확실한 사망 판정을 위해서
+
         // 매니저에 리스팅 해제
         if (ObjectManager.Inst != null)
             ObjectManager.Inst.UnregistObject(this);
+
+        curTarget = null;
+        isAttacking = false;
+        isSkillCasting = false;
 
         //// 콜라이더 비활성화
         //if (TryGetComponent(out Collider c))

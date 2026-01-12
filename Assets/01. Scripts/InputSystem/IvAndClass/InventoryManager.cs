@@ -45,6 +45,12 @@ public class InventoryManager : MonoBehaviour
         for (int i= 1; i <= 15; i++)
             AddSkill($"P_ALL_{i.ToString("D2")}");
 
+        AddSkill("A_BB_02");
+        AddSkill("A_KN_03");
+        AddSkill("A_RO_01");
+        AddSkill("A_RA_05");
+        AddSkill("A_MA_05");
+
         // 여기서 호출하는 이유는 초기화 순서 오류 방지
         InventoryUI.inst.UpdateInventory();
     }

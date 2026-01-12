@@ -19,7 +19,7 @@ MonoBehaviour:
     magicResist: 1
     moveSpeed: 2
     attSpeed: 1.5
-    attRange: 1
+    attRange: 1.1
     sight: 15
     maxMana: 100
     startMana: 0

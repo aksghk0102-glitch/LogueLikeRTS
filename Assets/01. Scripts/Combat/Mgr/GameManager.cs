@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     #region Phase
 
-    const string ReadyMsg = "전투를 준비하세요";
+    const string ReadyMsg = "클래스 슬롯을 드래그 해 건물을 배치하세요";
     void EnterReadyPhase()
     {
         InfoMassage.inst.ShowPerMessage(ReadyMsg);
@@ -81,6 +81,8 @@ public class GameManager : MonoBehaviour
 
     void EnterBattlePhase()
     {
+        InfoMassage.inst.ShowMessage("");
+
         // 1. 모든 진영의 배럭 리스트를 안전하게 가져옴
         List<Barracks> targetBarracks = ObjectManager.Inst.GetAllBarracks();
 

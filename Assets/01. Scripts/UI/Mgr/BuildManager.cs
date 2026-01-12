@@ -93,15 +93,8 @@ public class BuildManager : MonoBehaviour
             curTargetSlot.CanBuild(UnitFaction.Player))
         {
             // 코스트 검사
-            if (GameManager.inst.SpendCost(5))
-            {
-                ghost.UpdateGhost(curTargetSlot.GetPosition(), true);
-                UIStateManager.inst.ShowBuildPopUp();
-            }
-            else
-            {
-                CancleBuild();
-            }
+            ghost.UpdateGhost(curTargetSlot.GetPosition(), true);
+            UIStateManager.inst.ShowBuildPopUp();
         }
         else
         {
@@ -116,11 +109,16 @@ public class BuildManager : MonoBehaviour
         if (selPrefab == null || curTargetSlot == null)
             return;
 
-        Building build = Instantiate(selPrefab,
+        if (GameManager.inst.SpendCost(5))
+        {
+            Building build = Instantiate(selPrefab,
             curTargetSlot.GetPosition(), Quaternion.identity);
-        curTargetSlot.SetBuilding(build);
+            curTargetSlot.SetBuilding(build);
+        }
 
         CancleBuild();
+
+        InfoMassage.inst.ShowPerMessage("준비가 완료되었으면 '전투시작' 버튼을 누르세요.");
     }
 
     // 건설 취소

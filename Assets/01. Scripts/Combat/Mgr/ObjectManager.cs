@@ -9,9 +9,8 @@ public class ObjectManager : MonoBehaviour
 {
     public static ObjectManager Inst { get; private set; }
 
-    Dictionary<UnitFaction, List<IDamageable>> allObjects = new Dictionary<UnitFaction, List<IDamageable>>();
-    List<Mine> allMines = new List<Mine>();     // 마인은 특별 취급
-
+    Dictionary<UnitFaction, List<IDamageable>> allObjects
+        = new Dictionary<UnitFaction, List<IDamageable>>();
     private void Awake()
     {
         if (Inst == null)

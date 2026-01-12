@@ -80,13 +80,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 1
-  maxHp: 500
+  maxHp: 200
   radius: 1.5
   unitType: 1
-  spawnTime: 15
-  maxQueueCount: 5
   spawnPoint: {fileID: 8864383492220086110}
-  fillGague: {fileID: 0}
+  curLevel: 1
+  rallyPoint: {x: 0, y: 0, z: 0}
+  lineYOffset: 0.5
 --- !u!54 &3347277977894035510
 Rigidbody:
   m_ObjectHideFlags: 0

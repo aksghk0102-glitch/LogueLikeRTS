@@ -16,6 +16,11 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     // 마우스를 올렸을 때 호출 (정보창 업데이트)
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (InputManager.inst.IsDragging)
+            return;
+
+        InputManager.inst.IsDragging = true;
+
         // 스킬 설명 툴팁 출력
         UIStateManager.inst.tooltipUI.RequestShow(GetTooltipData());
     }
@@ -31,6 +36,7 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (cachedData == null)
             return null;
 
+        InputManager.inst.IsDragging = false;
         return new TooltipData
         {
             name = cachedData.Name,
