@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ClassInfoUI : MonoBehaviour
 {
     [Header("Current Target Class")]
-    public UnitClassType curType;       // 현재 정보 출력 중인 클래스
+    public UnitClassType curType = UnitClassType.Init;       // 현재 정보 출력 중인 클래스
 
     [Header("Reference")]
     public TextMeshProUGUI classNameText;
@@ -22,7 +22,7 @@ public class ClassInfoUI : MonoBehaviour
             exitBtn.onClick.AddListener(Exit);
     }
 
-    public void Open(UnitClassType type)
+    public void Open(UnitClassType type, UnitFaction faction = UnitFaction.Player)
     {
         curType = type;
         classNameText.text = type.ToString();
@@ -71,6 +71,7 @@ public class ClassInfoUI : MonoBehaviour
     // 닫기 버튼 클릭 시 호출
     public void Exit()
     {
+        curType = UnitClassType.Init;
         gameObject.SetActive(false);
     }
 }

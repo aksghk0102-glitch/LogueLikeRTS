@@ -38,11 +38,6 @@ public class UIStateManager : MonoBehaviour
     [Header("PopUp")]
     [SerializeField] GameObject buildPopUp;
 
-    [Header("Barraks UI")]
-    public BarrackUI barrackUI;
-    public GameObject classSlotUI;      // 배럭 UI와 같은 자리에 있음. 맞물리게 켜고 끌 것.
-
-
     [Header("Start Btn")]
     public Button startBtn;
 
@@ -82,13 +77,13 @@ public class UIStateManager : MonoBehaviour
         classInfoUI.gameObject.SetActive(true);
         classInfoUI.Open(type);
     }
-    public void ClickClassInfo(UnitClassType type)
+    public void ClickClassSlot(UnitClassType type)
     {
         if (classInfoUI == null) return;
 
-        if (classInfoUI.gameObject.activeSelf)
+        if (classInfoUI.curType == type)
             classInfoUI.Exit();
-        else
+        else if(classInfoUI.curType != type)
             ShowClassInfo(type);
     }
 
@@ -131,16 +126,16 @@ public class UIStateManager : MonoBehaviour
 
     public void OpenBarrackUI(Barracks target)
     {
-        if (barrackUI == null) return;
+        //if (barrackUI == null) return;
 
-        barrackUI.SetUp(target);
-        classSlotUI.SetActive(false);
+        //barrackUI.SetUp(target);
+        //classSlotUI.SetActive(false);
     }
     public void CloseBarrackUI()
     {
-        if (barrackUI == null) return;
-        barrackUI.Close();
-        classSlotUI.SetActive(true);
+        //if (barrackUI == null) return;
+        //barrackUI.Close();
+        //classSlotUI.SetActive(true);
     }
 
     // Update is called once per frame

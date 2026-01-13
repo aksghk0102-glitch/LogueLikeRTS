@@ -22,6 +22,8 @@ public enum UnitClassType
     SK_Ranger,
     SK_Mage,
     SK_Minion,
+
+    Init,
 }
 
 // 스킬 애니메이션 매핑

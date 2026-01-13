@@ -54,7 +54,10 @@ public class InputManager : MonoBehaviour
     {
         targetBiliding = building;
         if (targetBiliding is Barracks barracks)
-            UIStateManager.inst.OpenBarrackUI(barracks);
+        {
+            UIStateManager.inst.ShowClassInfo(barracks.UnitType);
+
+        }
         else
             UIStateManager.inst.CloseBarrackUI();
     }

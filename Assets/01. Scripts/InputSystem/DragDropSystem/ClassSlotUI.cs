@@ -54,7 +54,7 @@ public class ClassSlotUI : MonoBehaviour,
         if (isDragging) return;
 
         // 단순 클릭 시 정보 판넬 출력
-        UIStateManager.inst.ClickClassInfo(classType);  // 클릭만으로 껐다 켰다 할 수 있게 하기 위해 로직 분리
+        UIStateManager.inst.ClickClassSlot(classType);  // 클릭만으로 껐다 켰다 할 수 있게 하기 위해 로직 분리
     }
 
     public void OnBeginDrag(PointerEventData eventData)

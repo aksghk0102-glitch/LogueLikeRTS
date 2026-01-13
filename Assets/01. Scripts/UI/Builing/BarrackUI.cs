@@ -10,13 +10,14 @@ public class BarrackUI : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] GameObject Panel;
+    [SerializeField] Image curImage;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI upgradeText;
 
     [Header("Buttons")]
     [SerializeField] Button upgradeBtn;
     [SerializeField] Button sellBtn;
-    [SerializeField] Button rallyModeBtn;
+    [SerializeField] Button showInfoBtn;
 
     private void Awake()
     {
@@ -24,8 +25,6 @@ public class BarrackUI : MonoBehaviour
             upgradeBtn.onClick.AddListener(OnClickUpgrade);
         if (sellBtn != null)
             sellBtn.onClick.AddListener(OnClickSell);
-        if (rallyModeBtn != null)
-            rallyModeBtn.onClick.AddListener(OnClickRallyMode);
     }
 
     public void SetUp(Barracks target)
@@ -33,12 +32,7 @@ public class BarrackUI : MonoBehaviour
         if (target == null)
             return;
 
-        // 기존 타겟에 선택 해제
-        if (curBarracks != null)
-            curBarracks.RallyOff();
-
         curBarracks = target;
-        curBarracks.RallyOn();
 
         Refresh();
         gameObject.SetActive(true);
@@ -74,16 +68,8 @@ public class BarrackUI : MonoBehaviour
         Close();
     }
 
-    const string rallyMsg = "";
-    void OnClickRallyMode()
-    {
-        InfoMassage.inst.ShowMessage("유닛의 첫 집결 위치를 설정하세요");
-    }
-
     public void Close()
     {
-        if (curBarracks != null)
-            curBarracks.RallyOff();
         curBarracks = null;
         gameObject.SetActive(false);
     }
