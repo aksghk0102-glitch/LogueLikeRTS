@@ -8,9 +8,21 @@ public class ClassInfoUI : MonoBehaviour
 {
     [Header("Current Target Class")]
     public UnitClassType curType = UnitClassType.Init;       // 현재 정보 출력 중인 클래스
+    Barracks targetBarrack;             // 현재 출력 중인 배럭의 인스턴스 참조
 
     [Header("Reference")]
     public TextMeshProUGUI classNameText;
+    public TextMeshProUGUI hpText;          // 체력 표시 텍스트 123(현재)/200(최대) 형태
+    public Image hpGauge;                 // 체력 바
+    
+    public Button upgradeBtn;               // 업그레이드 버튼
+    public TextMeshProUGUI levelText;                  // 레벨 표시 텍스트
+
+    public Button buildBtn;                 // 건설/판매 버튼
+    public TextMeshProUGUI buildText;       // 텍스트 수정용
+
+    public Button unitInfoBtn;              // 유닛 정보 팝업 표시
+
     public SkillSlotVisual activeSlotImg;             // 액티브 스킬 슬롯
     public SkillSlotVisual[] passiveSlotImg;          // 패시브 스킬 슬롯
     public Button exitBtn;
@@ -25,10 +37,76 @@ public class ClassInfoUI : MonoBehaviour
     public void Open(UnitClassType type, UnitFaction faction = UnitFaction.Player)
     {
         curType = type;
-        classNameText.text = type.ToString();
+
+        // 이전 이벤트 구독 해제
+        Unsubscribe();
+
+        // 배럭 상태 조회 후 등록
+        targetBarrack = ObjectManager.Inst.GetBarracks(type);
+
+        if(targetBarrack != null)
+        {
+            // 이벤트 구독
+            targetBarrack.OnHpChanged += UpdateHpUI;
+            targetBarrack.OnDestroy += OnTargetDestroyed;
+
+            UpdateHpUI(targetBarrack.curHp, targetBarrack.MaxHp);
+        }
+        else
+        {
+            UpdateHpUI(); // 초기화 어떻게 할지 고민...
+        }
+
+        classNameText.text = ConvertToNameStr(type);
+
+        // 버튼 제어
+        bool isBuild = targetBarrack != null;       // 배럭이 지어진 상태인지 확인
+        buildText.text = isBuild ? "판매" : "건설";
+
         gameObject.SetActive(true);
         Refresh();
     }
+
+    void UpdateHpUI(float cur = 100f, float max = 100f)
+    {
+        hpGauge.fillAmount = cur / max;
+        hpText.text = $"{Mathf.CeilToInt(cur)} / {max}";
+    }
+
+    void OnTargetDestroyed()
+    {
+        Unsubscribe();
+        targetBarrack = null;
+        
+        UpdateHpUI();
+    }
+
+    void Unsubscribe()
+    {
+        if(targetBarrack != null)
+        {
+            targetBarrack.OnHpChanged -= UpdateHpUI;
+            targetBarrack.OnDestroy -= OnTargetDestroyed;
+        }
+    }
+
+    string ConvertToNameStr(UnitClassType type) => type switch
+    {
+        UnitClassType.Babarian => "바바리안",
+        UnitClassType.Knight => "나이트",
+        UnitClassType.Rogue => "로그",
+        UnitClassType.Ranger => "레인저",
+        UnitClassType.Mage => "메이지",
+
+        UnitClassType.SK_Worrior => "스켈레톤전사",
+        UnitClassType.SK_Rogue => "스켈레톤로그",
+        UnitClassType.SK_Ranger => "스켈레톤레인저",
+        UnitClassType.SK_Mage => "스켈레톤메이지",
+        UnitClassType.SK_Minion => "스켈레톤미니언",
+        
+        _=> ""
+    };
+
 
     public void Refresh()
     {
@@ -68,9 +146,20 @@ public class ClassInfoUI : MonoBehaviour
         Refresh();
     }
 
+
+    // 건설 버튼에 연결
+    public void OnClickBuild()
+    {
+        BuildManager.inst.StartBuild(curType);
+        Exit();
+    }
+
+
+
     // 닫기 버튼 클릭 시 호출
     public void Exit()
     {
+        Unsubscribe();
         curType = UnitClassType.Init;
         gameObject.SetActive(false);
     }

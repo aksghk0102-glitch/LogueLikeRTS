@@ -9,6 +9,7 @@ public abstract class Building : MonoBehaviour, IDamageable
     [SerializeField] protected float radius = 1.5f;
 
     public float curHp { get; protected set; }
+    public float MaxHp => maxHp;
     public Action OnDestroy;
 
     // IDamageable
@@ -17,6 +18,9 @@ public abstract class Building : MonoBehaviour, IDamageable
     public float Radius => radius;
     public UnitFaction Faction => faction;
     public Vector3 WorldPosition => transform.position;
+
+    // 이벤트 시스템
+    public Action<float, float> OnHpChanged;    // curHp/maxHp 전달 : 체력 바 갱신용
 
     protected virtual void Awake()
     {
@@ -37,6 +41,8 @@ public abstract class Building : MonoBehaviour, IDamageable
         if (!IsAlive) return;
 
         curHp -= dmg.Damage;
+        OnHpChanged?.Invoke(curHp, maxHp);
+
         OnHitEffect();
 
         if (curHp <= 0)

@@ -7,7 +7,6 @@ public class InputManager : MonoBehaviour
 
     [Header("Mouse Click")]
     [SerializeField] private LayerMask buildingLayer;
-    [SerializeField] private BarrackUI barrackUI;
 
     Building targetBiliding;
     public bool IsDragging = false;

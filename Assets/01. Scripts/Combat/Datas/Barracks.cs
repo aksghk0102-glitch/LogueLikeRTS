@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
-using UnityEngine.UI;
 
 //[RequireComponent(typeof(LineRenderer))]
 public class Barracks : Building

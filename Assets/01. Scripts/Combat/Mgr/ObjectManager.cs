@@ -9,8 +9,16 @@ public class ObjectManager : MonoBehaviour
 {
     public static ObjectManager Inst { get; private set; }
 
+    // 전투 시 조회를 위한 딕셔너리
     Dictionary<UnitFaction, List<IDamageable>> allObjects
         = new Dictionary<UnitFaction, List<IDamageable>>();
+
+
+    // 배럭 UI 조회 시 배럭 인스턴스를 참조하기 위한 딕셔너리
+    Dictionary<UnitClassType, Barracks> allBarracks
+        = new Dictionary<UnitClassType, Barracks>();
+
+
     private void Awake()
     {
         if (Inst == null)
@@ -29,12 +37,20 @@ public class ObjectManager : MonoBehaviour
         {
             allObjects[unit.Faction].Add(unit);
             Debug.Log(unit.Faction +" " + unit);
+
+            if (unit is Barracks b)
+                allBarracks.Add(b.UnitType, b);
         }
     }
     public void UnregistObject(IDamageable unit)
     {
         if (allObjects[unit.Faction].Contains(unit))
+        {
             allObjects[unit.Faction].Remove(unit);
+            
+            if(unit is Barracks b)
+                allBarracks.Remove(b.UnitType);
+        }
     }
 
     private void Update()
@@ -81,5 +97,13 @@ public class ObjectManager : MonoBehaviour
             }
         }
         return barracksList;
+    }
+
+    public Barracks GetBarracks(UnitClassType type)
+    {
+        if (allBarracks.TryGetValue(type, out var barracks))
+            return barracks;
+
+        return null;
     }
 }
