@@ -19,12 +19,16 @@ public class Entity : MonoBehaviour,
 
     // 현재 상태
     [Header("CombatData")]
-    public float curHp;
-    public float curMana;
-    protected UnitStats baseStats;
+    public float curHp { get; protected set; }
+    public float curMana { get; protected set; }
+    //protected UnitStats baseStats;
 
-    [Header("Mine")]
-    //public Mine curTargetMine;
+
+    // 사운드 키 값 캐싱
+    protected string hitSfxKey;
+    protected string attSfxKey;
+    protected string dieSfxKey;
+
 
     protected IDamageable curTarget;
 
@@ -46,6 +50,7 @@ public class Entity : MonoBehaviour,
 
     public UnitFaction Faction => faction;
     public Vector3 WorldPosition => transform.position;
+
     protected virtual void Awake()
     {
         cdtHandler = new ConditionHandler(this);
@@ -53,27 +58,35 @@ public class Entity : MonoBehaviour,
         renderers = GetComponentsInChildren<Renderer>();
     }
 
-    public void InitEntity(UnitStats a_Stats, UnitFaction a_Faction)
+    public void InitEntity(UnitDataSO data, UnitFaction a_Faction
+        , int bLevel = 1)
     {
         faction = a_Faction;
-        baseStats = a_Stats;
 
-        statHandler.SetBase(baseStats);
-        curHp = a_Stats.maxHP;
-        curMana = a_Stats.startMana;
+        UnitStats a_Stats = data.stats;
+        statHandler.SetBase(a_Stats, bLevel);       // 유닛 스탯 초기화
 
+        UnitStats final = statHandler.GetStaticStats();
+        curHp = final.maxHP;
+        curMana = final.startMana;
+
+        // 스탯 변경 알림 on
+        statHandler.MarkDirty();
+        
         // 반지름 캐싱 들어가야 함
         radius = 0.5f;
 
         // 매터리얼 복구
         foreach (var r in renderers)
-        {
             foreach (var m in r.materials)
                 m.DOFade(1f, 0.1f);
-        }
 
-        statHandler.MarkDirty();
+        // 사운드 키 값 캐싱
+        hitSfxKey = data.hitSfxKey;
+        attSfxKey = data.attSfxKey;
+        dieSfxKey = data.dieSfxKey;
 
+        // 오브젝트 매니저에 등록해서 관리
         if (ObjectManager.Inst != null)
             ObjectManager.Inst.RegistObject(this);
     }
@@ -84,6 +97,8 @@ public class Entity : MonoBehaviour,
 
         // 컨디션 업데이트 (도트 데미지, 지속시간 만료 등)
         cdtHandler.OnUpdate(deltaTime);
+
+
         UpdateMana(deltaTime);
 
         // 마나 100 도달 시 스킬 시전 => 스킬 할당 로직 구현 한 후 활성화할 것...
@@ -250,12 +265,17 @@ public class Entity : MonoBehaviour,
             if (cdtHandler.HasTag(CDT_Tag.LowHeal))
                 amount *= 0.5f;
             curHp = Mathf.Min(amount, GetFinalStats().maxHP);
+        
             return;
         }
 
         // 무적 체크
         if (cdtHandler.HasTag(CDT_Tag.Invincivle))
             return;
+
+        // 피격 사운드 출력
+        if (!string.IsNullOrEmpty(hitSfxKey))
+            SoundManager.inst.PlaySFX(hitSfxKey);
 
         // 컨디션 이벤트 개입
         foreach (var cdt in cdtHandler.ActiveCDTs)
@@ -373,6 +393,10 @@ public class Entity : MonoBehaviour,
             transform.position;
         LookAtTarget(targetPos);
 
+        // 공격 사운드 출력
+        if (!string.IsNullOrEmpty(attSfxKey))
+            SoundManager.inst.PlaySFX(attSfxKey);
+
         // 애니메이션 재생
         if (anim != null)
         {
@@ -444,9 +468,9 @@ public class Entity : MonoBehaviour,
         isAttacking = false;
         isSkillCasting = false;
 
-        //// 콜라이더 비활성화
-        //if (TryGetComponent(out Collider c))
-        //    c.enabled = false;
+        // 사망 사운드 출력
+        if (!string.IsNullOrEmpty(dieSfxKey))
+            SoundManager.inst.PlaySFX(dieSfxKey);
 
         // 사망 애니메이션 출력
         if (anim != null)

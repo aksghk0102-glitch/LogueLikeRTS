@@ -28,21 +28,21 @@ public class TempEnemySpawn : MonoBehaviour
 
     private void SpawnRandomUnit()
     {
-        if (UnitFactory.inst == null || availableTypes.Count == 0 || spawnPoints.Length == 0) return;
-
-        // 1. 랜덤 타입 및 위치 선정
-        UnitClassType randomType = availableTypes[Random.Range(0, availableTypes.Count)];
-        Transform randomPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-
-        // 2. 팩토리를 통해 적 진영 유닛 생성
-        Entity enemy = UnitFactory.inst.CreateUnit(randomType, randomPoint.position, UnitFaction.Enemy);
-
-        if (enemy != null)
-        {
-            Debug.Log($"적군 {randomType} 생성됨");
-
-            // 생성된 적 유닛은 Entity 내부의 SearchTarget/SearchMine 로직에 의해 
-            // 자동으로 아군이나 광산을 찾아 움직입니다.
-        }
+        //if (UnitFactory.inst == null || availableTypes.Count == 0 || spawnPoints.Length == 0) return;
+        //
+        //// 1. 랜덤 타입 및 위치 선정
+        //UnitClassType randomType = availableTypes[Random.Range(0, availableTypes.Count)];
+        //Transform randomPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        //
+        //// 2. 팩토리를 통해 적 진영 유닛 생성
+        ////Entity enemy = UnitFactory.inst.CreateUnit(randomType, randomPoint.position, UnitFaction.Enemy);
+        //
+        //if (enemy != null)
+        //{
+        //    Debug.Log($"적군 {randomType} 생성됨");
+        //
+        //    // 생성된 적 유닛은 Entity 내부의 SearchTarget/SearchMine 로직에 의해 
+        //    // 자동으로 아군이나 광산을 찾아 움직입니다.
+        //}
     }
 }

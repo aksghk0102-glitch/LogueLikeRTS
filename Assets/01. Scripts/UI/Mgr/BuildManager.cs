@@ -110,19 +110,35 @@ public class BuildManager : MonoBehaviour
             return;
 
         if (GameManager.inst.SpendCost(5))
-        {
+        {   
+            // 사운드 호출
+            SoundManager.inst.PlaySFX("Nail Wood 1-1");
+            
             Building build = Instantiate(selPrefab,
             curTargetSlot.GetPosition(), Quaternion.identity);
             curTargetSlot.SetBuilding(build);
+
+            CloseBuildPopUp();
+        }
+        else
+        {
+            CancleBuild();
         }
 
-        CancleBuild();
-
-        InfoMassage.inst.ShowPerMessage("준비가 완료되었으면 '전투시작' 버튼을 누르세요.");
+        if(GameManager.inst.CurCost == 0)
+            InfoMassage.inst.ShowPerMessage("준비가 완료되었으면 '전투시작' 버튼을 누르세요.");
     }
 
     // 건설 취소
     public void CancleBuild()
+    {
+        // 사운드 호출
+        SoundManager.inst.PlaySFX("Interface 6-5");
+
+        CloseBuildPopUp();
+    }
+
+    void CloseBuildPopUp()
     {
         isDrag = false;
         ghost.Hide();

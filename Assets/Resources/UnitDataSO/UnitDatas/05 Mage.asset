@@ -30,3 +30,6 @@ MonoBehaviour:
     lifeSteal: 0
     tenacity: 0
   unitClass: 0
+  hitSfxKey: Rock Impact 37
+  attSfxKey: 
+  dieSfxKey: 

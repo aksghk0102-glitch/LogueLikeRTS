@@ -55,15 +55,11 @@ public class InputManager : MonoBehaviour
         if (targetBiliding is Barracks barracks)
         {
             UIStateManager.inst.ShowClassInfo(barracks.UnitType);
-
         }
-        else
-            UIStateManager.inst.CloseBarrackUI();
     }
 
     public void Deselect()
     {
         targetBiliding = null;
-        UIStateManager.inst.CloseBarrackUI();
     }
 }

@@ -44,7 +44,8 @@ public interface IDamageable
     bool IsAlive { get; }
     float Radius { get; }
     UnitFaction Faction { get; }        // 소속 분리 리스팅에 필요
-    Vector3 WorldPosition { get; }      // 위치 정보 
+    Vector3 WorldPosition { get; }      // 위치 정보
+    float curHp { get; }
 }
 // 공격자 : 타격 성공 시점 호출 로직(온힛 효과, 마나 회복 등)
 public interface IAttacker
@@ -117,22 +118,38 @@ public interface IPassiveSkill
 
 public class StatHandler
 {
-    UnitStats baseStats;        // 패시브 스킬로 인한 효과가 적용된 수치
+    UnitStats baseStats;        // 원본 스탯 데이터
+    int level = 1;              // 배럭의 레벨을 유닛에도 적용
+
     UnitStats cacheStats;
     bool isDirty = true;        // 교체가 필요한 지 체크
 
-    public void SetBase(UnitStats stats)
+    public void SetBase(UnitStats stats, int a_level = 1)
     {
         baseStats = stats;
+        level = a_level;
         MarkDirty();
     }
     public void MarkDirty() => isDirty = true;
 
+    // 정적 스탯
+    public UnitStats GetStaticStats()
+    {
+        UnitStats staticsStats = baseStats;
+        float m = 1f + (level - 1) * 0.1f;      // 임시
+
+        // 임시로 체력 값만 수정
+        staticsStats.maxHP *= m;
+
+        return staticsStats;
+    }
+
+    // 최종 스탯 반환
     public UnitStats GetFinalStats(List<Condition> actives, Entity owner)
     {
         if (isDirty)
         {
-            cacheStats = baseStats;
+            cacheStats = GetStaticStats();
             foreach (var cdt in actives)
                 foreach (var f in cdt.Features)
                     f.OnCalculateStats(owner, ref cacheStats, cdt.StackCount);

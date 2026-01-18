@@ -37,7 +37,8 @@ public class Barracks : Building
         if (UnitFactory.inst == null)
             return;
 
-        Entity spawnUnit = UnitFactory.inst.CreateUnit(unitType, spawnPoint.position, Faction); ;
+        Entity spawnUnit = UnitFactory.inst
+            .CreateUnit(unitType, spawnPoint.position, Faction, curLevel);
 
         if (ObjectManager.Inst != null)
             ObjectManager.Inst.RegistObject(spawnUnit);

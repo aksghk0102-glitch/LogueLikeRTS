@@ -24,15 +24,15 @@ public class SkillSlotUI : MonoBehaviour
         visual.SetVisual(data);
 
 
-        // 카운트 갯수 표기 방식 고민 중... 1개만 있을 때는 굳이 안띄워도 될 거 같은데
-        if (count <= 1)
-        {
-            countText.text = "";
-        }
-        else
-        {
-            countText.text = count.ToString();
-        }
+        //// 카운트 갯수 표기 방식 고민 중... 1개만 있을 때는 굳이 안띄워도 될 거 같은데
+        //if (count <= 1)
+        //{
+        //    countText.text = "";
+        //}
+        //else
+        //{
+        //    countText.text = count.ToString();
+        //}
     }
 
     public void ClearSlot()
@@ -45,6 +45,8 @@ public class SkillSlotUI : MonoBehaviour
     // 마우스를 올렸을 때 호출 (정보창 업데이트)
     public void OnPointerEnter(PointerEventData eventData)
     {
+        SoundManager.inst.PlaySFX("Interface 2-2");
+
         // 스킬 설명 툴팁 출력
         UIStateManager.inst.tooltipUI.RequestShow(GetTooltipData());
     }

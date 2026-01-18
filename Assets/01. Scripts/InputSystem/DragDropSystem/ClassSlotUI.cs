@@ -9,8 +9,8 @@ using UnityEngine.EventSystems;
 // 2. 인벤토리를 끈 상태에서 드래그 하면 필드에 건물 설치
 
 public class ClassSlotUI : MonoBehaviour,
-        IPointerClickHandler, IBeginDragHandler,
-    IDragHandler, IEndDragHandler
+        IPointerClickHandler, IPointerEnterHandler,
+    IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("Class")]
     public UnitClassType classType;
@@ -47,6 +47,12 @@ public class ClassSlotUI : MonoBehaviour,
 
 
     #region 마우스 조작 기능 모음
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // 마우스 호버 사운드 호출
+        //SoundManager.inst.PlaySFX("Interface 2-2");
+    }
+
     bool isDragging = false;
 
     public void OnPointerClick(PointerEventData eventData)
@@ -88,5 +94,7 @@ public class ClassSlotUI : MonoBehaviour,
         // 드래그 종료 요청
         BuildManager.inst.RequestBuild();
     }
+
+
     #endregion
 }

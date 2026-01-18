@@ -27,6 +27,9 @@ public class ClassInfoUI : MonoBehaviour
     public SkillSlotVisual[] passiveSlotImg;          // 패시브 스킬 슬롯
     public Button exitBtn;
 
+    string msg_CantSell = "이 건물은 팔 수 없습니다.";
+    string msg_CantUpgarade = "이 건물은 강화할 수 없습니다.";
+
     private void Awake()
     {
         gameObject.SetActive(false); // 기본적으로는 꺼둠
@@ -44,24 +47,44 @@ public class ClassInfoUI : MonoBehaviour
         // 배럭 상태 조회 후 등록
         targetBarrack = ObjectManager.Inst.GetBarracks(type);
 
+        buildBtn.onClick.RemoveAllListeners();
+        upgradeBtn.onClick.RemoveAllListeners();
+
         if(targetBarrack != null)
         {
+            // 설치가 확인된 경우
+            
             // 이벤트 구독
             targetBarrack.OnHpChanged += UpdateHpUI;
             targetBarrack.OnDestroy += OnTargetDestroyed;
 
             UpdateHpUI(targetBarrack.curHp, targetBarrack.MaxHp);
+
+            buildText.text = "판매";
+            buildBtn.onClick.AddListener(OnClickSell);
+
+            upgradeBtn.interactable = true;
+            upgradeBtn.onClick.AddListener(OnClickUpgrade);
+            levelText.text = $"Lv.{targetBarrack.CurLevel}";
         }
         else
         {
+            // 설치가 안된 경우
+
             UpdateHpUI(); // 초기화 어떻게 할지 고민...
+
+            buildText.text = "건설";
+            buildBtn.onClick.AddListener(OnClickBuild);
+
+            upgradeBtn.interactable = false;
+            levelText.text = "Lv.0";
         }
 
         classNameText.text = ConvertToNameStr(type);
 
-        // 버튼 제어
-        bool isBuild = targetBarrack != null;       // 배럭이 지어진 상태인지 확인
-        buildText.text = isBuild ? "판매" : "건설";
+        //// 버튼 제어
+        //bool isBuild = targetBarrack != null;       // 배럭이 지어진 상태인지 확인
+        //buildText.text = isBuild ? "판매" : "건설";
 
         gameObject.SetActive(true);
         Refresh();
@@ -75,10 +98,17 @@ public class ClassInfoUI : MonoBehaviour
 
     void OnTargetDestroyed()
     {
+        // 건물이 파괴된 경우 바로 호출
         Unsubscribe();
         targetBarrack = null;
         
         UpdateHpUI();
+        buildText.text = "건설";
+        buildBtn.onClick.RemoveAllListeners();
+        buildBtn.onClick.AddListener(OnClickBuild);
+
+        upgradeBtn.interactable = false;
+        levelText.text = "Lv.0";
     }
 
     void Unsubscribe()
@@ -110,6 +140,9 @@ public class ClassInfoUI : MonoBehaviour
 
     public void Refresh()
     {
+        if (targetBarrack != null && targetBarrack.Faction != UnitFaction.Player)
+            return;
+
         // 장비 상태 관리자에서 정보 받아오기
         UnitSkillSet data = EquipManager.inst.GetUnitSkillSet(curType);
 
@@ -148,12 +181,38 @@ public class ClassInfoUI : MonoBehaviour
 
 
     // 건설 버튼에 연결
-    public void OnClickBuild()
+    void OnClickBuild()
     {
         BuildManager.inst.StartBuild(curType);
         Exit();
     }
 
+    void OnClickSell()
+    {
+        if(targetBarrack != null && targetBarrack.Faction == UnitFaction.Player)
+        {
+            targetBarrack.Sell();
+            // UI 갱신
+            Open(curType);
+        }
+        else
+        {
+            InfoMassage.inst.ShowMessage(msg_CantSell);
+        }
+    }
+
+    void OnClickUpgrade()
+    {
+        if(targetBarrack != null && targetBarrack.Faction == UnitFaction.Player)
+        {
+            targetBarrack.Upgrade();
+            levelText.text = $"Lv.{targetBarrack.CurLevel}";
+        }
+        else
+        {
+            InfoMassage.inst.ShowMessage(msg_CantUpgarade);
+        }
+    }
 
 
     // 닫기 버튼 클릭 시 호출

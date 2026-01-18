@@ -32,7 +32,7 @@ public class CamManager : MonoBehaviour
         }
 
         // 초기 위치 & 회전 적용
-        ApplyCameraTransform();
+        //ApplyCameraTransform();
     }
 
     private void Update()

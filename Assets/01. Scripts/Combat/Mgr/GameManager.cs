@@ -83,6 +83,10 @@ public class GameManager : MonoBehaviour
     {
         InfoMassage.inst.ShowMessage("");
 
+        // 사운드 호출
+        SoundManager.inst.PlaySFX("BattleStart");
+
+
         // 1. 모든 진영의 배럭 리스트를 안전하게 가져옴
         List<Barracks> targetBarracks = ObjectManager.Inst.GetAllBarracks();
 

@@ -47,6 +47,9 @@ public class DragManager : MonoBehaviour
                 .GetComponentInParent<ClassSlotUI>();
             if(targetClassSlot != null)
             {
+                // 사운드 호출
+                SoundManager.inst.PlaySFX("Interface 6-4");
+
                 SkillData data = InventoryManager.inst.GetSkillData(curSkillId);
                 //Debug.Log(data.Name);
                 EquipManager.inst.EquipSkill(targetClassSlot.classType, data);
@@ -59,6 +62,9 @@ public class DragManager : MonoBehaviour
                 .GetComponentInParent<ClassInfoUI>();
             if (targetInfoUI != null)
             {
+                // 사운드 호출
+                SoundManager.inst.PlaySFX("Interface 6-4");
+
                 SkillData data = InventoryManager.inst.GetSkillData(curSkillId);
                 //Debug.Log(data.Name);
                 EquipManager.inst.EquipSkill(targetInfoUI.curType, data);
@@ -71,6 +77,9 @@ public class DragManager : MonoBehaviour
                 .GetComponentInParent<SkillSlotUI>();
             if(targetIvSlot != null && targetIvSlot.SlotIndex != index)
             {
+                // 사운드 호출
+                SoundManager.inst.PlaySFX("Interface 6-4");
+
                 //Debug.Log("스킬 슬롯에 드롭됨");
                 InventoryManager.inst.SwapSlot(index, targetIvSlot.SlotIndex);
                 isDropped = true;
@@ -80,7 +89,8 @@ public class DragManager : MonoBehaviour
 
         if (!isDropped)
         {
-            //InfoMassage.inst.ShowMessage();
+            // 사운드 호출
+            SoundManager.inst.PlaySFX("Interface 6-5");
         }
 
         // 드랍이 끝나면 고스트 숨기기

@@ -74,12 +74,18 @@ public class UIStateManager : MonoBehaviour
     {
         if (classInfoUI == null) return;
 
+        // 사운드 호출
+        SoundManager.inst.PlaySFX("Interface 3-1");
+
         classInfoUI.gameObject.SetActive(true);
         classInfoUI.Open(type);
     }
     public void ClickClassSlot(UnitClassType type)
     {
         if (classInfoUI == null) return;
+
+        // 사운드 호출
+        SoundManager.inst.PlaySFX("Interface 3-1");
 
         if (classInfoUI.curType == type)
             classInfoUI.Exit();
@@ -108,6 +114,9 @@ public class UIStateManager : MonoBehaviour
     {
         if (!IsPopUpOpen)
             return;
+
+        // 사운드 호출
+        SoundManager.inst.PlaySFX("Interface 6-5");
 
         buildPopUp.transform.DOScale(Vector3.zero, duration)
             .SetEase(Ease.InBack)
@@ -179,6 +188,9 @@ public class UIStateManager : MonoBehaviour
 
     void OpenInventory()
     {
+        // 사운드 호출
+        SoundManager.inst.PlaySFX("Bag Handle 1-5");
+
         iv_CanvasGroup.blocksRaycasts = true;
         iv_CanvasGroup.interactable = true;
 
@@ -202,6 +214,9 @@ public class UIStateManager : MonoBehaviour
     }
     void CloseInventory()
     {
+        // 사운드 호출
+        SoundManager.inst.PlaySFX("Interface 6-5");
+
         iv_CanvasGroup.blocksRaycasts = false;
         iv_CanvasGroup.interactable = false;
 

@@ -8,6 +8,9 @@ public abstract class Building : MonoBehaviour, IDamageable
     [SerializeField] protected float maxHp = 500f;
     [SerializeField] protected float radius = 1.5f;
 
+    [Header("Sound Key Settings")]
+    protected string hitSfxKey = "Wood Impact 05";
+
     public float curHp { get; protected set; }
     public float MaxHp => maxHp;
     public Action OnDestroy;
@@ -43,6 +46,7 @@ public abstract class Building : MonoBehaviour, IDamageable
         curHp -= dmg.Damage;
         OnHpChanged?.Invoke(curHp, maxHp);
 
+        SoundManager.inst.PlaySFX(hitSfxKey);
         OnHitEffect();
 
         if (curHp <= 0)
