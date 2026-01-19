@@ -20,15 +20,23 @@ public class ObjHpBar : MonoBehaviour
         transform.SetParent(targetTr);
 
         // 컴포넌트 추출 후 타입 캐스팅
-        targetEntity = targetObj.GetComponent<Entity>();
+        target = targetObj.GetComponent<IDamageable>();
         
-        if(targetEntity != null)
+        if (target is Entity)
         {
             // 유닛인 경우
+            targetEntity = (Entity)target;
             target = targetEntity;
             offSet = new Vector3(0f, 3f, 0f);
             if (mpBarRoot != null)
                 mpBarRoot.SetActive(true);
+        }
+        else if(target is Tower)
+        {
+            target = targetObj.GetComponent<IDamageable>();
+            offSet = new Vector3(0f, 5f, 0f);
+            if (mpBarRoot != null)
+                mpBarRoot.SetActive(false);
         }
         else
         {
@@ -47,10 +55,14 @@ public class ObjHpBar : MonoBehaviour
         if (targetTr == null || target == null)
             return;
 
-        if (target.curHp > 0)
-            hpBar.fillAmount = target.curHp / target.maxHp;
+        float a_CurHp = target.curHp > 0f ? target.curHp : 0f;
+        hpBar.fillAmount = a_CurHp / target.maxHp;
 
-        if (targetEntity != null && targetEntity.MaxMana > 0)
+        if (targetEntity != null)
+        {
+            float a_CurMana = 0;
+            a_CurMana = targetEntity.curMana > 0f ? targetEntity.curMana : 0f;
             mpBar.fillAmount = targetEntity.curMana / targetEntity.MaxMana;
+        }
     }
 }

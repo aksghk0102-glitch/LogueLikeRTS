@@ -12,6 +12,9 @@ public enum BulletKey       // 직렬화되어 있으므로 리스트 중간에 넣지 말것!!
 
     Range_Arrow_1,
     Mage_FireBall_1,
+
+    Tower_Ally,
+    Tower_Enemy,
 }
 
 public class BulletManager : MonoBehaviour

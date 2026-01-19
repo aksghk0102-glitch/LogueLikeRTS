@@ -28,7 +28,8 @@ public class Entity : MonoBehaviour,
     protected string hitSfxKey;
     protected string attSfxKey;
     protected string dieSfxKey;
-    protected IDamageable curTarget;
+
+    protected IDamageable curTarget { get; private set; }
 
     // 애니메이션
     protected Animator anim;
@@ -91,7 +92,7 @@ public class Entity : MonoBehaviour,
         if (ObjectManager.Inst != null)
             ObjectManager.Inst.RegistObject(this);
     }
-    // 매 프레임 체크
+    // 매 프레임 체크 => 오브젝트 매니저에서 호출
     public virtual void OnUpdate(float deltaTime)
     {
         if (!IsAlive) return;

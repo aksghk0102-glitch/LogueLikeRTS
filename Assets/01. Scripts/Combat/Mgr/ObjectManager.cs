@@ -32,27 +32,27 @@ public class ObjectManager : MonoBehaviour
             allObjects[f] = new List<IDamageable>();
     }
 
-    public void RegistObject(IDamageable unit)
+    public void RegistObject(IDamageable obj)
     {
-        if (!allObjects[unit.Faction].Contains(unit))
+        if (!allObjects[obj.Faction].Contains(obj))
         {
-            allObjects[unit.Faction].Add(unit);
-            Debug.Log(unit.Faction +" " + unit);
+            allObjects[obj.Faction].Add(obj);
+            Debug.Log(obj.Faction +" " + obj);
 
-            if (unit is MonoBehaviour m)
+            if (obj is MonoBehaviour m)
                 CreateHpBar(m.gameObject);
 
-            if (unit is Barracks b)
+            if (obj is Barracks b)
                 allBarracks.Add(b.UnitType, b);
         }
     }
-    public void UnregistObject(IDamageable unit)
+    public void UnregistObject(IDamageable obj)
     {
-        if (allObjects[unit.Faction].Contains(unit))
+        if (allObjects[obj.Faction].Contains(obj))
         {
-            allObjects[unit.Faction].Remove(unit);
+            allObjects[obj.Faction].Remove(obj);
             
-            if(unit is Barracks b)
+            if(obj is Barracks b)
                 allBarracks.Remove(b.UnitType);
         }
     }
@@ -69,7 +69,6 @@ public class ObjectManager : MonoBehaviour
                 var obj = factions[i];
                 if (obj is Entity unit && unit.IsAlive)
                     unit.OnUpdate(deltaTime);
-
             }
         }
     }
