@@ -47,22 +47,37 @@ public class CamManager : MonoBehaviour
 
     void HandleEdgeMove()
     {
-        Vector3 pos = transform.position; // CamManager가 부모라면 transform.position 사용
+        // 1. 카메라의 현재 시선 방향 벡터 추출
+        Vector3 camForward = mainCam.transform.forward;
+        Vector3 camRight = mainCam.transform.right;
+
+        // 2. Y축을 0으로 만들어 수평 이동 벡터로 고정
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        Vector3 moveDir = Vector3.zero;
         Vector3 mousePos = Input.mousePosition;
 
-        // 상하 (Z축)
-        if (mousePos.y >= Screen.height - edgeSize) pos.z += moveSpeed * Time.deltaTime;
-        else if (mousePos.y <= edgeSize) pos.z -= moveSpeed * Time.deltaTime;
+        // 3. 화면 끝 감지 (카메라 시선 기준 방향 조합)
+        if (mousePos.y >= Screen.height - edgeSize) moveDir += camForward;
+        else if (mousePos.y <= edgeSize) moveDir -= camForward;
 
-        // 좌우 (X축)
-        if (mousePos.x >= Screen.width - edgeSize) pos.x += moveSpeed * Time.deltaTime;
-        else if (mousePos.x <= edgeSize) pos.x -= moveSpeed * Time.deltaTime;
+        if (mousePos.x >= Screen.width - edgeSize) moveDir += camRight;
+        else if (mousePos.x <= edgeSize) moveDir -= camRight;
 
-        // 제한 적용 (x, z만)
-        pos.x = Mathf.Clamp(pos.x, limitMin.x, limitMax.x);
-        pos.z = Mathf.Clamp(pos.z, limitMin.y, limitMax.y);
+        // 4. 이동 적용
+        if (moveDir != Vector3.zero)
+        {
+            Vector3 nextPos = transform.position + (moveDir.normalized * moveSpeed * Time.deltaTime);
 
-        transform.position = pos;
+            // 5. 월드 좌표 제한 (Clamping)
+            nextPos.x = Mathf.Clamp(nextPos.x, limitMin.x, limitMax.x);
+            nextPos.z = Mathf.Clamp(nextPos.z, limitMin.y, limitMax.y);
+
+            transform.position = nextPos;
+        }
     }
 
     void HandleHeightZoom()
@@ -94,7 +109,7 @@ public class CamManager : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
 
         // 높이 기반 오프셋 (높을수록 뒤로 더 물림)
-        float distance = currentHeight * 1.5f; // 높이에 비례해서 거리 조절
+        float distance = currentHeight; // 높이에 비례해서 거리 조절
         Vector3 offset = rotation * new Vector3(0, 0, -distance);
 
         // 최종 위치 = 바닥 위치 + 오프셋

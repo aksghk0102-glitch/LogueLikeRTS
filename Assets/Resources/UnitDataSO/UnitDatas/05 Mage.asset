@@ -22,7 +22,7 @@ MonoBehaviour:
     attRange: 6
     sight: 15
     maxMana: 50
-    startMana: 0
+    startMana: 10
     manaRegen: 1
     manaGet: 7
     critChance: 0

@@ -58,7 +58,7 @@ public class ClassInfoUI : MonoBehaviour
             targetBarrack.OnHpChanged += UpdateHpUI;
             targetBarrack.OnDestroy += OnTargetDestroyed;
 
-            UpdateHpUI(targetBarrack.curHp, targetBarrack.MaxHp);
+            UpdateHpUI(targetBarrack.curHp, targetBarrack.maxHp);
 
             buildText.text = "ÆÇ¸Å";
             buildBtn.onClick.AddListener(OnClickSell);

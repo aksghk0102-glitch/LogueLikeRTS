@@ -5,14 +5,14 @@ public abstract class Building : MonoBehaviour, IDamageable
 {
     [Header("Bulding Settings")]
     [SerializeField] protected UnitFaction faction;
-    [SerializeField] protected float maxHp = 500f;
+    [SerializeField] protected float _maxHp = 500f;
     [SerializeField] protected float radius = 1.5f;
 
     [Header("Sound Key Settings")]
     protected string hitSfxKey = "Wood Impact 05";
 
     public float curHp { get; protected set; }
-    public float MaxHp => maxHp;
+    public float maxHp => _maxHp;
     public Action OnDestroy;
 
     // IDamageable

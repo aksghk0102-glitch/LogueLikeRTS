@@ -20,16 +20,14 @@ public class Entity : MonoBehaviour,
     // 현재 상태
     [Header("CombatData")]
     public float curHp { get; protected set; }
+    public float maxHp => GetFinalStats().maxHP;
     public float curMana { get; protected set; }
     //protected UnitStats baseStats;
-
 
     // 사운드 키 값 캐싱
     protected string hitSfxKey;
     protected string attSfxKey;
     protected string dieSfxKey;
-
-
     protected IDamageable curTarget;
 
     // 애니메이션
@@ -41,6 +39,7 @@ public class Entity : MonoBehaviour,
     protected readonly int hashDie = Animator.StringToHash("Die");
     protected readonly int hashVictory = Animator.StringToHash("Victory");
 
+    bool canMove = false;
 
     // 프로퍼티
     public float Radius => radius;               // 유닛 충돌 반경
@@ -50,6 +49,8 @@ public class Entity : MonoBehaviour,
 
     public UnitFaction Faction => faction;
     public Vector3 WorldPosition => transform.position;
+    // 마나바 동기화를 위한 능력치 프로퍼티
+    public float MaxMana => GetFinalStats().maxMana;
 
     protected virtual void Awake()
     {
@@ -70,9 +71,6 @@ public class Entity : MonoBehaviour,
         curHp = final.maxHP;
         curMana = final.startMana;
 
-        // 스탯 변경 알림 on
-        statHandler.MarkDirty();
-        
         // 반지름 캐싱 들어가야 함
         radius = 0.5f;
 
@@ -85,6 +83,9 @@ public class Entity : MonoBehaviour,
         hitSfxKey = data.hitSfxKey;
         attSfxKey = data.attSfxKey;
         dieSfxKey = data.dieSfxKey;
+        
+        // 스탯 초기화
+        statHandler.MarkDirty();
 
         // 오브젝트 매니저에 등록해서 관리
         if (ObjectManager.Inst != null)
@@ -326,7 +327,7 @@ public class Entity : MonoBehaviour,
     }
     public void EndAttack()
     {
-        Debug.Log("Attack End");
+        //Debug.Log("Attack End");
         isAttacking = false;
 
         if (anim != null)
@@ -440,6 +441,9 @@ public class Entity : MonoBehaviour,
             (action == ActionType.Attack || action == ActionType.Move))
             return false;
 
+        if (!canMove)
+            return false;
+
         // CC기(컨디션 하위 항목) 체크
         foreach (var cdt in cdtHandler.ActiveCDTs)
             foreach (var f in cdt.Features)
@@ -467,6 +471,7 @@ public class Entity : MonoBehaviour,
         curTarget = null;
         isAttacking = false;
         isSkillCasting = false;
+        canMove = false;
 
         // 사망 사운드 출력
         if (!string.IsNullOrEmpty(dieSfxKey))
@@ -490,5 +495,10 @@ public class Entity : MonoBehaviour,
         
         // 닷트윈 정리
         rotTween?.Kill();
+    }
+
+    public void SetMoveable()
+    {
+        canMove = true;
     }
 }

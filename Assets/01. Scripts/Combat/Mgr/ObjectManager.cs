@@ -13,11 +13,12 @@ public class ObjectManager : MonoBehaviour
     Dictionary<UnitFaction, List<IDamageable>> allObjects
         = new Dictionary<UnitFaction, List<IDamageable>>();
 
-
     // 배럭 UI 조회 시 배럭 인스턴스를 참조하기 위한 딕셔너리
     Dictionary<UnitClassType, Barracks> allBarracks
         = new Dictionary<UnitClassType, Barracks>();
 
+    [Header("HP Bar")]
+    [SerializeField] GameObject hpbarPrefab;
 
     private void Awake()
     {
@@ -37,6 +38,9 @@ public class ObjectManager : MonoBehaviour
         {
             allObjects[unit.Faction].Add(unit);
             Debug.Log(unit.Faction +" " + unit);
+
+            if (unit is MonoBehaviour m)
+                CreateHpBar(m.gameObject);
 
             if (unit is Barracks b)
                 allBarracks.Add(b.UnitType, b);
@@ -105,5 +109,16 @@ public class ObjectManager : MonoBehaviour
             return barracks;
 
         return null;
+    }
+
+    void CreateHpBar(GameObject target)
+    {
+        if (hpbarPrefab == null) return;
+
+        GameObject ui = Instantiate(hpbarPrefab);
+
+        ObjHpBar bar = ui.GetComponent<ObjHpBar>();
+        if (bar != null)
+            bar.SetTarget(target);
     }
 }

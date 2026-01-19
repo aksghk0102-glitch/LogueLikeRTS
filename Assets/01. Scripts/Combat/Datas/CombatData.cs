@@ -46,6 +46,7 @@ public interface IDamageable
     UnitFaction Faction { get; }        // 소속 분리 리스팅에 필요
     Vector3 WorldPosition { get; }      // 위치 정보
     float curHp { get; }
+    float maxHp { get; }
 }
 // 공격자 : 타격 성공 시점 호출 로직(온힛 효과, 마나 회복 등)
 public interface IAttacker
