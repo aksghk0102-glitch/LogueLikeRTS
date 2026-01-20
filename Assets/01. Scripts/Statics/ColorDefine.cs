@@ -19,4 +19,9 @@ public static class ColorDefine
     public static readonly Color Active = new Color(227, 220, 67, 255);
     public static readonly Color Passive = new Color(64, 185, 100, 255);
 
+    // 데미지 파티클
+    public static readonly Color PhysicsDmg = new Color(213, 91, 20);
+    public static readonly Color MagicDmg = new Color(170, 82, 207);
+    public static readonly Color TrueDmg = new Color(240, 240, 240);
+    public static readonly Color Heal = new Color(149, 232, 103);
 }

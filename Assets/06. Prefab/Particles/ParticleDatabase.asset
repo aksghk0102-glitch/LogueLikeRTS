@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc585c31c531c241aa3dfe3b0e377a1, type: 3}
+  m_Name: ParticleDatabase
+  m_EditorClassIdentifier: 
+  particles:
+  - Key: Destroy_Barracks
+    Type: 0
+    Prefab: {fileID: 5926136888549961741, guid: 66e5001bf6b5c144a9b17e05fa3875e8, type: 3}
+  - Key: hit_physics
+    Type: 0
+    Prefab: {fileID: 5926136888549961741, guid: 66e5001bf6b5c144a9b17e05fa3875e8, type: 3}
