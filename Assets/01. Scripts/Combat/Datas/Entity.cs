@@ -279,6 +279,9 @@ public class Entity : MonoBehaviour,
         if (!string.IsNullOrEmpty(hitSfxKey))
             SoundManager.inst.PlaySFX(hitSfxKey);
 
+        // 데미지 파티클 출력
+        ParticleManager.inst.SpawnDmgTxt(dmg, transform.position);
+
         // 컨디션 이벤트 개입
         foreach (var cdt in cdtHandler.ActiveCDTs)
             foreach (var f in cdt.Features)

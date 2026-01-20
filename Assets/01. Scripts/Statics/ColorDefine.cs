@@ -15,13 +15,13 @@ public static class ColorDefine
     public static readonly Color Enemy = new Color32(214, 60, 87, 255);
 
     // UI 슬롯 표시용 컬러
-    public static readonly Color Empty = new Color(75, 75, 75, 255);
-    public static readonly Color Active = new Color(227, 220, 67, 255);
-    public static readonly Color Passive = new Color(64, 185, 100, 255);
+    public static readonly Color Empty = new Color32(75, 75, 75, 255);
+    public static readonly Color Active = new Color32(227, 220, 67, 255);
+    public static readonly Color Passive = new Color32(64, 185, 100, 255);
 
     // 데미지 파티클
-    public static readonly Color PhysicsDmg = new Color(213, 91, 20);
-    public static readonly Color MagicDmg = new Color(170, 82, 207);
-    public static readonly Color TrueDmg = new Color(240, 240, 240);
-    public static readonly Color Heal = new Color(149, 232, 103);
+    public static readonly Color PhysicsDmg = new Color32(213, 91, 20, 255);
+    public static readonly Color MagicDmg = new Color32(170, 82, 207, 255);
+    public static readonly Color TrueDmg = new Color32(240, 240, 240, 255);
+    public static readonly Color Heal = new Color32(149, 232, 103, 255);
 }

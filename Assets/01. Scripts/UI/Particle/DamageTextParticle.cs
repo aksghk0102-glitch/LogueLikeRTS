@@ -15,7 +15,7 @@ public class DamageTextParticle : MonoBehaviour
 
     void Awake()
     {
-        tm = GetComponent<TextMeshPro>();
+        tm = GetComponentInChildren<TextMeshPro>();
     }
 
     public void Init(DamageInfo info)

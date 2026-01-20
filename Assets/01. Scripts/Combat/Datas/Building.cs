@@ -46,12 +46,12 @@ public abstract class Building : MonoBehaviour, IDamageable
         curHp -= dmg.Damage;
         OnHpChanged?.Invoke(curHp, maxHp);
 
-        // 데미지 파티클 출력
-        ParticleManager.inst.SpawnDmgTxt(dmg, transform.position);
-
         // 피격 사운드 출력
         SoundManager.inst.PlaySFX(hitSfxKey);
         OnHitEffect();
+
+        // 데미지 파티클 출력
+        ParticleManager.inst.SpawnDmgTxt(dmg, transform.position);
 
         if (curHp <= 0)
             OnDie();
