@@ -85,6 +85,8 @@ public class GameManager : MonoBehaviour
         // 사운드 호출
         SoundManager.inst.PlaySFX("BattleStart");
 
+        // 데미지 통계 초기화
+        CombatManager.Inst.ResetCombatStats();
 
         // 1. 모든 진영의 배럭 리스트를 안전하게 가져옴
         List<Barracks> targetBarracks = ObjectManager.Inst.GetAllBarracks();

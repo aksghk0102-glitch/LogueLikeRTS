@@ -295,6 +295,20 @@ public class Entity : MonoBehaviour,
         float finalDmg = CalculateDamage(dmg);
         curHp -= finalDmg;
 
+        // 통계 기록
+        if (CombatManager.Inst != null)
+        {
+            if(finalDmg > 0)
+            {
+                // DamageInfo를 통해 들어온 공격자 정보 기록
+                CombatManager.Inst.RecordDealt(dmg.Attker.ID, finalDmg, dmg.type);
+
+                // 이 유닛이 받은 피해량 기록 : 이 유닛의 ID, 원본 데미지, 최종 받은 데미지
+                CombatManager.Inst.RecordRecieved(ID, dmg.Damage, finalDmg, dmg.type);
+            }
+
+        }
+
         // 사망 및 부활 체크
         if (curHp <= 0)
             OnDie();
