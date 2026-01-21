@@ -17,6 +17,7 @@ public class Tower : Building, IAttacker
     float attTimer = 0f;
 
     IDamageable curTarget;
+    public int ID { get; private set; }
 
     void Start()
     {
@@ -86,7 +87,7 @@ public class Tower : Building, IAttacker
 
         attTimer = attSpeed;
 
-        DamageInfo dmgInfo =  new DamageInfo
+        DamageInfo dmgInfo = new DamageInfo
         {
             Attker = this,
             Target = curTarget,

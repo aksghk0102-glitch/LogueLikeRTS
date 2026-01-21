@@ -11,6 +11,8 @@ public class Barracks : Building
     [Header("State")]
     [SerializeField] int curLevel = 1;
 
+    public int UniqID { get; private set; }
+
     public int CurLevel => curLevel;
     public int Cost => 5;
 
@@ -21,15 +23,15 @@ public class Barracks : Building
 
     public void Start()
     {
-        ObjectManager.Inst.RegistObject(this);
+        if (ObjectManager.Inst != null)
+            UniqID = ObjectManager.Inst.RegistBarracks(this);
     }
 
     public override void Init(UnitFaction a_Faction)
     {
-        base.Init(a_Faction);
+        faction = a_Faction;
+        UniqID = ObjectManager.Inst.RegistBarracks(this);
     }
-
-
 
     // 라운드 시작 시 유닛 1기 생산
     public void SpawnUnit()
@@ -38,7 +40,8 @@ public class Barracks : Building
             return;
 
         Entity spawnUnit = UnitFactory.inst
-            .CreateUnit(unitType, spawnPoint.position, Faction, curLevel);
+            .CreateUnit(unitType, spawnPoint.position, Faction,
+            curLevel, UniqID);
 
         if (ObjectManager.Inst != null)
             ObjectManager.Inst.RegistObject(spawnUnit);

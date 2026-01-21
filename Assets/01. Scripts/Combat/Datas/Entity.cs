@@ -1,6 +1,7 @@
-using UnityEngine;
-using System.Collections.Generic;
 using DG.Tweening;
+using System.Collections.Generic;
+using System.Xml;
+using UnityEngine;
 //
 // 역할: 전투에 참여하는 유닛의 행동을 정의합니다. 인터페이스 상속으로 논리적 규칙을 강제합니다.
 // 사용 방법: 유닛 오브젝트에 컴포넌트를 붙여 사용합니다.
@@ -52,6 +53,7 @@ public class Entity : MonoBehaviour,
     public Vector3 WorldPosition => transform.position;
     // 마나바 동기화를 위한 능력치 프로퍼티
     public float MaxMana => GetFinalStats().maxMana;
+    public int ID { get; private set; }
 
     protected virtual void Awake()
     {
@@ -61,9 +63,11 @@ public class Entity : MonoBehaviour,
     }
 
     public void InitEntity(UnitDataSO data, UnitFaction a_Faction
-        , int bLevel = 1)
+        , int bLevel = 1, int a_ID = -1)
     {
         faction = a_Faction;
+        ID = a_ID;
+
 
         UnitStats a_Stats = data.stats;
         statHandler.SetBase(a_Stats, bLevel);       // 유닛 스탯 초기화
@@ -394,9 +398,13 @@ public class Entity : MonoBehaviour,
 
         isAttacking = true;
 
-        Vector3 targetPos = (curTarget as MonoBehaviour).
-            transform.position;
-        LookAtTarget(targetPos);
+        if(curTarget != null)
+        {
+            Vector3 targetPos = (curTarget as MonoBehaviour).
+    transform.position;
+            LookAtTarget(targetPos);
+        }
+
 
         // 공격 사운드 출력
         if (!string.IsNullOrEmpty(attSfxKey))

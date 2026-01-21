@@ -14,11 +14,16 @@ public class ObjectManager : MonoBehaviour
         = new Dictionary<UnitFaction, List<IDamageable>>();
 
     // 배럭 UI 조회 시 배럭 인스턴스를 참조하기 위한 딕셔너리
-    Dictionary<UnitClassType, Barracks> allBarracks
-        = new Dictionary<UnitClassType, Barracks>();
+    List<Barracks> allBarracks
+        = new List<Barracks>();
+
+    int nextID = 1000;          // 고유 ID 시작점
 
     [Header("HP Bar")]
     [SerializeField] GameObject hpbarPrefab;
+
+    [Header("Unit Count")]
+    [SerializeField] int aliveUnitCount = 0;
 
     private void Awake()
     {
@@ -37,23 +42,55 @@ public class ObjectManager : MonoBehaviour
         if (!allObjects[obj.Faction].Contains(obj))
         {
             allObjects[obj.Faction].Add(obj);
-            Debug.Log(obj.Faction +" " + obj);
+            //Debug.Log(obj.Faction +" " + obj);
 
+            // 유닛 개수 체크
+            if (obj is Entity)
+                aliveUnitCount++;
+
+            // 체력 바 삽입
             if (obj is MonoBehaviour m)
                 CreateHpBar(m.gameObject);
-
-            if (obj is Barracks b)
-                allBarracks.Add(b.UnitType, b);
         }
     }
+    // 배럭은 별도의 등록 로직 사용
+    public int RegistBarracks(Barracks b)
+    {
+        RegistObject(b);
+
+        if(!allBarracks.Contains(b))
+            allBarracks.Add(b);
+
+        int uniqID = nextID++;
+
+        return uniqID;
+    }
+
     public void UnregistObject(IDamageable obj)
     {
         if (allObjects[obj.Faction].Contains(obj))
         {
             allObjects[obj.Faction].Remove(obj);
             
+            // 타워 파괴 시 즉시 게임 종료 페이즈로
+            if (obj is Tower)
+            {
+                GameManager.inst.SetPhase(GamePhase.GameOver);
+                return;
+            }
+
+            if(obj is Entity)
+            {
+                aliveUnitCount--;
+
+                if (GameManager.inst.curPhase == GamePhase.Battle &&
+                    aliveUnitCount <= 0)
+                    GameManager.inst.SetPhase(GamePhase.Result);
+            }
+
             if(obj is Barracks b)
-                allBarracks.Remove(b.UnitType);
+                if(allBarracks.Contains(b))
+                    allBarracks.Remove(b);
         }
     }
 
@@ -104,10 +141,7 @@ public class ObjectManager : MonoBehaviour
 
     public Barracks GetBarracks(UnitClassType type)
     {
-        if (allBarracks.TryGetValue(type, out var barracks))
-            return barracks;
-
-        return null;
+        return allBarracks.Find(x => x.UnitType == type);
     }
 
     void CreateHpBar(GameObject target)

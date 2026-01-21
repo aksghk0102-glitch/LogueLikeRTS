@@ -35,7 +35,7 @@ public class UnitFactory : MonoBehaviour
     }
 
     public Entity CreateUnit(UnitClassType type, Vector3 position,
-        UnitFaction faction, int bLevel)
+        UnitFaction faction, int bLevel, int uniqID)
     {
         if (!unitDict.TryGetValue(type, out UnitPrefabData data))
             return null;
@@ -44,7 +44,7 @@ public class UnitFactory : MonoBehaviour
         Entity newUnit = Instantiate(data.prefab, position, Quaternion.identity);
 
         // ¿Ø¥÷ √ ±‚»≠
-        newUnit.InitEntity(data.dataSO, faction, bLevel);
+        newUnit.InitEntity(data.dataSO, faction, bLevel, uniqID);
 
         return newUnit;
     }

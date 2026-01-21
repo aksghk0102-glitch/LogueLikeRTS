@@ -21,7 +21,9 @@ public static class ColorDefine
 
     // 데미지 파티클
     public static readonly Color PhysicsDmg = new Color32(213, 91, 20, 255);
+    public static readonly Color PhysicsCritDmg = new Color32(239, 31, 10, 255);
     public static readonly Color MagicDmg = new Color32(170, 82, 207, 255);
+    public static readonly Color MagicCritDmg = new Color32(201, 51, 240, 255);
     public static readonly Color TrueDmg = new Color32(240, 240, 240, 255);
     public static readonly Color Heal = new Color32(149, 232, 103, 255);
 }

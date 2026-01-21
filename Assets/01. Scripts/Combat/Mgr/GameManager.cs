@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using System.Linq;
 using System.Collections.Generic;
 
 // 게임의 상태와 흐름을 관리합니다.

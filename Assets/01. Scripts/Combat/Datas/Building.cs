@@ -14,7 +14,6 @@ public abstract class Building : MonoBehaviour, IDamageable
     public float curHp { get; protected set; }
     public float maxHp => _maxHp;
     public Action OnDestroy;
-
     // IDamageable
     public bool IsAlive => curHp > 0;
 
@@ -24,7 +23,7 @@ public abstract class Building : MonoBehaviour, IDamageable
 
     // 이벤트 시스템
     public Action<float, float> OnHpChanged;    // curHp/maxHp 전달 : 체력 바 갱신용
-
+    public int ID { get; private set; }
     protected virtual void Awake()
     {
         curHp = maxHp;

@@ -121,10 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faction: 0
-  Class: 1
-  curHp: 0
-  curMana: 0
-  curTargetMine: {fileID: 0}
+  Class: 9
 --- !u!136 &-2357723536375318380
 CapsuleCollider:
   m_ObjectHideFlags: 0

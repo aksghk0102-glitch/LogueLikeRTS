@@ -47,12 +47,15 @@ public interface IDamageable
     Vector3 WorldPosition { get; }      // 위치 정보
     float curHp { get; }
     float maxHp { get; }
+    int ID { get; }                     // 통계 기록 용 ID
 }
 // 공격자 : 타격 성공 시점 호출 로직(온힛 효과, 마나 회복 등)
 public interface IAttacker
 {
     void OnHit(IDamageable target, DamageInfo info);    // 타격 성공 시 실행 함수
+    int ID { get; }                     // 통계 기록 용 ID
 }
+
 
 // 스탯 계산기 : 스킬 버프 등 최종 스탯 참조
 public interface IStatCalc

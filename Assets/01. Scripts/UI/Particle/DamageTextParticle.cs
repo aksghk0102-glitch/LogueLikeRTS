@@ -11,7 +11,8 @@ public class DamageTextParticle : MonoBehaviour
     TextMeshPro tm;
 
     float duration = 0.5f;
-    float moveY = 1f;
+    float moveY = 0.5f;
+    float critScale = 1.4f;
 
     void Awake()
     {
@@ -21,19 +22,11 @@ public class DamageTextParticle : MonoBehaviour
     public void Init(DamageInfo info)
     {
         // 초기화
-        transform.DOKill();
-        tm.DOKill();
-        transform.localScale = Vector3.one;
+        Refresh();
 
         // 색상 설정
-        Color targetColor = Color.white;
-        switch (info.type)
-        {
-            case DamageType.Physics: targetColor = ColorDefine.PhysicsDmg; break;
-            case DamageType.Magic: targetColor = ColorDefine.MagicDmg; break;
-            case DamageType.True: targetColor = ColorDefine.TrueDmg; break;
-            case DamageType.Heal: targetColor = ColorDefine.Heal; break;
-        }
+        Color targetColor = GetTextColor(info.type, info.IsCritical);
+
 
         // 텍스트 구성
         tm.text = Mathf.FloorToInt(info.Damage).ToString();
@@ -41,7 +34,7 @@ public class DamageTextParticle : MonoBehaviour
         tm.alpha = 1f;
 
         if (info.IsCritical)
-            transform.DOPunchScale(Vector3.one * 0.5f, 0.2f, 10, 1f);
+            transform.localScale = Vector3.one * critScale;
 
         // 4. 닷트윈 연출 (상승 및 페이드아웃)
         transform.DOMoveY(transform.position.y + moveY, duration).SetEase(Ease.OutBack);
@@ -57,7 +50,37 @@ public class DamageTextParticle : MonoBehaviour
 
     private void OnDisable()
     {
-        transform.DOKill();
-        tm.DOKill();
+        Refresh();
+    }
+
+    void Refresh()
+    {
+        transform.DOKill(true);
+        tm.DOKill(true);
+        transform.localScale = Vector3.one;
+    }
+
+    Color GetTextColor(DamageType type, bool isCrit)
+    {
+        if (isCrit)
+        {
+            switch (type)
+            {
+                case DamageType.Physics: return ColorDefine.PhysicsCritDmg;
+                case DamageType.Magic: return ColorDefine.MagicCritDmg;
+                case DamageType.True: return ColorDefine.TrueDmg;
+                case DamageType.Heal: return ColorDefine.Heal;
+                default: return Color.white;
+            }
+        }
+
+        switch (type)
+        {
+            case DamageType.Physics: return ColorDefine.PhysicsDmg;
+            case DamageType.Magic: return ColorDefine.MagicDmg;
+            case DamageType.True: return ColorDefine.TrueDmg;
+            case DamageType.Heal: return ColorDefine.Heal;
+            default: return Color.white;
+        }
     }
 }

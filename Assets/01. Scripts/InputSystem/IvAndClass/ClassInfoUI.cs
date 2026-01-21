@@ -82,10 +82,6 @@ public class ClassInfoUI : MonoBehaviour
 
         classNameText.text = ConvertToNameStr(type);
 
-        //// 버튼 제어
-        //bool isBuild = targetBarrack != null;       // 배럭이 지어진 상태인지 확인
-        //buildText.text = isBuild ? "판매" : "건설";
-
         gameObject.SetActive(true);
         Refresh();
     }
