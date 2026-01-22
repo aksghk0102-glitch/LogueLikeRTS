@@ -43,6 +43,7 @@ public class Entity : MonoBehaviour,
 
     bool canMove = false;
 
+
     // 프로퍼티
     public float Radius => radius;               // 유닛 충돌 반경
     public bool IsAlive => curHp > 0;
