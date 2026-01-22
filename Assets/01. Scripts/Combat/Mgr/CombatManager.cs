@@ -149,5 +149,10 @@ public class CombatManager : MonoBehaviour
         return combatStats[id];
     }
 
+    public IEnumerable<StatRecord> GetAllStats()
+    {
+        return combatStats.Values;
+    }
+
     #endregion
 }

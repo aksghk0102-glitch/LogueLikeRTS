@@ -17,7 +17,7 @@ public class Tower : Building, IAttacker
     float attTimer = 0f;
 
     IDamageable curTarget;
-    public int ID { get; private set; }
+    //public int ID { get; private set; }
 
     void Start()
     {

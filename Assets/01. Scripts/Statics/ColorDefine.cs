@@ -25,5 +25,6 @@ public static class ColorDefine
     public static readonly Color MagicDmg = new Color32(170, 82, 207, 255);
     public static readonly Color MagicCritDmg = new Color32(201, 51, 240, 255);
     public static readonly Color TrueDmg = new Color32(240, 240, 240, 255);
+    public static readonly Color ProtectedDmg = new Color32(110, 110, 110, 255);
     public static readonly Color Heal = new Color32(149, 232, 103, 255);
 }

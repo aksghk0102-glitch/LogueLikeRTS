@@ -4,6 +4,10 @@ using TMPro;
 using System.Collections.Generic;
 using DG.Tweening;
 
+// 아이템 툴팁 표시
+// 툴팁 관련 클래스 이름이 겹치는 게 많은 상태인데
+// 범용 툴팁은 TooltipsUI로 사용 중이니 참고...
+
 public class TooltipData
 {
     // 툴팁에 표기될 정보 모음 클래스

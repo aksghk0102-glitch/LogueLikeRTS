@@ -107,7 +107,13 @@ public class GameManager : MonoBehaviour
 
     void EnterResultPhase()
     {
+        // 잠시 대기...
 
+        // 전투 결과창 출력
+        UIStateManager.inst.CombatStatOpen();
+
+        // 준비 페이즈로 복구
+        EnterReadyPhase();
     }
 
     void EnterGameOverPhase()

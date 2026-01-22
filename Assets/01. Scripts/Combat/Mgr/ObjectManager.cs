@@ -17,7 +17,7 @@ public class ObjectManager : MonoBehaviour
     List<Barracks> allBarracks
         = new List<Barracks>();
 
-    int nextID = 1000;          // 고유 ID 시작점
+    int nextID = 0;          // 고유 ID 시작점
 
     [Header("HP Bar")]
     [SerializeField] GameObject hpbarPrefab;
@@ -61,7 +61,10 @@ public class ObjectManager : MonoBehaviour
         if(!allBarracks.Contains(b))
             allBarracks.Add(b);
 
-        int uniqID = nextID++;
+        int uniqID = (int)b.UnitType * 10000;
+        uniqID += nextID;
+
+        nextID++;
 
         return uniqID;
     }

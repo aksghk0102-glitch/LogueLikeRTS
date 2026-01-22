@@ -4,6 +4,8 @@ using DG.Tweening;
 
 // 모든 UI를 총괄하는 중계자.
 // 각종 판넬, 팝업, 툴팁 등 이 매니저를 통해 On/Off 관리
+// 
+// 1/22 꽤 지저분해지고 있는데 언제 구조 통일 좀 시켜야 할듯
 
 public class UIStateManager : MonoBehaviour
 {
@@ -30,16 +32,18 @@ public class UIStateManager : MonoBehaviour
     [SerializeField] ClassInfoUI classInfoUI;     // 클래스 별 정보 판넬
     // 추가할 사항
     // 퍼즈 시 메뉴
-    // 결과 창
+    [SerializeField] CombatStatUI combStatUI;       // 전투 통계 판넬
 
     [Header("ToolTips")]
     public TooltipUI tooltipUI;         // 마우스 호버로 따라다니는 스킬 툴팁 
+    public GeneralTooltips tooltips;
 
     [Header("PopUp")]
     [SerializeField] GameObject buildPopUp;
 
     [Header("Start Btn")]
     public Button startBtn;
+    public Button combatStatOpenBtn;
 
     private void Awake()
     {
@@ -55,6 +59,9 @@ public class UIStateManager : MonoBehaviour
                 if(GameManager.inst.curPhase == GamePhase.Ready)
                     GameManager.inst.SetPhase(GamePhase.Battle);
             });
+
+        if (combatStatOpenBtn != null)
+            combatStatOpenBtn.onClick.AddListener(CombatStatOpen);
     }
 
     void Start()
@@ -68,6 +75,9 @@ public class UIStateManager : MonoBehaviour
 
         iv_Rect.anchoredPosition = bagIconRect.anchoredPosition;
         iv_Rect.localScale = Vector3.zero;
+
+        if (combStatUI != null)
+            combStatUI.Close();
     }
 
     public void ShowClassInfo(UnitClassType type)
@@ -133,19 +143,18 @@ public class UIStateManager : MonoBehaviour
             });
     }
 
-    public void OpenBarrackUI(Barracks target)
+    public void CombatStatOpen()
     {
-        //if (barrackUI == null) return;
+        if (combStatUI == null)
+            return;
 
-        //barrackUI.SetUp(target);
-        //classSlotUI.SetActive(false);
+        // 사운드 호출
+        SoundManager.inst.PlaySFX("Interface 3-1");
+        
+        combStatUI.Open();
+        CloseIvWithOutSound();
     }
-    public void CloseBarrackUI()
-    {
-        //if (barrackUI == null) return;
-        //barrackUI.Close();
-        //classSlotUI.SetActive(true);
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -186,6 +195,17 @@ public class UIStateManager : MonoBehaviour
             CloseInventory();
     }
 
+    Vector2 gTooltips_Offset = new Vector2(15f, -15f);
+    public void ShowTooltip(string title, string text)
+    {
+        //tooltipUI.gameObject.SetActive(true);
+        tooltips.SetText(title, text);
+    }
+    public void HideTooltip()
+    {
+        Debug.Log("툴팁 off");
+    }
+
     void OpenInventory()
     {
         // 사운드 호출
@@ -217,6 +237,10 @@ public class UIStateManager : MonoBehaviour
         // 사운드 호출
         SoundManager.inst.PlaySFX("Interface 6-5");
 
+        CloseIvWithOutSound();
+    }
+    void CloseIvWithOutSound()
+    {
         iv_CanvasGroup.blocksRaycasts = false;
         iv_CanvasGroup.interactable = false;
 
@@ -235,7 +259,6 @@ public class UIStateManager : MonoBehaviour
             {
                 isTween = false;
             });
-
     }
 
 }
