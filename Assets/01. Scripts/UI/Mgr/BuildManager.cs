@@ -59,15 +59,6 @@ public class BuildManager : MonoBehaviour
 
             // 고스트를 건물이 지어질 위치에 표시
             ghost.UpdateGhost(curTargetSlot.GetPosition(), isValid);
-
-           //// 마우스를 떼면 건설
-           //if (Input.GetMouseButtonUp(0))
-           //{
-           //    if (isValid)
-           //        Build();
-           //    else
-           //        Cancle();
-           //}
         }
         else
         {
@@ -92,9 +83,12 @@ public class BuildManager : MonoBehaviour
         if(curTargetSlot != null &&
             curTargetSlot.CanBuild(UnitFaction.Player))
         {
-            // 코스트 검사
             ghost.UpdateGhost(curTargetSlot.GetPosition(), true);
-            UIStateManager.inst.ShowBuildPopUp();
+            UIStateManager.inst
+                .ShowPopUp("이 위치에\n건물을 짓겠습니까?\n(- 5코스트)",
+                ()=> { ConfimBuild();},
+                ()=> { CancleBuild(); }
+                );
         }
         else
         {
@@ -118,7 +112,7 @@ public class BuildManager : MonoBehaviour
             curTargetSlot.GetPosition(), Quaternion.identity);
             curTargetSlot.SetBuilding(build);
 
-            CloseBuildPopUp();
+            InitState();
         }
         else
         {
@@ -126,7 +120,7 @@ public class BuildManager : MonoBehaviour
         }
 
         if(GameManager.inst.CurCost == 0)
-            InfoMassage.inst.ShowPerMessage("준비가 완료되었으면 '전투시작' 버튼을 누르세요.");
+            InfoMassage.inst.ShowPerMessage("준비가 완료 되었으면 '전투시작' 버튼을 누르세요.");
     }
 
     // 건설 취소
@@ -135,16 +129,16 @@ public class BuildManager : MonoBehaviour
         // 사운드 호출
         SoundManager.inst.PlaySFX("Interface 6-5");
 
-        CloseBuildPopUp();
+        InitState();
+
+        UIStateManager.inst.CanclePopUp();
     }
 
-    void CloseBuildPopUp()
+    void InitState()
     {
         isDrag = false;
         ghost.Hide();
         selPrefab = null;
         curTargetSlot = null;
-
-        UIStateManager.inst.CloseBuildPopUp();
     }
 }

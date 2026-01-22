@@ -6,6 +6,7 @@ public class GeneralTooltips : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI title;
     [SerializeField] TextMeshProUGUI contents;
+    [SerializeField] RectTransform contentsParents;     // 툴팁 아래 중간 부모 개체
     RectTransform rect;
     Vector2 offset = new Vector2(15f, -15f);
     
@@ -16,11 +17,13 @@ public class GeneralTooltips : MonoBehaviour
 
     public void SetText(string tText, string cText)
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
         title.text = tText;
         contents.text = cText;
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+        // 레이아웃 갱신
+        if (contentsParents != null)
+            LayoutRebuilder.ForceRebuildLayoutImmediate(contentsParents);
 
         UpdatePosition();
     }
@@ -39,9 +42,20 @@ public class GeneralTooltips : MonoBehaviour
     void UpdatePosition()
     {
         Vector2 mousePos = Input.mousePosition;
+        Vector2 targetPos = mousePos + offset;
 
-        rect.position = mousePos + offset;
+        // 화면 밖으로 나가는 경우 방지 : Pivot (0, 1) 기준 - 좌상단 정점
+        float ttWidth = contentsParents.rect.width;
+        float ttHeight = contentsParents.rect.height;
 
-        // 화면 밖으로 나가는 경우 방지
+        float minX = 0;
+        float maxX = Screen.width - ttWidth;
+        float minY = ttHeight;
+        float maxY = Screen.height;
+
+        targetPos.x = Mathf.Clamp(targetPos.x, minX, maxX);
+        targetPos.y = Mathf.Clamp(targetPos.y, minY, maxY);
+
+        rect.position = targetPos;
     }
 }

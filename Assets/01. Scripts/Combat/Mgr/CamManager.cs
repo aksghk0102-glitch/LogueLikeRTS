@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class CamManager : MonoBehaviour
 {
     [Header("=== Base Settings ===")]   // 카메라 범위 셋팅
@@ -39,6 +39,9 @@ public class CamManager : MonoBehaviour
 
     private void LateUpdate()
     {
+        // UI 클릭 중일 때는 레이캐스트(선택) 무시
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
         HandleRotation();   // 우클릭 드래그 회전 로직 복구
         HandleEdgeMove();   // 카메라 시선 기준 이동 (수정됨)
         HandleHeightZoom(); // 휠로 높이 조정

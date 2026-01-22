@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour
     IDamageable target;
     bool isActive = false;
     float lifeTime = 0f;
-    float Fixed_Y = 1f;
     Vector3 offset = new Vector3(0f, 1f, 0f);
 
     public void Init(IDamageable a_Target, DamageInfo a_DmgInfo)

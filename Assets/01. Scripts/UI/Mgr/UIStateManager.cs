@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
+using TMPro;
 
 // 모든 UI를 총괄하는 중계자.
 // 각종 판넬, 팝업, 툴팁 등 이 매니저를 통해 On/Off 관리
@@ -39,7 +41,10 @@ public class UIStateManager : MonoBehaviour
     public GeneralTooltips tooltips;
 
     [Header("PopUp")]
-    [SerializeField] GameObject buildPopUp;
+    [SerializeField] GameObject confirmPopUp;
+    [SerializeField] Button confirmBtn;
+    [SerializeField] Button cancleBtn;
+    [SerializeField] TextMeshProUGUI popUpText;
 
     [Header("Start Btn")]
     public Button startBtn;
@@ -55,9 +60,12 @@ public class UIStateManager : MonoBehaviour
         if (startBtn != null)
             startBtn.onClick.AddListener(() =>
             {
-                Debug.Log("전투 시작");
-                if(GameManager.inst.curPhase == GamePhase.Ready)
-                    GameManager.inst.SetPhase(GamePhase.Battle);
+            ShowPopUp("정말 전투를\n시작하겠습니까?",
+                () => {
+                    if (GameManager.inst.curPhase == GamePhase.Ready)
+                        GameManager.inst.SetPhase(GamePhase.Battle);
+                });
+
             });
 
         if (combatStatOpenBtn != null)
@@ -78,6 +86,8 @@ public class UIStateManager : MonoBehaviour
 
         if (combStatUI != null)
             combStatUI.Close();
+        if (tooltips != null)
+            tooltips.Hide();
     }
 
     public void ShowClassInfo(UnitClassType type)
@@ -103,36 +113,75 @@ public class UIStateManager : MonoBehaviour
             ShowClassInfo(type);
     }
 
-    public void ShowBuildPopUp()
+    public void ShowPopUp(string msg, Action onConfirm, Action onCancle = null)
     {
         if (IsPopUpOpen)
             return;
 
         isPopUpOpen = true;
 
+        popUpText.text = msg;
+
+        // 버튼 초기화 및 리스너 연결
+        confirmBtn.onClick.RemoveAllListeners();
+        cancleBtn.onClick.RemoveAllListeners();
+
+        confirmBtn.onClick.AddListener(() =>
+        {
+            // 사운드 호출
+            SoundManager.inst.PlaySFX("Interface 3-1");
+         
+            onConfirm?.Invoke();
+
+            HidePopUp();
+        });
+
+        if(onCancle != null)
+        {
+            cancleBtn.onClick.AddListener(() =>
+            {
+                onCancle?.Invoke();
+                HidePopUp();
+            });
+        }
+        else
+        {
+            cancleBtn.onClick.AddListener(() =>
+            {
+                HidePopUp();
+            });
+        }
+
         // 딤 패널 활성화
         dim_CanvasGroup.blocksRaycasts = true;
         dim_CanvasGroup.DOFade(0.8f, duration);
 
         // 팝업 연출
-        buildPopUp.SetActive(true);
-        buildPopUp.transform.localPosition = Vector3.zero;
-        buildPopUp.transform.DOScale(Vector3.one, duration)
+        confirmPopUp.SetActive(true);
+        confirmPopUp.transform.localPosition = Vector3.zero;
+        confirmPopUp.transform.DOScale(Vector3.one, duration)
             .SetEase(Ease.OutBack);
+
     }
-    public void CloseBuildPopUp()
+
+    public void CanclePopUp()
+    {
+        // 사운드 호출
+        SoundManager.inst.PlaySFX("Interface 6-5");
+
+        HidePopUp();
+    }
+    
+    public void HidePopUp()
     {
         if (!IsPopUpOpen)
             return;
 
-        // 사운드 호출
-        SoundManager.inst.PlaySFX("Interface 6-5");
-
-        buildPopUp.transform.DOScale(Vector3.zero, duration)
+        confirmPopUp.transform.DOScale(Vector3.zero, duration)
             .SetEase(Ease.InBack)
             .OnComplete(() =>
             {
-                buildPopUp.SetActive(false);
+                confirmPopUp.SetActive(false);
                 isPopUpOpen = false;
 
                 if (!IsInvenOpen)
@@ -195,7 +244,6 @@ public class UIStateManager : MonoBehaviour
             CloseInventory();
     }
 
-    Vector2 gTooltips_Offset = new Vector2(15f, -15f);
     public void ShowTooltip(string title, string text)
     {
         //tooltipUI.gameObject.SetActive(true);
@@ -203,7 +251,7 @@ public class UIStateManager : MonoBehaviour
     }
     public void HideTooltip()
     {
-        Debug.Log("툴팁 off");
+        tooltips.Hide();
     }
 
     void OpenInventory()

@@ -270,7 +270,7 @@ public class Entity : MonoBehaviour,
             float amount = dmg.Damage;
             if (cdtHandler.HasTag(CDT_Tag.LowHeal))
                 amount *= 0.5f;
-            curHp = Mathf.Min(amount, GetFinalStats().maxHP);
+            curHp = Mathf.Min(curHp+amount, GetFinalStats().maxHP);
         
             return;
         }

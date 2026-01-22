@@ -27,8 +27,10 @@ public class ClassInfoUI : MonoBehaviour
     public SkillSlotVisual[] passiveSlotImg;          // 패시브 스킬 슬롯
     public Button exitBtn;
 
+    public TooltipsUI tooltips;
+
     string msg_CantSell = "이 건물은 팔 수 없습니다.";
-    string msg_CantUpgarade = "이 건물은 강화할 수 없습니다.";
+    //string msg_CantUpgarade = "이 건물은 강화할 수 없습니다.";
 
     private void Awake()
     {
@@ -116,23 +118,6 @@ public class ClassInfoUI : MonoBehaviour
         }
     }
 
-    string ConvertToNameStr(UnitClassType type) => type switch
-    {
-        UnitClassType.Babarian => "바바리안",
-        UnitClassType.Knight => "나이트",
-        UnitClassType.Rogue => "로그",
-        UnitClassType.Ranger => "레인저",
-        UnitClassType.Mage => "메이지",
-
-        UnitClassType.SK_Worrior => "스켈레톤전사",
-        UnitClassType.SK_Rogue => "스켈레톤로그",
-        UnitClassType.SK_Ranger => "스켈레톤레인저",
-        UnitClassType.SK_Mage => "스켈레톤메이지",
-        UnitClassType.SK_Minion => "스켈레톤미니언",
-        
-        _=> ""
-    };
-
 
     public void Refresh()
     {
@@ -158,8 +143,17 @@ public class ClassInfoUI : MonoBehaviour
             if (passiveSlotImg[i].TryGetComponent(out TooltipTrigger pTrigger))
                 pTrigger.SetData(passive);
         }
+
+        TooltipRefesh();
     }
 
+    void TooltipRefesh()
+    {
+        if (tooltips == null) return;
+
+        tooltips.title = ConvertToNameStr(curType);
+        tooltips.content = GetClassTooltip(curType);
+    }
 
     // OnClickActiveSlot과 OnClickPassiveSlot은
     // 하이어라키 상에서 버튼 이벤트로 연결되어 있음
@@ -185,29 +179,36 @@ public class ClassInfoUI : MonoBehaviour
 
     void OnClickSell()
     {
-        if(targetBarrack != null && targetBarrack.Faction == UnitFaction.Player)
-        {
-            targetBarrack.Sell();
-            // UI 갱신
-            Open(curType);
-        }
-        else
-        {
-            InfoMassage.inst.ShowMessage(msg_CantSell);
-        }
+        UIStateManager.inst.ShowPopUp("정말\n판매하시겠습니까?\n(+2코스트)",
+            () =>
+            {
+                if (targetBarrack != null && targetBarrack.Faction == UnitFaction.Player)
+                {
+                    targetBarrack.Sell();
+                    // UI 갱신
+                    Open(curType);
+                }
+                else
+                    InfoMassage.inst.ShowMessage(msg_CantSell);
+
+                Exit();
+            });
     }
 
     void OnClickUpgrade()
     {
-        if(targetBarrack != null && targetBarrack.Faction == UnitFaction.Player)
-        {
-            targetBarrack.Upgrade();
-            levelText.text = $"Lv.{targetBarrack.CurLevel}";
-        }
-        else
-        {
-            InfoMassage.inst.ShowMessage(msg_CantUpgarade);
-        }
+        UIStateManager.inst.ShowPopUp("미구현 기능",
+            () =>{Exit(); });
+
+        //if (targetBarrack != null && targetBarrack.Faction == UnitFaction.Player)
+        //{
+        //    targetBarrack.Upgrade();
+        //    levelText.text = $"Lv.{targetBarrack.CurLevel}";
+        //}
+        //else
+        //{
+        //    InfoMassage.inst.ShowMessage(msg_CantUpgarade);
+        //}
     }
 
 
@@ -218,4 +219,41 @@ public class ClassInfoUI : MonoBehaviour
         curType = UnitClassType.Init;
         gameObject.SetActive(false);
     }
+
+
+    // 유틸리티
+    string ConvertToNameStr(UnitClassType type) => type switch
+    {
+        UnitClassType.Babarian => "바바리안",
+        UnitClassType.Knight => "나이트",
+        UnitClassType.Rogue => "로그",
+        UnitClassType.Ranger => "레인저",
+        UnitClassType.Mage => "메이지",
+
+        UnitClassType.SK_Worrior => "해골 전사",
+        UnitClassType.SK_Rogue => "해골 로그",
+        UnitClassType.SK_Ranger => "해골 레인저",
+        UnitClassType.SK_Mage => "해골 메이지",
+        UnitClassType.SK_Minion => "해골 미니언",
+
+        _ => ""
+    };
+
+    string GetClassTooltip(UnitClassType type) => type switch
+    {
+        UnitClassType.Babarian => "전쟁광: 한 번에 2회 공격합니다.",
+        UnitClassType.Knight => "판금갑옷: 방어력을 +2 얻습니다.",
+        UnitClassType.Rogue => "재빠른 몸놀림: 공격속도 +10%와 이동속도 +10%를 얻습니다.",
+        UnitClassType.Ranger => "약점노출: 치명타 피해량이 +25% 증가합니다. 또한 스킬에 치명타가 발동할 수 있습니다.",
+        UnitClassType.Mage => "통달: 매 초 +3의 마나를 얻습니다.",
+
+        UnitClassType.SK_Worrior => "",
+        UnitClassType.SK_Rogue => "",
+        UnitClassType.SK_Ranger => "",
+        UnitClassType.SK_Mage => "",
+        UnitClassType.SK_Minion => "",
+
+        _ => ""
+    };
+
 }
