@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Xml;
+using UnityEditor;
 using UnityEngine;
 //
 // 역할: 전투에 참여하는 유닛의 행동을 정의합니다. 인터페이스 상속으로 논리적 규칙을 강제합니다.
@@ -42,6 +43,9 @@ public class Entity : MonoBehaviour,
     protected readonly int hashVictory = Animator.StringToHash("Victory");
 
     bool canMove = false;
+
+    // 공격 속도
+    protected float lastAttackTime;
 
 
     // 프로퍼티
@@ -164,6 +168,9 @@ public class Entity : MonoBehaviour,
 
     void ExcuteCombat(float deltaTime)
     {
+        if (!isAttacking)
+            SearchTarget();
+
         float dist = Vector3.Distance(transform.position,
                 (curTarget as MonoBehaviour).transform.position);
         float validRange = GetFinalStats().attRange + Radius
@@ -355,12 +362,13 @@ public class Entity : MonoBehaviour,
 
         if (anim != null)
         {
+            anim.speed = 1f;
             anim.SetInteger(hashAttack, 0);
         }
     }
     protected virtual void TryUseActiveSkill()
     {
-        // 버그가 많아서 일단 비활성화
+        // 일단 비활성화
         
         curMana = 0;
         StartSkillCast();
@@ -383,7 +391,7 @@ public class Entity : MonoBehaviour,
             Target = curTarget,
             Damage = stats.attack,
             Source = DamageSource.Default,
-            type = DamageType.Physics,
+            type = Class == UnitClassType.Mage ? DamageType.Magic : DamageType.Physics,
             MetaData = new Dictionary<string, float>()
         };
 
@@ -411,15 +419,23 @@ public class Entity : MonoBehaviour,
     {
         if (isAttacking) return;
 
-        isAttacking = true;
-
-        if(curTarget != null)
+        // 타겟 방향을 회전
+        if (curTarget != null)
         {
-            Vector3 targetPos = (curTarget as MonoBehaviour).
-    transform.position;
+            Vector3 targetPos = (curTarget as MonoBehaviour)
+                .transform.position;
             LookAtTarget(targetPos);
         }
 
+        // 공격 속도 계산
+        var stats = GetFinalStats();
+        float attDelay = 1f / Mathf.Max(0.01f, stats.attSpeed);
+
+        if (Time.time - lastAttackTime < attDelay)
+            return;
+
+        isAttacking = true;
+        lastAttackTime = Time.time;
 
         // 공격 사운드 출력
         if (!string.IsNullOrEmpty(attSfxKey))
@@ -428,6 +444,9 @@ public class Entity : MonoBehaviour,
         // 애니메이션 재생
         if (anim != null)
         {
+            // 공격 속도에 따라 공격 모션 속도 제어
+            anim.speed = Mathf.Max(1f, stats.attSpeed);
+
             anim.SetInteger(hashAttack, 1);
             anim.SetFloat(hashMoveSpeed, 0f);
         }
@@ -506,7 +525,10 @@ public class Entity : MonoBehaviour,
 
         // 사망 애니메이션 출력
         if (anim != null)
+        {
+            anim.speed = 1f;
             anim.SetTrigger(hashDie);
+        }
 
         // 사망 연출
         foreach (var r in renderers)

@@ -30,6 +30,6 @@ MonoBehaviour:
     lifeSteal: 0
     tenacity: 0
   unitClass: 1
-  hitSfxKey: ' Armor 1-2'
+  hitSfxKey: Armor 1-2
   attSfxKey: Weapon 1-4
   dieSfxKey: 

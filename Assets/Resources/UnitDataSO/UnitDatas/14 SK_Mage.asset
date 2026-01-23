@@ -15,10 +15,10 @@ MonoBehaviour:
   stats:
     maxHP: 100
     attack: 11
-    defense: 1
-    magicResist: 3
+    defense: 0
+    magicResist: 2
     moveSpeed: 1.5
-    attSpeed: 1.2
+    attSpeed: 0.7
     attRange: 6
     sight: 15
     maxMana: 100
@@ -30,3 +30,6 @@ MonoBehaviour:
     lifeSteal: 0
     tenacity: 0
   unitClass: 0
+  hitSfxKey: Armor 1-4
+  attSfxKey: 
+  dieSfxKey: 

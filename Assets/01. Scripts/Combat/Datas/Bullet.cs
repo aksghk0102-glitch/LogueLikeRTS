@@ -3,6 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
+    
 
     DamageInfo dmgInfo;
     IDamageable target;
@@ -56,7 +57,7 @@ public class Bullet : MonoBehaviour
         // 대상의 콜라이더의 반지름 내까지 진입하면 피격 판정 수행
         if (Vector3.Distance(transform.position, targetPos) < target.Radius)
         {
-            Debug.Log("hit");
+            //Debug.Log("hit");
             CombatManager.Inst.EnqueueDamage(dmgInfo);
             ActiveFalse();
             return false;

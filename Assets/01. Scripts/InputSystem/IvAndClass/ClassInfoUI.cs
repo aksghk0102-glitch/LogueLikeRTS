@@ -173,12 +173,18 @@ public class ClassInfoUI : MonoBehaviour
     // 건설 버튼에 연결
     void OnClickBuild()
     {
+        if (GameManager.inst.curPhase != GamePhase.Ready)
+            return;
+
         BuildManager.inst.StartBuild(curType);
         Exit();
     }
 
     void OnClickSell()
     {
+        if (GameManager.inst.curPhase != GamePhase.Ready)
+            return;
+
         UIStateManager.inst.ShowPopUp("정말\n판매하시겠습니까?\n(+2코스트)",
             () =>
             {
@@ -197,6 +203,9 @@ public class ClassInfoUI : MonoBehaviour
 
     void OnClickUpgrade()
     {
+        if (GameManager.inst.curPhase != GamePhase.Ready)
+            return;
+
         UIStateManager.inst.ShowPopUp("미구현 기능",
             () =>{Exit(); });
 
