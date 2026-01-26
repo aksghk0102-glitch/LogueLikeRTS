@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
     maxHP: 100
-    attack: 13
+    attack: 8
+    mAttack: 8
     defense: 0
     magicResist: 2
     moveSpeed: 2

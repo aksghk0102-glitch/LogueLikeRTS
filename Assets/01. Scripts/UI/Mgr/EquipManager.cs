@@ -153,6 +153,11 @@ public class EquipManager : MonoBehaviour
 
 
     public UnitSkillSet GetUnitSkillSet(UnitClassType type)
-        => unitSkillDatas[type];
+    {
+        if(unitSkillDatas.ContainsKey(type))
+            return unitSkillDatas[type];
+
+        return null;
+    }
 }
 

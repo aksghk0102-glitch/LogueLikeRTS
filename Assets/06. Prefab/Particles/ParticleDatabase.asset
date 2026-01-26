@@ -18,4 +18,7 @@ MonoBehaviour:
     Prefab: {fileID: 5926136888549961741, guid: 66e5001bf6b5c144a9b17e05fa3875e8, type: 3}
   - Key: hit_physics
     Type: 0
-    Prefab: {fileID: 5926136888549961741, guid: 66e5001bf6b5c144a9b17e05fa3875e8, type: 3}
+    Prefab: {fileID: 3269730065682963987, guid: 6ef16d7e3392e6b45bb38e9a83a9f37d, type: 3}
+  - Key: slashEff
+    Type: 0
+    Prefab: {fileID: 5198015223328008990, guid: 8c23b86f041fd2540b74d1278e0d8e6c, type: 3}

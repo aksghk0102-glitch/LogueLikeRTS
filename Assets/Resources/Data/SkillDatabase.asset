@@ -24,11 +24,11 @@ MonoBehaviour:
     TargetClassList_enum: 00000000
     MotionType: 2
     LogicClass: SK_HitOneTarget
-    EffectID: None
+    EffectID: slashEff
     BestClass: Babarian
     SubClass: Babarian
     Weight: 30
-    Params: dmg:0
+    Params: att:2
     IconPath: Skills/Barbarian20
     Icon: {fileID: 21300000, guid: c890dd06d4a350946ab11e4778bf47d8, type: 3}
   - ID: A_BB_03

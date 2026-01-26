@@ -27,7 +27,6 @@ public class DamageTextParticle : MonoBehaviour
         // »ö»ó ¼³Á¤
         Color targetColor = GetTextColor(info.type, info.IsCritical);
 
-
         // ÅØ½ºÆ® ±¸¼º
         tm.text = Mathf.FloorToInt(info.Damage).ToString();
         tm.color = targetColor;
@@ -37,7 +36,8 @@ public class DamageTextParticle : MonoBehaviour
             transform.localScale = Vector3.one * critScale;
 
         // 4. ´åÆ®À© ¿¬Ãâ (»ó½Â ¹× ÆäÀÌµå¾Æ¿ô)
-        transform.DOMoveY(transform.position.y + moveY, duration).SetEase(Ease.OutBack);
+        transform.DOMoveY(transform.position.y + moveY, duration)
+            .SetEase(Ease.OutBack);
 
         // ÁÂ¿ì ·£´ý ÆÛÁü (¿¬Ãâ Ç³¼ºÇÔ Ãß°¡)
         float randomX = UnityEngine.Random.Range(-0.3f, 0.3f);
@@ -45,10 +45,18 @@ public class DamageTextParticle : MonoBehaviour
 
         tm.DOFade(0, 0.2f)
             .SetDelay(duration - 0.2f)
-            .OnComplete(() => gameObject.SetActive(false));
+            .OnComplete(() => ReturnToPool());
     }
 
-    private void OnDisable()
+    void ReturnToPool()
+    {
+        if (ParticleManager.inst != null)
+            ParticleManager.inst.ReturnDmgText(this);
+        else
+            gameObject.SetActive(false);
+    }
+
+    void OnDisable()
     {
         Refresh();
     }

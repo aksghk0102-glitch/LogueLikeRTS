@@ -21,6 +21,8 @@ public class SkillData
 
     public int MotionType;
     public string LogicClass;
+    public SkillBase LogicInstance { get; private set; }
+
     public string EffectID;
 
     public string BestClass;
@@ -42,15 +44,17 @@ public class SkillData
         }
     }
 
+    // 아이콘
     public string IconPath;     // Json에 지정된 아이콘 경로
     public Sprite Icon;         // 실제 스프라이트를 할당하는 곳
-
 
 
     public void ParseData()
     {
         ParseTargetClasses();
         ParseParams();
+
+        LogicInstance = SkillFactory.CreateSkillInstance(this);
     }
 
     // 문자열로 된 TargetClass를 리스트로 변환하는 편의 함수

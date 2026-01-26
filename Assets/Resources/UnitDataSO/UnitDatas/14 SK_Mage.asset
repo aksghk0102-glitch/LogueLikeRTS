@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
     maxHP: 100
-    attack: 11
+    attack: 8
+    mAttack: 8
     defense: 0
     magicResist: 2
     moveSpeed: 1.5
@@ -29,7 +30,7 @@ MonoBehaviour:
     critDamage: 1.5
     lifeSteal: 0
     tenacity: 0
-  unitClass: 0
+  unitClass: 8
   hitSfxKey: Armor 1-4
   attSfxKey: 
   dieSfxKey: 

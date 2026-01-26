@@ -15,6 +15,7 @@ MonoBehaviour:
   stats:
     maxHP: 110
     attack: 6
+    mAttack: 0
     defense: 1
     magicResist: 1
     moveSpeed: 1.3
@@ -29,4 +30,7 @@ MonoBehaviour:
     critDamage: 1.5
     lifeSteal: 0
     tenacity: 0
-  unitClass: 1
+  unitClass: 5
+  hitSfxKey: Armor 1-4
+  attSfxKey: 
+  dieSfxKey: 

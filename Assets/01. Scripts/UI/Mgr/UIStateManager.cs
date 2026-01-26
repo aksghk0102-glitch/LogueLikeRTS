@@ -58,15 +58,7 @@ public class UIStateManager : MonoBehaviour
             Destroy(gameObject);
 
         if (startBtn != null)
-            startBtn.onClick.AddListener(() =>
-            {
-            ShowPopUp("정말 전투를\n시작하겠습니까?",
-                () => {
-                    if (GameManager.inst.curPhase == GamePhase.Ready)
-                        GameManager.inst.SetPhase(GamePhase.Battle);
-                });
-
-            });
+            startBtn.onClick.AddListener(OnClickStartBtn);
 
         if (combatStatOpenBtn != null)
             combatStatOpenBtn.onClick.AddListener(CombatStatOpen);
@@ -309,4 +301,22 @@ public class UIStateManager : MonoBehaviour
             });
     }
 
+
+    string remainCostMsg = "아직 코스트가\n남아 있습니다.\n정말 전투를\n시작하겠습니까?";
+    void OnClickStartBtn()
+    {
+        if(GameManager.inst.CurCost > 0)
+        {
+            ShowPopUp(remainCostMsg,
+            () => {
+                if (GameManager.inst.curPhase == GamePhase.Ready)
+                    GameManager.inst.SetPhase(GamePhase.Battle);
+            });
+        }
+        else
+        {
+            if (GameManager.inst.curPhase == GamePhase.Ready)
+                GameManager.inst.SetPhase(GamePhase.Battle);
+        }
+    }
 }

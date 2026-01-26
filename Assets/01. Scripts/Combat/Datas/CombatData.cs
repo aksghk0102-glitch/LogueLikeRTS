@@ -9,6 +9,7 @@ public struct UnitStats
 {
     public float maxHP; // 최대 체력
     public float attack; // 공격력
+    public float mAttack; // 마법공격력
     public float defense; // 방어력 (데미지 산정 시 방어력 만큼 감소)
     public float magicResist; // 마법저항력
 
@@ -23,8 +24,8 @@ public struct UnitStats
     public float manaRegen; // 초당 마나 회복량
     public float manaGet; // 평타 공격 시 얻는 마나 회복량
 
-    public float critChance; // 치명타 발동 확률 백분위 1 %
-    public float critDamage; // 치명타 발동 시 피해량 증가폭
+    public float critChance; // 치명타 발동 확률 (단위 : %)
+    public float critDamage; // 치명타 발동 시 피해량 증가폭 (단위 : %)
 
     public float lifeSteal;     // 생명력 흡수
     public float tenacity;      // 강인함
@@ -85,10 +86,10 @@ public enum DamageSource
 // 데미지의 유형을 정의
 public enum DamageType
 {
-    Physics,        // 물리
-    Magic,          // 마법
-    True,           // 고정 데미지
-    Heal,           // 힐
+    Physics = 0,        // 물리
+    Magic = 1,          // 마법
+    True = 2,           // 고정 데미지
+    Heal = 3,           // 힐
 }
 // 유닛이 스킬을 매끄럽게 사용할 수 있도록 상태 관리 및 제어
 public interface ICastSkill

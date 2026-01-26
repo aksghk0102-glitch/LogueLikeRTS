@@ -117,6 +117,8 @@ public class BuildManager : MonoBehaviour
         else
         {
             CancleBuild();
+            InfoMassage.inst.ShowPerMessage("코스트가 부족합니다.");
+            return;
         }
 
         if(GameManager.inst.CurCost == 0)

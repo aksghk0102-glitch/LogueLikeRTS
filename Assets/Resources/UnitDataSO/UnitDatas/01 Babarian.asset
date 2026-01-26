@@ -15,6 +15,7 @@ MonoBehaviour:
   stats:
     maxHP: 100
     attack: 5
+    mAttack: 0
     defense: 0
     magicResist: 1
     moveSpeed: 2

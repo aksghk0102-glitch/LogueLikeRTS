@@ -1,7 +1,5 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using System.Xml;
-using UnityEditor;
 using UnityEngine;
 //
 // 역할: 전투에 참여하는 유닛의 행동을 정의합니다. 인터페이스 상속으로 논리적 규칙을 강제합니다.
@@ -47,6 +45,9 @@ public class Entity : MonoBehaviour,
     // 공격 속도
     protected float lastAttackTime;
 
+    // 스킬
+    protected SkillData activeSkill;
+    protected List<SkillData> passiveSkill = new List<SkillData>();
 
     // 프로퍼티
     public float Radius => radius;               // 유닛 충돌 반경
@@ -68,7 +69,7 @@ public class Entity : MonoBehaviour,
     }
 
     public void InitEntity(UnitDataSO data, UnitFaction a_Faction
-        , int bLevel = 1, int a_ID = -1)
+        , int bLevel = 1, int a_ID = -1, UnitSkillSet skills = null)
     {
         faction = a_Faction;
         ID = a_ID;
@@ -94,12 +95,39 @@ public class Entity : MonoBehaviour,
         attSfxKey = data.attSfxKey;
         dieSfxKey = data.dieSfxKey;
         
+        // 스킬 할당
+        if(skills != null)
+            SetUpSkills(skills);
+
         // 스탯 초기화
         statHandler.MarkDirty();
 
         // 오브젝트 매니저에 등록해서 관리
         if (ObjectManager.Inst != null)
             ObjectManager.Inst.RegistObject(this);
+    }
+
+    void SetUpSkills(UnitSkillSet skillSet)
+    {
+        // 액티브 스킬 할당
+        if (!string.IsNullOrEmpty(skillSet.ActiveID))
+        {
+            activeSkill = InventoryManager.inst.GetSkillData(skillSet.ActiveID);
+
+            Debug.Log($"{gameObject.name} 장착됨 : {skillSet.ActiveID}");
+        }
+
+        // 패시브 스킬 할당
+        passiveSkill.Clear();
+        foreach(var p in skillSet.PassiveID)
+        {
+            if (string.IsNullOrEmpty(p))
+                continue;
+
+            var pData = InventoryManager.inst.GetSkillData(p);
+            if(pData != null)
+                passiveSkill.Add(pData);
+        }
     }
     // 매 프레임 체크 => 오브젝트 매니저에서 호출
     public virtual void OnUpdate(float deltaTime)
@@ -112,12 +140,15 @@ public class Entity : MonoBehaviour,
 
         UpdateMana(deltaTime);
 
-        // 마나 100 도달 시 스킬 시전 => 스킬 할당 로직 구현 한 후 활성화할 것...
-        //if (curMana >= baseStats.maxMana && CanAction(ActionType.Skill))
-        //{
-        //    TryUseActiveSkill();
-        //    return;
-        //}
+        // 최대 마나 도달 시 스킬 시전 => 스킬 할당 로직 구현 한 후 활성화할 것...
+        var stats = GetFinalStats();
+        if (curMana >= stats.maxMana
+            && CanAction(ActionType.Skill)
+            && activeSkill != null)
+        {
+            TryUseActiveSkill();
+            return;
+        }
 
         //
         HandleAIProcess(deltaTime);
@@ -172,7 +203,7 @@ public class Entity : MonoBehaviour,
             SearchTarget();
 
         float dist = Vector3.Distance(transform.position,
-                (curTarget as MonoBehaviour).transform.position);
+                (curTarget.WorldPosition));
         float validRange = GetFinalStats().attRange + Radius
             + curTarget.Radius;
 
@@ -226,9 +257,9 @@ public class Entity : MonoBehaviour,
         float speed = GetFinalStats().moveSpeed;
         Vector3 targetPos;
 
-        if (curTarget != null && (curTarget as MonoBehaviour) != null)
+        if (curTarget != null && curTarget.WorldPosition != null)
         {
-            targetPos = (curTarget as MonoBehaviour).transform.position;
+            targetPos = curTarget.WorldPosition;
             Vector3 dir = (targetPos - transform.position).normalized;
             transform.position += dir * speed * deltaTime;
 
@@ -291,8 +322,9 @@ public class Entity : MonoBehaviour,
         if (!string.IsNullOrEmpty(hitSfxKey))
             SoundManager.inst.PlaySFX(hitSfxKey);
 
-        // 데미지 파티클 출력
+        // 데미지 파티클, 피격 파티클 출력
         ParticleManager.inst.SpawnDmgTxt(dmg, transform.position);
+        ParticleManager.inst.SpawnParticle("hit_physics", transform.position, 0.5f);
 
         // 컨디션 이벤트 개입
         foreach (var cdt in cdtHandler.ActiveCDTs)
@@ -360,26 +392,66 @@ public class Entity : MonoBehaviour,
         //Debug.Log("Attack End");
         isAttacking = false;
 
+        if (isSkillCasting)
+            return;
+
         if (anim != null)
         {
             anim.speed = 1f;
             anim.SetInteger(hashAttack, 0);
         }
     }
+
+    public virtual void OnSkillEvent()
+    {
+        if (activeSkill != null && activeSkill.LogicInstance != null)
+        {
+            Debug.Log("스킬 적용!");
+            activeSkill.LogicInstance.Execute(this, curTarget);
+        }
+    }
+    public void EndSkill()
+    {
+        Debug.Log("Skill End");
+        EndSkillCast();
+
+        if(anim != null)
+        {
+            anim.SetInteger(hashAttack, 0);
+            anim.speed = 1f;
+        }
+    }
+
     protected virtual void TryUseActiveSkill()
     {
-        // 일단 비활성화
-        
+        if (activeSkill == null || isSkillCasting)
+        {
+            Debug.Log($"{gameObject.name} : 사용할 수 있는 스킬이 없습니다.");
+            return;
+        }
+
         curMana = 0;
         StartSkillCast();
+        Debug.Log("시전 시작");
+
+        if (curTarget != null)
+            LookAtTarget(curTarget.WorldPosition);
 
         // 애니메이션 재생
         if (anim != null)
         {
-            // 스킬에 할당된 모션 나오게 수정 예정
-            anim.SetInteger(hashAttack, 2);
+            Debug.Log(activeSkill.MotionType);
+            if (1 <= activeSkill.MotionType && activeSkill.MotionType <= 4)
+               anim.SetInteger(hashAttack, activeSkill.MotionType);
+    
             anim.SetFloat(hashMoveSpeed, 0f);
         }
+
+        // 디버그용 임시 코드
+        DOVirtual.DelayedCall(2f, () => {
+            Debug.Log("강제 종료 테스트");
+            EndSkill();
+        });
     }
     #endregion
     protected DamageInfo CreateDamagaInfo()
@@ -402,7 +474,7 @@ public class Entity : MonoBehaviour,
             dmg.Damage = dmg.Damage * stats.critDamage;
         }
 
-        Debug.Log(dmg.Damage);
+        //Debug.Log(dmg.Damage);
         return dmg;
     }
 
@@ -422,8 +494,7 @@ public class Entity : MonoBehaviour,
         // 타겟 방향을 회전
         if (curTarget != null)
         {
-            Vector3 targetPos = (curTarget as MonoBehaviour)
-                .transform.position;
+            Vector3 targetPos = curTarget.WorldPosition;
             LookAtTarget(targetPos);
         }
 

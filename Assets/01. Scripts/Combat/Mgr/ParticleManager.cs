@@ -35,11 +35,21 @@ public class ParticleManager : MonoBehaviour
         if (dmgTextPrefab == null) return;
 
         DamageTextParticle particle = GetDamageText();
+        if(particle == null) return;
+
         particle.transform.position = pos;
         particle.gameObject.SetActive(true);
         particle.Init(info);
 
-        StartCoroutine(DmgTxtReturn(particle));
+        //StartCoroutine(DmgTxtReturn(particle));
+    }
+
+    public void ReturnDmgText(DamageTextParticle eff)
+    {
+        if (eff == null) return;
+
+        eff.gameObject.SetActive(false);
+        dmgTxtPool.Push(eff);
     }
 
     // OneShot/Duration 형
@@ -50,26 +60,23 @@ public class ParticleManager : MonoBehaviour
             return;
 
         ParticleSystem ps = GetParticle(key, data.Prefab);
+        if(ps == null) return;
+
         ps.transform.position = pos;
         ps.gameObject.SetActive(true);
 
         // 초기화 후 실행
         var main = ps.main;
-        ps.Stop();
-        
-        // OneShot
-        if (durTime < 0f)
-        {
-            main.loop = false;
-            ps.Play();
-            StartCoroutine(OneShotReturn(key, ps));
-        }
-        else
-        {
-            main.loop = true;
-            ps.Play();
+        bool isLoop = durTime >= 0f;
+        main.loop = isLoop;
+
+        ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        ps.Play();
+
+        if (isLoop)
             StartCoroutine(DurTypeReturn(key, ps, durTime));
-        }
+        else
+            StartCoroutine(OneShotReturn(key, ps));
 
     }
 
@@ -91,10 +98,13 @@ public class ParticleManager : MonoBehaviour
 
     ParticleSystem GetParticle(string key, GameObject prefab)
     {
-        if (!particlePools.ContainsKey(key))
-            particlePools.Add(key, new Stack<ParticleSystem>());
+        if (!particlePools.TryGetValue(key, out var stack))
+        {
+            stack = new Stack<ParticleSystem>();
+            particlePools[key] = stack;
+        }
     
-        while (particlePools[key].Count > 0)
+        while (stack.Count > 0)
         {
             ParticleSystem ps = particlePools[key].Pop();
             if (ps != null)
@@ -108,15 +118,12 @@ public class ParticleManager : MonoBehaviour
     #endregion
     #region Return Courotine
 
-    IEnumerator DmgTxtReturn(DamageTextParticle eff)
-    {
-        yield return new WaitUntil(()=> !eff.gameObject.activeSelf);
-        dmgTxtPool.Push(eff);
-    }
-
     IEnumerator OneShotReturn(string key, ParticleSystem ps)
     {
-        yield return new WaitUntil(() => !ps.IsAlive(true));
+        yield return new WaitUntil(() => ps==null || !ps.IsAlive(true));
+        if(ps == null)
+            yield break;
+
         ps.gameObject.SetActive(false);
         particlePools[key].Push(ps);
     }
@@ -125,12 +132,14 @@ public class ParticleManager : MonoBehaviour
         float durTime)
     {
         yield return new WaitForSeconds(durTime);
-        if(ps != null)
-        {
-            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            ps.gameObject.SetActive(false);
-            particlePools[key].Push(ps);
-        }
+
+        if (ps == null)
+            yield break;
+
+        ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        ps.gameObject.SetActive(false);
+        particlePools[key].Push(ps);
+        
     }
     #endregion
 }

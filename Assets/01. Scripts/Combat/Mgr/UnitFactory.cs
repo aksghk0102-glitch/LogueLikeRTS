@@ -44,7 +44,9 @@ public class UnitFactory : MonoBehaviour
         Entity newUnit = Instantiate(data.prefab, position, Quaternion.identity);
 
         // ¿Ø¥÷ √ ±‚»≠
-        newUnit.InitEntity(data.dataSO, faction, bLevel, uniqID);
+        UnitSkillSet skills = EquipManager.inst.GetUnitSkillSet(type);
+
+        newUnit.InitEntity(data.dataSO, faction, bLevel, uniqID, skills);
 
         return newUnit;
     }
