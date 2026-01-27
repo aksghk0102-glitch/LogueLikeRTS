@@ -53,7 +53,7 @@ public class ParticleManager : MonoBehaviour
     }
 
     // OneShot/Duration 형
-    public void SpawnParticle(string key, Vector3 pos, float durTime = -1f)
+    public void SpawnParticle(string key, Transform trans, float durTime = -1f)
     {
         var data = db.GetParticle(key);
         if (data == null || data.Prefab == null)
@@ -62,7 +62,8 @@ public class ParticleManager : MonoBehaviour
         ParticleSystem ps = GetParticle(key, data.Prefab);
         if(ps == null) return;
 
-        ps.transform.position = pos;
+        ps.transform.position = trans.position;
+        ps.transform.rotation = trans.rotation;
         ps.gameObject.SetActive(true);
 
         // 초기화 후 실행

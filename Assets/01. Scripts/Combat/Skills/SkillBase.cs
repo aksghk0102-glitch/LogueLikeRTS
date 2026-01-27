@@ -13,16 +13,16 @@ public abstract class SkillBase
     }
 
     // 실제 실행 로직 => 애니메이션 이벤트에서 호출
-    public virtual void Execute(Entity attacker, IDamageable target)
+    public virtual void Execute(Entity caster, IDamageable target)
     {
         if (!string.IsNullOrEmpty(data.EffectID) || data.EffectID != "None") {
-            ParticleManager.inst.SpawnParticle(data.EffectID, attacker.transform.position);
+            ParticleManager.inst.SpawnParticle(data.EffectID, caster.transform);
         }
 
         // 사운드 출력 위치
         //SoundManager.inst.PlaySFX(data.SoundID);
 
-        OnExecute(attacker, target);
+        OnExecute(caster, target);
     }
 
     public abstract void OnExecute(Entity attacker, IDamageable target);

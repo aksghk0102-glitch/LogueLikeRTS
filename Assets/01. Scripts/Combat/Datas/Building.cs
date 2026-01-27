@@ -63,7 +63,7 @@ public abstract class Building : MonoBehaviour, IDamageable
             ObjectManager.Inst.UnregistObject(this);
 
         // 파티클 출력
-        ParticleManager.inst.SpawnParticle(particleKey, transform.position);
+        ParticleManager.inst.SpawnParticle(particleKey, transform);
 
         // 건물을 지은 슬롯 초기화
         OnDestroy?.Invoke();

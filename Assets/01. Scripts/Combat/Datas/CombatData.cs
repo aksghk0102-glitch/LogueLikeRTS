@@ -31,6 +31,18 @@ public struct UnitStats
     public float tenacity;      // 강인함
 }
 
+public enum StatType
+{
+    None,
+    // 합연산
+    MaxHp, Attack, mAttack, Defence, mResist,
+    ManaRegen, ManaGet,
+    CritChance, CritDamage, LifeSteal,
+    
+    // 곱연산
+    MoveSpeed, AttSpeed, AttRange, Sight, Tenacity,
+}
+
 // 유닛의 행동 관리
 public enum ActionType
 {
@@ -99,28 +111,6 @@ public interface ICastSkill
     void EndSkillCast();        // 스킬 사용 종료 > 평타 금지 상태 해제
 }
 
-
-// 액티브 스킬
-// 유닛이 마나를 소모하면서 사용할 하나의 액티브 스킬.
-public interface IActiveSkill
-{
-    string SkillName { get; }       // 스킬 이름
-    SkillMotionType MotionInfo { get; } // 스킬 사용 시 호출될 모션 정보
-
-    void UseSkill(IAttacker user, IDamageable target);
-}
-
-// 패시브 스킬
-// 유닛에 여러 종류의 패시브 스킬을 셋팅 가능(아이템 개념)
-public interface IPassiveSkill
-{
-    string SkillID{ get; }
-    // 최종 스탯 계산 시 수치 보정
-    void SetStats(ref UnitStats stats);
-    // 타격 판정 시점에 특수 효과 적용
-    void OnHit(IAttacker owner, IDamageable target, DamageInfo info);
-}
-
 public class StatHandler
 {
     UnitStats baseStats;        // 원본 스탯 데이터
@@ -162,5 +152,20 @@ public class StatHandler
         }
 
         return cacheStats;
+    }
+}
+
+// 
+public class StatCalculator
+{
+    public UnitStats Stats;
+
+    Dictionary<StatType, float> sums = new Dictionary<StatType, float>();
+
+    public void Init(UnitStats baseStats)
+    {
+        Stats = baseStats;
+
+        
     }
 }

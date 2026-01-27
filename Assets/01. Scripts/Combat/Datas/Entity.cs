@@ -324,7 +324,7 @@ public class Entity : MonoBehaviour,
 
         // 데미지 파티클, 피격 파티클 출력
         ParticleManager.inst.SpawnDmgTxt(dmg, transform.position);
-        ParticleManager.inst.SpawnParticle("hit_physics", transform.position, 0.5f);
+        ParticleManager.inst.SpawnParticle("hit_physics", transform, 0.5f);
 
         // 컨디션 이벤트 개입
         foreach (var cdt in cdtHandler.ActiveCDTs)
