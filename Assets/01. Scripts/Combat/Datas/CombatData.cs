@@ -29,6 +29,12 @@ public struct UnitStats
 
     public float lifeSteal;     // 생명력 흡수
     public float tenacity;      // 강인함
+
+    // 곱연산 누적용 필드
+    public float moveSpeedRate;
+    public float attSpeedRate;
+    public float tenacityRate;
+    
 }
 
 public enum StatType
@@ -151,8 +157,18 @@ public class StatHandler
             isDirty = false;
         }
 
+        // 곱연산 필드 적용 : 이동속도, 공격속도, 강인함
+        if(cacheStats.moveSpeedRate != 0)
+            cacheStats.moveSpeed *= (1f + cacheStats.moveSpeedRate);
+        if (cacheStats.attSpeedRate != 0)
+            cacheStats.attSpeed *= (1f + cacheStats.attSpeedRate);
+        if (cacheStats.tenacityRate != 0)
+            cacheStats.tenacity *= (1f + cacheStats.tenacityRate);
+
         return cacheStats;
     }
+
+
 }
 
 // 

@@ -25,11 +25,14 @@ MonoBehaviour:
     maxMana: 50
     startMana: 0
     manaRegen: 0
-    manaGet: 5
+    manaGet: 25
     critChance: 25
     critDamage: 1.75
     lifeSteal: 0
     tenacity: 0
+    moveSpeedRate: 0
+    attSpeedRate: 0
+    tenacityRate: 0
   unitClass: 0
   hitSfxKey: Rock Impact 37
   attSfxKey: RA_Att1

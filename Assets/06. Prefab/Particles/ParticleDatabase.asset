@@ -22,3 +22,6 @@ MonoBehaviour:
   - Key: slashEff
     Type: 0
     Prefab: {fileID: 5198015223328008990, guid: 8c23b86f041fd2540b74d1278e0d8e6c, type: 3}
+  - Key: buffEff
+    Type: 1
+    Prefab: {fileID: 8773943374964488832, guid: 9142d87090db6204b8fada248ab860b8, type: 3}

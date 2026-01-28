@@ -50,6 +50,7 @@ public class InventoryManager : MonoBehaviour
         AddSkill("A_RO_01");
         AddSkill("A_RA_05");
         AddSkill("A_MA_05");
+        AddSkill("A_ALL_03");
 
         // 초기화 순서 오류 방지로 Start에서 호출 중
         InventoryUI.inst.UpdateInventory();

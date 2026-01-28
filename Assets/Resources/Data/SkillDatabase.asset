@@ -538,13 +538,13 @@ MonoBehaviour:
     - Ranger
     - Mage
     TargetClassList_enum: 0000000001000000020000000300000004000000
-    MotionType: 0
+    MotionType: 3
     LogicClass: SK_BuffSelf
     EffectID: None
     BestClass: ALL
     SubClass: ALL
     Weight: 10
-    Params: 
+    Params: durTime:5,attSpeed:0.5
     IconPath: Skills/Geomancer5
     Icon: {fileID: 21300000, guid: 14a0f66a7be165c4ba476e3d7c40e390, type: 3}
   - ID: A_ALL_04

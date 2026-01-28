@@ -389,6 +389,10 @@ public class Entity : MonoBehaviour,
     }
     public void EndAttack()
     {
+
+        if (Class == UnitClassType.Ranger)
+            Debug.Log($"[STATE] isAttacking={isAttacking}, isSkillCasting={isSkillCasting}, AttackParam={anim.GetInteger(hashAttack)}");
+
         //Debug.Log("Attack End");
         isAttacking = false;
 
@@ -400,6 +404,8 @@ public class Entity : MonoBehaviour,
             anim.speed = 1f;
             anim.SetInteger(hashAttack, 0);
         }
+
+        
     }
 
     public virtual void OnSkillEvent()
@@ -412,14 +418,17 @@ public class Entity : MonoBehaviour,
     }
     public void EndSkill()
     {
-        Debug.Log("Skill End");
-        EndSkillCast();
+        if (Class == UnitClassType.Ranger)
+            Debug.Log($"[STATE] isAttacking={isAttacking}, isSkillCasting={isSkillCasting}, AttackParam={anim.GetInteger(hashAttack)}");
 
-        if(anim != null)
+        if (anim != null)
         {
             anim.SetInteger(hashAttack, 0);
             anim.speed = 1f;
         }
+        EndSkillCast();
+
+        
     }
 
     protected virtual void TryUseActiveSkill()
@@ -432,7 +441,7 @@ public class Entity : MonoBehaviour,
 
         curMana = 0;
         StartSkillCast();
-        Debug.Log("시전 시작");
+        Debug.Log($"[STATE] isAttacking={isAttacking}, isSkillCasting={isSkillCasting}, AttackParam={anim.GetInteger(hashAttack)}");
 
         if (curTarget != null)
             LookAtTarget(curTarget.WorldPosition);
@@ -447,12 +456,13 @@ public class Entity : MonoBehaviour,
             anim.SetFloat(hashMoveSpeed, 0f);
         }
 
-        // 디버그용 임시 코드
-        DOVirtual.DelayedCall(2f, () => {
-            Debug.Log("강제 종료 테스트");
-            EndSkill();
-        });
+        //// 디버그용 임시 코드
+        //DOVirtual.DelayedCall(2f, () => {
+        //    Debug.Log("강제 종료 테스트");
+        //    EndSkill();
+        //});
     }
+
     #endregion
     protected DamageInfo CreateDamagaInfo()
     {
@@ -489,7 +499,10 @@ public class Entity : MonoBehaviour,
 
     protected virtual void Attack()
     {
-        if (isAttacking) return;
+        if (isAttacking || isSkillCasting) return;
+
+        Debug.Log($"[STATE] isAttacking={isAttacking}, isSkillCasting={isSkillCasting}, AttackParam={anim.GetInteger(hashAttack)}");
+
 
         // 타겟 방향을 회전
         if (curTarget != null)
@@ -554,7 +567,7 @@ public class Entity : MonoBehaviour,
             return false;
 
         // 스킬 시전 중 평타/이동 금지
-        if (isSkillCasting &&
+        if ( (isSkillCasting || isAttacking) &&
             (action == ActionType.Attack || action == ActionType.Move))
             return false;
 
@@ -617,8 +630,14 @@ public class Entity : MonoBehaviour,
         rotTween?.Kill();
     }
 
+    // 스폰 애니메이션에서 호출하는 부분. 삭제 금지.
     public void SetMoveable()
     {
         canMove = true;
+    }
+
+    public void GetCondition(Condition cdt)
+    {
+        cdtHandler.AddCondition(cdt);
     }
 }
